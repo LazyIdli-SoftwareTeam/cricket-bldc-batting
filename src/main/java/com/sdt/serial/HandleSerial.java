@@ -102,6 +102,7 @@ public class HandleSerial {
         System.out.println("going here");
         USB_Com.Connect(port_name, HandleEvents.generalSettings.getBaudrate(), SerialPort.DATABITS_8, SerialPort.STOPBITS_1, SerialPort.PARITY_NONE);
         new SerialReceive();
+        System.out.println(USB_Com.status);
         if(USB_Com.status){
              byte [] cmd1 = {35,(byte)0x12,9,1,1,0x40,33};//stop setting Request
              USB_Com.WriteData(cmd1);
@@ -117,6 +118,7 @@ public class HandleSerial {
             USB_Com.Connect(port, HandleEvents.generalSettings.getBaudrate(), SerialPort.DATABITS_8, SerialPort.STOPBITS_1, SerialPort.PARITY_NONE);
             System.out.println("going here 2");
             new SerialReceive();
+            System.out.println(USB_Com.status);
             if (USB_Com.status) {
                 byte[] cmd1 = {35, (byte) 0x12, 9, 1, 1, 0x40, 33};//stop setting Request
                 USB_Com.WriteData(cmd1);
