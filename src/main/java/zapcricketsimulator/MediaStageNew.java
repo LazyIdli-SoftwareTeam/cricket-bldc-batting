@@ -88,7 +88,7 @@ public class MediaStageNew extends Stage {
     public MediaStageNew(boolean reinit){
         this.this_obj = this;         
         root = new Pane(); 
-        root.setStyle("-fx-background-color: red;");
+        root.setStyle("-fx-background-color: black;");
         //projector_status = triggerEvent(device_init);
         projector_status = doDeviceInit();
         if(projector_status && !reinit){

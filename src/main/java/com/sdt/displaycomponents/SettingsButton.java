@@ -416,7 +416,8 @@ public class SettingsButton extends Group{
                 HandleEvents.generalSettings.getModeData().getBowling_speed()[j][1]=b_speed[j][1].getValue();
                 HandleEvents.generalSettings.getModeData().getBowling_speed()[j][2]=b_speed[j][2].getValue();
                 HandleEvents.generalSettings.getModeData().getBowling_speed()[j][3]=b_speed[j][3].getValue();
-                HandleEvents.generalSettings.getModeData().getBowling_type()[j]=b_bowling_type[j].getValue().getKey();
+                System.out.println("bowling type" + b_bowling_type[0].getValue());
+                HandleEvents.generalSettings.getModeData().getBowling_type()[j]=b_bowling_type[0].getValue().getKey();
             }
             HandleEvents.generalSettings.setAuto_scoring_enable(autoscoring.getValue().getKey());
             if(AutoScoringSettings.tabpane!=null){
@@ -502,6 +503,7 @@ public class SettingsButton extends Group{
                      HandleEvents.generalSettings.getAutoScotringBean().setSkill_4_wicket_time(AutoScoringSettings.level_4_stumptime.getValue());
                         
                 } catch (Exception e) {
+                    e.printStackTrace();
                 }
             }
             HandleFile.saveData();

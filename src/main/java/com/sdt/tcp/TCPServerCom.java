@@ -31,6 +31,7 @@ public class TCPServerCom implements Runnable{
     public void run(){
         try {
             serversocket = new ServerSocket(8000);
+            System.out.println("server started");
             while(run_loop){
                 try{
                     if(connectionSocket==null){
@@ -47,8 +48,9 @@ public class TCPServerCom implements Runnable{
                             current_len = 0;
                             try {
                               ObjectMapper objectMapper = new ObjectMapper();
-                              //objectMapper.readValue(TCPServerReceive.data , );  
+                              objectMapper.readValue(TCPServerReceive.data, Object.class);
                             } catch (Exception e) {
+                                e.printStackTrace();
                             }                            
                         }
                     }                

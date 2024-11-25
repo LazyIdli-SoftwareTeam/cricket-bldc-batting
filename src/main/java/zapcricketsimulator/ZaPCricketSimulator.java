@@ -44,7 +44,7 @@ public class ZaPCricketSimulator extends Application {
     @Override
     public void start(Stage primaryStage) {
         try {
-            //new TCPServerCom();
+            new TCPServerCom();
             //HandleSerial.initSerial();
             HandleEvents.initData();
             System.out.println("start");

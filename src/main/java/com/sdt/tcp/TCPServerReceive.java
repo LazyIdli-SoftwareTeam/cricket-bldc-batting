@@ -29,7 +29,7 @@ public class TCPServerReceive implements Runnable{
                 int temp = inFromClient.read();
                 //System.out.println(++ctr+","+temp);
                 data=data+(char)temp;
-                System.out.println(data);
+                System.out.println("s" + data);
             }
         } catch (Exception e) {
             e.printStackTrace();
