@@ -5,9 +5,12 @@
  */
 package com.sdt.displaycomponents;
 
+import com.sdt.logging.WriteJsonFile;
 import com.sdt.serial.HandleSerial;
 import java.io.File;
 import java.io.FileInputStream;
+
+import com.sdt.serial.USB_Com;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.image.Image;
@@ -17,6 +20,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
+import org.json.simple.JSONObject;
 import zapcricketsimulator.HandleEvents;
 import zapcricketsimulator.Variables;
 
@@ -29,8 +33,113 @@ public class TiltPanButton1 extends Group{
     boolean active2 = false;
     boolean active3 = false;
     boolean active4 = false;
-    
+    int currentTilt = 0;
+    int currentPan = 0;
+    int leftMotor = 0;
+    int rightMotor = 0;
+
+    public static byte [] getCmd1(byte cmd){
+        byte data[] = new byte[6];
+        data[0]='#';
+        data[1]=0x01;
+        data[2]=cmd;
+        data[3]=0x00;
+        data[4]=USB_Com.getCRC(data, 3);
+        data[5]='!';
+        return data;
+    }
+
+
+
+    public static byte[] actCommands(String actCommand, String action) {
+        try {
+            byte byteval[] = new byte[9];
+            //int val = 10;
+            /**
+             * This is bitwise
+             * 0th bit --PAN
+             * 1th bit -- TILT
+             * 2nd bit -- left motor
+             * 3rd bit -- right motor
+             *
+             * you can select multiple actuators simultaneously
+             *
+             */
+
+            JSONObject data = WriteJsonFile.readFile();
+
+            byteval[0] = Byte.parseByte(actCommand);
+            int val = Integer.parseInt(data.get("pan").toString());
+            System.out.println(val);
+            byteval[1]=(byte)(val>>8);
+            byteval[2]=(byte)(val&0xFF);
+            //700-2400
+            if (actCommand.equals("1")) {
+                if (action.equals("left")) {
+                    val -= 100;
+                    data.put("pan", val);
+                } else {
+                    val += 100;
+                    data.put("pan", val);
+                }
+            }
+
+
+            val = Integer.parseInt(data.get("tilt").toString());
+            if (actCommand.equals("2")) {
+                if (action.equals("up")) {
+                    val -= 100;
+                    data.put("tilt", val);
+                } else {
+                    val += 100;
+                    data.put("tilt", val);
+                }
+            }
+            byteval[3]=(byte)(val>>8);
+            byteval[4]=(byte)(val&0xFF);
+            //100-2000/1800
+            //7
+            val = Integer.parseInt(data.get("rightMotor").toString());
+            System.out.println(val);
+            byteval[7]=(byte)(val>>8);
+            byteval[8]=(byte)(val&0xFF);
+            //100-2000/1800
+            //8
+            val = Integer.parseInt(data.get("leftMotor").toString());
+            System.out.println(val);
+            byteval[5]=(byte)(val>>8);
+            byteval[6]=(byte)(val&0xFF);
+            System.out.println("command written " +  val);
+            USB_Com.WriteData(getCmd1((byte)0x82,byteval));
+            WriteJsonFile.writeFile(data);
+
+            //700-2400
+            //700-3000 tested by nikhil
+
+            //
+            return byteval;
+        } catch (Exception e) {
+            System.out.println("error");
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public static byte [] getCmd1(byte cmd,byte [] cmddata){
+        byte data[] = new byte[6+cmddata.length];
+        data[0]='#';
+        data[1]=0x01;
+        data[2]=cmd;
+        data[3]=(byte)cmddata.length;
+        for(int i=0;i<cmddata.length;i++)
+            data[i+4] = cmddata[i];
+        data[4+cmddata.length]=USB_Com.getCRC(data, 4+cmddata.length);
+        data[5+cmddata.length]='!';
+        return data;
+    }
+
     public TiltPanButton1(double width , double height){
+//        new Receive();
         try {
             String workingDir = System.getProperty("user.dir");
             /*String tiltpan_path = "/Media/images/tilt_pan.png";
@@ -63,11 +172,14 @@ public class TiltPanButton1 extends Group{
                     //tiltup.setScaleX(1);
                     //tiltup.setScaleY(1);
                     tiltup.setFill(new ImagePattern(tiltup_image));
+                    actCommands("2", "up");
                     HandleSerial.handleCom(HandleSerial.tilt_up);
                 }
             });
             tiltup.setOnMouseReleased(new EventHandler<MouseEvent>() {
+
                 public void handle(MouseEvent event) {
+
                     //button.setStroke(Color.BLACK);
                     if(active1){
                         //tiltup.setScaleX(1.1);
@@ -78,7 +190,7 @@ public class TiltPanButton1 extends Group{
             });
             tiltup.setOnMouseEntered(new EventHandler<MouseEvent>() {
                 public void handle(MouseEvent event) {
-                    //button.setStroke(Color.BLACK);
+                    tiltup.setStroke(Color.RED);
                     //tiltup.setScaleX(1.1);
                     //tiltup.setScaleY(1.1);
                     tiltup.setFill(new ImagePattern(tiltupc_image));
@@ -88,9 +200,6 @@ public class TiltPanButton1 extends Group{
 
             tiltup.setOnMouseExited(new EventHandler<MouseEvent>() {
                 public void handle(MouseEvent event) {
-                    //button.setStroke(null);
-                    //tiltup.setScaleX(1);
-                    //tiltup.setScaleY(1);
                     tiltup.setFill(new ImagePattern(tiltup_image));
                     active1=false;
                 }
@@ -117,11 +226,14 @@ public class TiltPanButton1 extends Group{
                     //tiltdown.setScaleX(1);
                     //tiltdown.setScaleY(1);
                     tiltdown.setFill(new ImagePattern(tiltdown_image));
+                    actCommands("2", "down");
                     HandleSerial.handleCom(HandleSerial.tilt_down);
                 }
             });
             tiltdown.setOnMouseReleased(new EventHandler<MouseEvent>() {
                 public void handle(MouseEvent event) {
+                    System.out.println("this happending2");
+
                     //button.setStroke(Color.BLACK);
                     if(active2){
                         //tiltdown.setScaleX(1.1);
@@ -132,6 +244,7 @@ public class TiltPanButton1 extends Group{
             });
             tiltdown.setOnMouseEntered(new EventHandler<MouseEvent>() {
                 public void handle(MouseEvent event) {
+                    System.out.println("this happending3");
                     //button.setStroke(Color.BLACK);
                     //tiltdown.setScaleX(1.1);
                     //tiltdown.setScaleY(1.1);
@@ -170,12 +283,14 @@ public class TiltPanButton1 extends Group{
                 public void handle(MouseEvent event) {   
                     //panleft.setScaleX(1);
                     //panleft.setScaleY(1);
+                    actCommands("1", "left");
                     panleft.setFill(new ImagePattern(panleft_image));
                     HandleSerial.handleCom(HandleSerial.pan_left);
                 }
             });
             panleft.setOnMouseReleased(new EventHandler<MouseEvent>() {
                 public void handle(MouseEvent event) {
+                    System.out.println("this happending4");
                     //button.setStroke(Color.BLACK);
                     if(active3){
                         //panleft.setScaleX(1.1);
@@ -226,6 +341,7 @@ public class TiltPanButton1 extends Group{
                 public void handle(MouseEvent event) {   
                     //panright.setScaleX(1);
                     //panright.setScaleY(1);
+                    actCommands("1", "right");
                     panright.setFill(new ImagePattern(panright_image));
                     HandleSerial.handleCom(HandleSerial.pan_right);
                 }
@@ -242,6 +358,7 @@ public class TiltPanButton1 extends Group{
             });
             panright.setOnMouseEntered(new EventHandler<MouseEvent>() {
                 public void handle(MouseEvent event) {
+                    System.out.println("this happending 5");
                     //button.setStroke(Color.BLACK);
                     //panright.setScaleX(1.1);
                     //panright.setScaleY(1.1);

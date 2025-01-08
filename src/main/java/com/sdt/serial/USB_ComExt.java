@@ -9,9 +9,6 @@ import jssc.SerialPort;
 import jssc.SerialPortList;
 import zapcricketsimulator.HandleEvents;
 
-
-//same copy of the above file
-
 /**
  *
  * @author srikanth.possim

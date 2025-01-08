@@ -27,11 +27,6 @@ public class AutoScoring implements Runnable{
     public static boolean active_thread =true;
     public static String display_string = "";
     public AutoScoring(){
-        /*this_obj = this;
-        if(!active_thread){
-            active_thread=true;
-        }
-        new Thread(this).start();*/
     }
     static ArrayList<ScoreSequenceBean> sequences = new ArrayList<>();
     static String datavals = "";

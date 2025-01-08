@@ -5,9 +5,12 @@
  */
 package com.sdt.serial;
 
+import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.sdt.logging.WriteJsonFile;
 import com.sdt.screens.AutoScoring;
 import com.sdt.upload_data.GameDataHandler;
 import javafx.application.Platform;
+import org.json.simple.JSONObject;
 import zapcricketsimulator.HandleEvents;
 import zapcricketsimulator.MediaStageNew;
 import zapcricketsimulator.Variables;
@@ -57,6 +60,35 @@ public class SerialReceive implements Runnable{
             case 0x0F:
                 if(HandleEvents.generalSettings.getAuto_scoring_enable()==1){
                     AutoScoring.process(data);
+                }
+                break;
+            case 0x81:
+                if (data[2 + 1] == 0x08) {
+                    int pan = 0;
+                    int tilt = 0;
+                    int right_motor = 0;
+                    int left_motor = 0;
+                    pan = data[3 + 1];
+                    pan = (pan << 8) | data[4 + 1];
+                    tilt = data[5 + 1];
+                    tilt = (tilt << 8) | data[6 + 1];
+                    left_motor = data[7 + 1];
+                    left_motor = (left_motor << 8) | data[8 + 1];
+                    right_motor = data[9 + 1];
+                    right_motor = (right_motor << 8) | data[10 + 1];
+                    System.out.println("Pan " + pan);
+                    System.out.println("Tilt " + tilt);
+                    System.out.println("Left Motor " + left_motor);
+                    System.out.println("Right Motor " + right_motor);
+//                    ObjectNode o = new ObjectNode();
+                    JSONObject o = new JSONObject();
+
+                    o.put("pan", pan);
+
+                    o.put("tilt", tilt);
+                    o.put("leftMotor", left_motor);
+                    o.put("rightMotor", pan);
+                    WriteJsonFile.writeFile(o);
                 }
                 break;
         }

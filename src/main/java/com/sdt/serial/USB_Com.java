@@ -3,13 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
-
-/*
- * Comment by lazy idli 
- * util file to communicate with the serial port the straight drive hardware machine 
- * 
- */
 package com.sdt.serial;
 
 import jssc.SerialPort;
@@ -26,25 +19,29 @@ public class USB_Com {
     public static String[] getPortList(){
         return  SerialPortList.getPortNames();
     }
-    
-    //connect to the serial port and set the connection status to true
+    public static byte [] getCmd1(byte cmd){
+        byte data[] = new byte[6];
+        data[0]='#';
+        data[1]=0x01;
+        data[2]=cmd;
+        data[3]=0x00;
+        data[4]=USB_Com.getCRC(data, 3);
+        data[5]='!';
+        return data;
+    }
     public static void Connect(String port,int baudrate,int data_bits , int stop_bits , int parity){
         try {
             serialPort = new SerialPort(port);
-            serialPort.setParams(baudrate, data_bits, stop_bits, parity);
-
             serialPort.openPort();
             serialPort.setParams(baudrate, data_bits, stop_bits, parity);
             status = true;
-
-
+            USB_Com.WriteData(getCmd1((byte)0x81));
+            System.out.println("command written changing pan tilt");
         } catch (Exception e) {
-            System.out.println("something is happening here");
             //e.printStackTrace();
             status = false;
         }
     }
-    //disconnect from the serial port and set the connection status to false
     public static void disconnect(){
         try {
             serialPort.closePort();
@@ -53,11 +50,8 @@ public class USB_Com {
         }
         status = false;
     }
-    //write data to the serial port streamline to the machine
     public static boolean WriteData(byte [] data){
         boolean success = true;
-        //for(int  i = 0 ; i < data.length ; i++)
-        //    System.out.println(Byte.toUnsignedInt(data[i]));
         try {
             if(status){
                 serialPort.writeBytes(data);
@@ -70,7 +64,6 @@ public class USB_Com {
         }
         return success;
     }    
-    //read data from the machine
     public static int readByte(int timeout){
         int tempbyte=-1;
         try {
@@ -78,12 +71,19 @@ public class USB_Com {
                 tempbyte = serialPort.readIntArray(1, timeout)[0];
             }
         } catch (Exception e) {
-            //e.printStackTrace();
+//            e.printStackTrace();
         }
         return tempbyte;
     }
-    //not sure but this will check any errors or changes in the communication channel
-    
+    public static String print(byte[] bytes) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("[ ");
+        for (byte b : bytes) {
+            sb.append(String.format("0x%02X ", b));
+        }
+        sb.append("]");
+        return sb.toString();
+    }
     public static byte getCRC(byte [] temp , int len){
         byte crc = 0;
         for( int i = 0 ; i < len ; i++)

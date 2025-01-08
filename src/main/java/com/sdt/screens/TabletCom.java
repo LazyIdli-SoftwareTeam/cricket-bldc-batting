@@ -103,7 +103,7 @@ public class TabletCom implements Runnable{
     public void process_json_cmd(String readval){
         try {
             JSONParser parser = new JSONParser();
-            System.out.println("reading" + readval);
+            //System.out.println(readval);
             if(readval==null){
                 LogManager.logError("Null Data Request Received with Connection");
                 return;
@@ -115,7 +115,6 @@ public class TabletCom implements Runnable{
             response.put("command", command);
             response.put("machine_id", HandleEvents.generalSettings.getAutoScotringBean().getSerial_no());
             response.put("speed", HandleEvents.machineDataBean.getSet_speed());
-            System.out.println("response " + response);
             switch(command){
                 case "init":                     
                     if(HandleEvents.game_mode==Variables.game_mode_sp){

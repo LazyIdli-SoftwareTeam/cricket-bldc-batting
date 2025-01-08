@@ -9,32 +9,20 @@ import com.sdt.data.BallInfo;
 import com.sdt.data.GameBean;
 import com.sdt.data.GeneralSettingsBean;
 import com.sdt.data.MachineDataBean;
-import com.sdt.data.MatchBean;
-import com.sdt.data.MatchDataBean;
-import com.sdt.data.MatchResultBean;
-import com.sdt.data.ModeDatBean;
 import com.sdt.data.OverDataBean;
 import com.sdt.data.PlayerGameBean;
-import com.sdt.data.SixerChallengeBean;
 import com.sdt.screens.HomeScreen1;
-import com.sdt.screens.MatchScreen;
-import com.sdt.screens.PracticeScreen;
-import com.sdt.screens.PracticeTimer;
-import com.sdt.screens.SixerChallengeScreen;
 import com.sdt.screens.TargetScreen;
 import com.sdt.serial.HandleSerial;
-import com.sdt.system.ErrorAlert;
 import com.sdt.xml.HandleFile;
 import com.sdt.logging.LogManager;
 import com.sdt.screens.AutoScoring;
-import com.sdt.screens.BowlingThread;
 import com.sdt.screens.MultiPlayerScreen;
 import com.sdt.screens.NextBall;
 import com.sdt.screens.SinglePlayerScreen;
 import com.sdt.screens.TabletCom;
 import com.sdt.serial.SerialReceive;
 import com.sdt.serial.USB_Com;
-import com.sdt.serial.USB_ComExt;
 import com.sdt.upload_data.GameDataHandler;
 import com.sdt.xml.ScriptFiles;
 import javafx.application.Platform;
@@ -47,7 +35,6 @@ public class HandleEvents {
     
     
     public static GeneralSettingsBean generalSettings = new GeneralSettingsBean();
-    //public static ModeDatBean modeData[]=new ModeDatBean[4];
     public static MachineDataBean machineDataBean = new MachineDataBean();
     
     public static int game_mode=0;
@@ -62,7 +49,6 @@ public class HandleEvents {
     public static int bowler_trigger=1;
     public static int magic_mode=0;
     public static boolean wideNoBallScore = false;
-    //public static int current_speed=60;
     public static GameBean gameBean= null;
     
     public static void initData(){
@@ -70,41 +56,23 @@ public class HandleEvents {
         HandleFile.readData();
         ScriptFiles.loadScripts();
         bowler_pos = generalSettings.getDefault_bowler();
-        workingDir = System.getProperty("user.dir");
-        System.out.println("working dir with the path" +  workingDir);
-        LogManager.logInfo("working dir with the path" +  workingDir);
-
+        workingDir = System.getProperty("user.dir"); 
         if(generalSettings.getModeData()!=null && !generalSettings.getModeData().getBowler_path()[bowler_pos-1].equals("")){
             bowler_path = generalSettings.getModeData().getBowler_path()[bowler_pos-1];
             bowler_trigger = generalSettings.getModeData().getTrigger_interval()[bowler_pos-1];
         }else{
-            //ErrorAlert.info("Default Bowler Loaded");
-            bowler_path = workingDir + "/Media/bowler/fast";
+            bowler_path = workingDir+"/Media/bowler/fast";
         }
-
         if(generalSettings.isTablet_mode_enable()){
             new TabletCom();
         }
-        /*if(generalSettings.getAuto_scoring_enable()==1){
-            new AutoScoring();
-        }*/
-        //new BowlingThread();
-        System.out.println("got here");
-        System.out.println(generalSettings.getCom_port());
-
         HandleSerial.initSerial(generalSettings.getCom_port());
-
-        //USB_ComExt.Connect();
-        //HandleSerial.handleCom(HandleSerial.skill_test);
         SerialReceive.init_machine=true;
         
-        //HandleSerial.handleCom(HandleSerial.update_speed);
     }
     public static void handleEvent(int type ,int subtype){
         switch(type){
             case Variables.mode_sellection:
-                //if(SerialReceive.init_machine)
-                //    return;
                 game_mode = subtype;
                 game_status = Variables.game_status_init;
                 MediaStageNew.this_obj.handlemode(game_mode);                
@@ -230,7 +198,6 @@ public class HandleEvents {
     static int pos=0;
     public static void storeBallDetails(PlayerGameBean playerGameBean,int result){
         OverDataBean overDataBean = null;
-        //System.out.println(balls);
         int overs = playerGameBean.getBall_count()/6;
         if(playerGameBean.getBall_count()%6==0 && overs<gameBean.getNo_of_overs_each() && !HandleEvents.wideNoBallScore){            
             if(gameBean.getBowler_selection()==1){
@@ -258,16 +225,16 @@ public class HandleEvents {
             playerGameBean.getOvers().add(overDataBean);
         }else{
             overDataBean = playerGameBean.getOvers().get(balls/6);
-        }  
+        }
         overDataBean.getBallsInfo().add(new BallInfo(result, machineDataBean.getOperating_mode(), machineDataBean.getSet_speed(), playerGameBean.getSkill_level(), generalSettings.isSkill_test()));
     }
+
+    //score is handled here
     public static void handle_score_button(int type,int subtype){
-        
         pos=gameBean.getSeq_pos();            
         PlayerGameBean playerGameBean = gameBean.getPlayer_data().get(pos);
         score = playerGameBean.getTotal_score();
         balls = playerGameBean.getBall_count();
-                
         switch(type){
             case Variables.button_type_result_runs_straight:                
             case Variables.button_type_result_runs_off:                
@@ -381,7 +348,7 @@ public class HandleEvents {
                             USB_Com.WriteData(cmd);
                         }
                     }                    
-                    playerGameBean .setTotal_score(score+subtype);    
+                    playerGameBean.setTotal_score(score+subtype);
                     playerGameBean.setBall_count(balls+1);
                     storeBallDetails(playerGameBean,subtype);
                     game_sub_status=Variables.game_sub_status_scored; 

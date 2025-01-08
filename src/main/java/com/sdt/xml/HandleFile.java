@@ -7,7 +7,7 @@ package com.sdt.xml;
 
 import com.sdt.data.AutoScoringBean;
 import com.sdt.data.ScoreCombinationBean;
-
+import com.sdt.system.ErrorAlert;
 import java.io.File;
 import java.io.FileWriter;
 import java.math.BigDecimal;
@@ -283,7 +283,7 @@ public class HandleFile {
             doc.setRootElement(root);
             Calendar calendar_test = Calendar.getInstance();
             root.setAttribute("UpdatedOn", calendar_test.getTime().toString());
-            root.setAttribute("version", ZaPCricketSimulator.version);
+            root.setAttribute("version",ZaPCricketSimulator.version);
             
             Element general_info = new Element("GeneralSettings");
             root.addContent(general_info);

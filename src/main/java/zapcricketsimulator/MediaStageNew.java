@@ -59,7 +59,6 @@ import com.sdt.serial.USB_ComExt;
 import com.sdt.upload_data.GameDataHandler;
 import java.util.List;
 import static zapcricketsimulator.HandleEvents.game_ended;
-import static zapcricketsimulator.HandleEvents.workingDir;
 
 /**
  *
@@ -137,17 +136,13 @@ public class MediaStageNew extends Stage {
     static ArrayList<String> video_seq = new ArrayList<String>();
     static File video = null;
     public void handleScore(int type , int sub_type,boolean replay){
-        LogManager logger = new LogManager();
         try {            
-            clearScreen();
-
+            clearScreen();            
             switch(type){
                 case Variables.button_type_result_runs_straight:                    
-                    if(sub_type==0) {
-                        video_seq.add(HandleEvents.workingDir + "/Media/score/0.mp4");
-                        System.out.println("working dir somethis is there" + workingDir);
-                        LogManager.logInfo("working dir" + workingDir);
-                    } else
+                    if(sub_type==0)
+                        video_seq.add(HandleEvents.workingDir+"/Media/score/0.mp4");
+                    else
                         video_seq.add(HandleEvents.workingDir+"/Media/score/"+sub_type+"/1.mp4");
                     if(replay){
                         video_seq.add(HandleEvents.workingDir+ "/replay.mp4");
@@ -683,7 +678,8 @@ public class MediaStageNew extends Stage {
                                    //System.out.println("Game Completed");
                                    if(HandleEvents.generalSettings.isCloud_reporting())
                                         GameDataHandler.pushData(HandleEvents.gameBean);
-                                   Thread.sleep(15000);
+                                   if(HandleEvents.game_mode==Variables.game_mode_mp)
+                                       Thread.sleep(15000);
                                    handlemode(HandleEvents.game_mode);
                                }
                            }else if(current_video.getPath().contains("ErrorScreen")){                               
@@ -1332,7 +1328,7 @@ public class MediaStageNew extends Stage {
     public boolean loadVideo(File video){
         try {
            current_video = video;
-           m = new Media(video.toURI().toString());
+           m = new  Media(video.toURI().toString());
            if(m.getError()==null){
                m.setOnError(new Runnable() {
                     public void run() {

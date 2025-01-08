@@ -12,7 +12,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.Optional;
-
+import java.util.function.BiConsumer;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
@@ -32,6 +32,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
@@ -43,6 +44,7 @@ import com.sdt.data.KeyValueBean;
 import com.sdt.screens.TabletCom;
 import java.util.Arrays;
 import javafx.scene.control.ScrollPane;
+import javafx.stage.Window;
 import zapcricketsimulator.ZaPCricketSimulator;
 
 /**
@@ -249,7 +251,6 @@ public class SettingsButton extends Group{
         con_btn.setOnMousePressed(new EventHandler<MouseEvent>() {
             public void handle(MouseEvent event) {
                 if(!USB_Com.status){
-
                     if(com_port.getValue()!=null)
                         HandleSerial.initSerial(com_port.getValue());
                 }else{
@@ -416,8 +417,7 @@ public class SettingsButton extends Group{
                 HandleEvents.generalSettings.getModeData().getBowling_speed()[j][1]=b_speed[j][1].getValue();
                 HandleEvents.generalSettings.getModeData().getBowling_speed()[j][2]=b_speed[j][2].getValue();
                 HandleEvents.generalSettings.getModeData().getBowling_speed()[j][3]=b_speed[j][3].getValue();
-                System.out.println("bowling type" + b_bowling_type[0].getValue());
-                HandleEvents.generalSettings.getModeData().getBowling_type()[j]=b_bowling_type[0].getValue().getKey();
+                HandleEvents.generalSettings.getModeData().getBowling_type()[j]=b_bowling_type[j].getValue().getKey();
             }
             HandleEvents.generalSettings.setAuto_scoring_enable(autoscoring.getValue().getKey());
             if(AutoScoringSettings.tabpane!=null){
@@ -503,7 +503,6 @@ public class SettingsButton extends Group{
                      HandleEvents.generalSettings.getAutoScotringBean().setSkill_4_wicket_time(AutoScoringSettings.level_4_stumptime.getValue());
                         
                 } catch (Exception e) {
-                    e.printStackTrace();
                 }
             }
             HandleFile.saveData();
@@ -546,7 +545,7 @@ public class SettingsButton extends Group{
             directoryChooser.setInitialDirectory(new File(workingDir));
         }
             
-        File selectedDirectory = directoryChooser.showDialog(ZaPCricketSimulator.primaryStage);
+        File selectedDirectory = directoryChooser.showDialog(zapcricketsimulator.ZaPCricketSimulator.primaryStage);
         if(selectedDirectory!=null && selectedDirectory.isDirectory()){
             parentDir = selectedDirectory.getParent();
         }
