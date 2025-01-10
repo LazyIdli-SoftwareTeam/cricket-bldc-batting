@@ -5,14 +5,27 @@
  */
 package com.sdt.displaycomponents;
 
+import com.sdt.data.BallBean;
+import javafx.geometry.Pos;
+import javafx.scene.Scene;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
+import javafx.stage.Stage;
+import org.jdom2.Document;
+import org.jdom2.Element;
+import org.jdom2.input.SAXBuilder;
+
+
 import com.sdt.serial.HandleSerial;
 import com.sdt.serial.USB_Com;
 import com.sdt.xml.HandleFile;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
-import java.util.function.BiConsumer;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
@@ -21,29 +34,23 @@ import javafx.geometry.Insets;
 import javafx.geometry.Side;
 import javafx.scene.Group;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
-import javafx.scene.control.ButtonBar;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.Dialog;
-import javafx.scene.control.Tab;
-import javafx.scene.control.TabPane;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.DirectoryChooser;
 import javafx.util.Callback;
 import javafx.util.Pair;
+import org.jdom2.output.Format;
+import org.jdom2.output.XMLOutputter;
 import zapcricketsimulator.HandleEvents;
 import com.sdt.data.KeyValueBean;
 import com.sdt.screens.TabletCom;
 import java.util.Arrays;
-import javafx.scene.control.ScrollPane;
+
 import javafx.stage.Window;
 import zapcricketsimulator.ZaPCricketSimulator;
 
@@ -83,6 +90,235 @@ public class SettingsButton extends Group{
         }
         
     }
+
+    public void showAlert(String text) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Success");
+        alert.setHeaderText(null);
+
+        alert.setContentText(text);
+
+        alert.showAndWait();
+    }
+
+    public void applyToAll(File file, String type, Document doc) {
+        try {
+            Element rootElement = doc.getRootElement();
+            Element ballinfo = rootElement.getChild("BallInfo");
+            if (ballinfo != null) {
+                List<Element> eList1 = ballinfo.getChildren("BallData");
+                for (int i = 0; i < eList1.size(); i++) {
+                    Element balldata = eList1.get(i);
+                    String pan = balldata.getChildText("pan");
+                        int intPan = Integer.parseInt(pan);
+                        if (type.equals("plus")) {
+                            intPan += 50;
+                        } else {
+                            intPan -= 50;
+                        }
+                        balldata.getChild("pan").setText(Integer.toString(intPan));
+
+                }
+                XMLOutputter outter = new XMLOutputter();
+                outter.setFormat(Format.getPrettyFormat());
+                FileWriter mdata = null;
+                mdata = new FileWriter(file);
+                outter.output(rootElement, mdata);
+                showAlert(file.getName() +  " Changed all the variations");
+                mdata.close();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void apply(File file, String  tmpIndex, String tmpPan, Document doc, String type ) {
+        try {
+            Element rootElement = doc.getRootElement();
+            Element ballinfo = rootElement.getChild("BallInfo");
+            if (ballinfo != null) {
+                List<Element> eList1 = ballinfo.getChildren("BallData");
+                for (int i = 0; i < eList1.size(); i++) {
+                    Element balldata = eList1.get(i);
+                    String pan = balldata.getChildText("pan");
+                    String index = balldata.getChildText("index");
+                    if (pan.equals(tmpPan) && index.equals(tmpIndex)) {
+                        int intPan = Integer.parseInt(pan);
+                        if (type.equals("plus")) {
+                            intPan += 50;
+                        } else {
+                            intPan -= 50;
+                        }
+                        System.out.println("int pan "  + intPan);
+                        balldata.getChild("pan").setText(Integer.toString(intPan));
+                        XMLOutputter outter = new XMLOutputter();
+                        outter.setFormat(Format.getPrettyFormat());
+                        FileWriter mdata = null;
+                        mdata = new FileWriter(file);
+                        outter.output(rootElement, mdata);
+                        showAlert("Changed variation number " + (Integer.parseInt(index) + 1) + " for file " + file.getName());
+
+                        mdata.close();
+                        break;
+                    }
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void showBallVariations(File file) {
+        try {
+            Stage stage = new Stage();
+            stage.setTitle(file.getName());
+            GridPane grid = new GridPane();
+            grid.setHgap(10);
+            grid.setVgap(10);
+            grid.setPadding(new Insets(20, 150, 10, 10));
+            int row1 = 1;
+            SAXBuilder saxBuilder = new SAXBuilder();
+            Document document = saxBuilder.build(file);
+            Element rootElement = document.getRootElement();
+            Element ballinfo = rootElement.getChild("BallInfo");
+            if(ballinfo!=null) {
+                List<Element> eList1 = ballinfo.getChildren("BallData");
+                for (int i = 0; i < eList1.size(); i++) {
+                    Text text = new Text("Ball Variation " + (i + 1));
+                    String pan = eList1.get(i).getChildText("pan");
+                    String index = eList1.get(i).getChildText("index");
+                    TextField field = new TextField(pan);
+                    Button plusButton = new Button("+");
+                    Button minusButton = new Button("-");
+                    plusButton.setOnAction(e -> {
+                        ButtonType apply = new ButtonType("Apply");
+                        ButtonType applyToAll = new ButtonType("Apply to all variations");
+                        Alert alert = new Alert(Alert.AlertType.WARNING,
+                                "Apply to?", apply, applyToAll);
+                        alert.setHeaderText(null);
+                        Optional<ButtonType> result =  alert.showAndWait();
+                        if(!result.isPresent()) {
+                            return;
+                        } else if(result.get().getText().equals("Apply")) {
+                            apply(file, index, pan, document, "plus");
+                            stage.close();
+
+                        } else if(result.get().getText().equals("Apply to all variations")) {
+                            applyToAll(file, "plus", document);
+                            stage.close();
+
+                        }
+                    });
+                    minusButton.setOnAction(e -> {
+                        ButtonType apply = new ButtonType("Apply");
+                        ButtonType applyToAll = new ButtonType("Apply to all variations");
+                        Alert alert = new Alert(Alert.AlertType.WARNING,
+                                "Apply to?", apply, applyToAll);
+                        alert.setHeaderText(null);
+                        Optional<ButtonType> result =  alert.showAndWait();
+                        if(!result.isPresent()) {
+                            return;
+                        } else if(result.get().getText().equals("Apply")) {
+                            apply(file, index, pan, document, "minus");
+                            stage.close();
+                        } else if(result.get().getText().equals("Apply to all variations")) {
+                            applyToAll(file, "minus", document);
+                            stage.close();
+                        }
+                    });
+                    grid.add(text, 1, row1);
+//                    grid.add(field, 2, row1);
+                    grid.add(plusButton, 3, row1);
+                    grid.add(minusButton, 4, row1++);
+                }
+            }
+            ScrollPane scrollPane = new ScrollPane();
+            scrollPane.setFitToHeight(true);
+            scrollPane.setFitToWidth(true);
+            scrollPane.setContent(grid);
+            stage.setScene(new Scene(scrollPane, 450, 450));
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void getPanValues(GridPane grid, int row) {
+        if (workingDir == null)
+            workingDir = System.getProperty("user.dir");
+        try {
+            final File scriptsFolder = new File(workingDir + "/Media/script");
+            File[] listOfFiles = scriptsFolder.listFiles();
+            for (File file : listOfFiles) {
+                if (file.isFile()) {
+                    Button button = new Button(file.getName());
+                    button.setOnAction(e -> {
+                        showBallVariations(file);
+                    });
+//                    Document document = saxBuilder.build(file);
+//                    Element settingroot = document.getRootElement();
+//                    Element ballinfo = settingroot.getChild("BallInfo");
+//                    if(ballinfo!=null) {
+//                        List<Element> eList1 = ballinfo.getChildren("BallData");
+//
+//                        for (int i = 0; i < eList1.size(); i++) {
+//                            Element balldata = eList1.get(i);
+//                            int pan = Integer.parseInt(balldata.getChildText("pan"));
+//                            break;
+//                        }
+//                        Button plusButton = new Button("+");
+//                        Button minusButton = new Button("-");
+//                        grid.add(plusButton, 7, row);
+//                        grid.add(minusButton, 8, row);
+//                        minusButton.setOnAction(e -> {
+//                            try {
+//                                for (int i = 0; i < eList1.size(); i++) {
+//                                    Element balldata = eList1.get(i);
+//                                    int pan = Integer.parseInt(balldata.getChildText("pan"));
+//                                    pan = pan - 50;
+//                                    balldata.getChild("pan").setText(Integer.toString(pan));
+//                                    System.out.println(balldata);
+//                                }
+//                                XMLOutputter outter = new XMLOutputter();
+//                                outter.setFormat(Format.getPrettyFormat());
+//                                FileWriter mdata = null;
+//                                mdata = new FileWriter(file);
+//                                outter.output(settingroot, mdata);
+//                                showAlert(file.getName());
+//                                mdata.close();
+//                            } catch (Exception ex) {
+//                                ex.printStackTrace();
+//                            }
+//                        });
+//                        plusButton.setOnAction(e -> {
+//                            try {
+//                                for (int i = 0; i < eList1.size(); i++) {
+//                                    Element balldata = eList1.get(i);
+//                                    int pan = Integer.parseInt(balldata.getChildText("pan"));
+//                                    pan = pan + 50;
+//                                    balldata.getChild("pan").setText(Integer.toString(pan));
+//                                    System.out.println(balldata);
+//                                }
+//                                XMLOutputter outter = new XMLOutputter();
+//                                outter.setFormat(Format.getPrettyFormat());
+//                                FileWriter mdata = null;
+//                                mdata = new FileWriter(file);
+//                                outter.output(settingroot, mdata);
+//                                showAlert(file.getName());
+//                                mdata.close();
+//                            } catch (Exception ex) {
+//                                ex.printStackTrace();
+//                            }
+//                        });
+                            grid.add(button, 5, row++);
+
+//                    }
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
     public static Dialog<Pair<String, String>> dialog = null;
     public static TabPane tabPane =null;
     String tab_name[]= {"General","Target Mode","Practice Mode","Match Mode","Sixer Challenge"};
@@ -93,7 +329,7 @@ public class SettingsButton extends Group{
     Button con_btn=null;
     
     public void openSettings(){
-        dialog = new Dialog<>();  
+        dialog = new Dialog<>();
         dialog.initOwner(ZaPCricketSimulator.primaryStage.getScene().getWindow());
         //double width = ZaPCricketSimulator.bounds.getWidth();
         //double height = ZaPCricketSimulator.bounds.getHeight();
@@ -118,7 +354,8 @@ public class SettingsButton extends Group{
         grid[0].setVgap(10);
         grid[0].setPadding(new Insets(20, 150, 10, 10));
         int row1 = 1;
-        
+        getPanValues(grid[0], row1);
+
         grid[0].add(new CLabel("Enable Keypad"), 1, row1);
         final CChoiceBox_EN_DE keypad = new CChoiceBox_EN_DE(HandleEvents.generalSettings.isKeypad_enable());
         grid[0].add(keypad, 2, row1++);
