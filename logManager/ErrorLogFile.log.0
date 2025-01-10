@@ -542,3 +542,9 @@ INFO01-10-2025 17:06:41 || LogManager.logInfo() : Application Opened
 SEVERE01-10-2025 17:06:43 || LogManager.logError() : Sequencer error null
 INFO01-10-2025 17:15:15 || LogManager.logInfo() : Application Opened
 SEVERE01-10-2025 17:15:18 || LogManager.logError() : Sequencer error null
+INFO01-10-2025 17:29:47 || LogManager.logInfo() : Application Opened
+SEVERE01-10-2025 17:29:48 || LogManager.logError() : Sequencer error null
+INFO01-10-2025 17:30:48 || LogManager.logInfo() : Application Opened
+SEVERE01-10-2025 17:30:49 || LogManager.logError() : Sequencer error null
+INFO01-10-2025 17:31:37 || LogManager.logInfo() : Application Opened
+SEVERE01-10-2025 17:31:39 || LogManager.logError() : Sequencer error null

@@ -172,7 +172,7 @@ public class TiltPanButton1 extends Group{
                     //tiltup.setScaleX(1);
                     //tiltup.setScaleY(1);
                     tiltup.setFill(new ImagePattern(tiltup_image));
-                    actCommands("2", "up");
+//                    actCommands("2", "up");
                     HandleSerial.handleCom(HandleSerial.tilt_up);
                 }
             });
@@ -226,7 +226,7 @@ public class TiltPanButton1 extends Group{
                     //tiltdown.setScaleX(1);
                     //tiltdown.setScaleY(1);
                     tiltdown.setFill(new ImagePattern(tiltdown_image));
-                    actCommands("2", "down");
+//                    actCommands("2", "down");
                     HandleSerial.handleCom(HandleSerial.tilt_down);
                 }
             });
@@ -283,7 +283,7 @@ public class TiltPanButton1 extends Group{
                 public void handle(MouseEvent event) {   
                     //panleft.setScaleX(1);
                     //panleft.setScaleY(1);
-                    actCommands("1", "left");
+//                    actCommands("1", "left");
                     panleft.setFill(new ImagePattern(panleft_image));
                     HandleSerial.handleCom(HandleSerial.pan_left);
                 }
@@ -341,7 +341,7 @@ public class TiltPanButton1 extends Group{
                 public void handle(MouseEvent event) {   
                     //panright.setScaleX(1);
                     //panright.setScaleY(1);
-                    actCommands("1", "right");
+//                    actCommands("1", "right");
                     panright.setFill(new ImagePattern(panright_image));
                     HandleSerial.handleCom(HandleSerial.pan_right);
                 }

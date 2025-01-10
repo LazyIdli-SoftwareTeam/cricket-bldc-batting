@@ -226,10 +226,12 @@ public class SettingsButton extends Group{
                             stage.close();
                         }
                     });
+                    field.setDisable(true);
+                    field.setMaxWidth(50);
                     grid.add(text, 1, row1);
-//                    grid.add(field, 2, row1);
-                    grid.add(plusButton, 3, row1);
-                    grid.add(minusButton, 4, row1++);
+                    grid.add(field, 2, row1);
+                    grid.add(plusButton, 4, row1);
+                    grid.add(minusButton, 5, row1++);
                 }
             }
             ScrollPane scrollPane = new ScrollPane();
