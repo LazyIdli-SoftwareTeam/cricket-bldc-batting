@@ -168,6 +168,16 @@ public class SettingsButton extends Group{
         }
     }
 
+//
+//    public void init() {
+//        SAXBuilder saxBuilder = new SAXBuilder();
+//        Document document = saxBuilder.build(file);
+//        Element rootElement = document.getRootElement();
+//        Element ballinfo = rootElement.getChild("BallInfo");
+//        final File scriptsFolder = new File(workingDir + "/Media/script");
+//        File[] listOfFiles = scriptsFolder.listFiles();
+//    }
+
     public void showBallVariations(File file) {
         try {
             Stage stage = new Stage();

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ZAPCricketSimulator UpdatedOn="Wed Jan 08 18:36:05 IST 2025" version="V2.15">
+<ZAPCricketSimulator UpdatedOn="Fri Jan 31 17:30:00 IST 2025" version="V2.15">
   <GeneralSettings>
     <KeypadEnable>false</KeypadEnable>
     <TestMode>true</TestMode>
     <TabletEnable>true</TabletEnable>
-    <TCPPort>9999</TCPPort>
+    <TCPPort>9998</TCPPort>
     <ReplayEnable>false</ReplayEnable>
     <ReplayDuration>3000</ReplayDuration>
     <ReplayFormat>libx264</ReplayFormat>
@@ -22,12 +22,12 @@
     <SkillTest>false</SkillTest>
     <SkillTestValue>10</SkillTestValue>
     <BaudRate>115200</BaudRate>
-    <AutoScoringType>1</AutoScoringType>
+    <AutoScoringType>2</AutoScoringType>
     <SixerVideo>false</SixerVideo>
     <WicketVideo>false</WicketVideo>
-    <CloudReporting>false</CloudReporting>
+    <CloudReporting>true</CloudReporting>
     <DefaultSpeed>45</DefaultSpeed>
-    <PlayerInitTime>5</PlayerInitTime>
+    <PlayerInitTime>10</PlayerInitTime>
   </GeneralSettings>
   <BowlerSequence>
     <Sequence1>
@@ -54,19 +54,19 @@
   <ModeInfo>
     <ModeData>
       <BowlerPath>C:\cricket simulator\Media\bowler\fast</BowlerPath>
-      <BallReleasePos>1600</BallReleasePos>
+      <BallReleasePos>1800</BallReleasePos>
       <Ballspeed1>55</Ballspeed1>
-      <Ballspeed2>90</Ballspeed2>
+      <Ballspeed2>75</Ballspeed2>
       <Ballspeed3>100</Ballspeed3>
       <Ballspeed4>150</Ballspeed4>
       <BowlingType>3</BowlingType>
       <BowlerPath>C:\cricket simulator\Media\bowler\mediumfast</BowlerPath>
-      <BallReleasePos>1200</BallReleasePos>
+      <BallReleasePos>2100</BallReleasePos>
       <Ballspeed1>55</Ballspeed1>
-      <Ballspeed2>70</Ballspeed2>
+      <Ballspeed2>100</Ballspeed2>
       <Ballspeed3>100</Ballspeed3>
       <Ballspeed4>150</Ballspeed4>
-      <BowlingType>12</BowlingType>
+      <BowlingType>8</BowlingType>
       <BowlerPath>C:\cricket simulator\Media\bowler\offspin</BowlerPath>
       <BallReleasePos>2100</BallReleasePos>
       <Ballspeed1>55</Ballspeed1>
@@ -94,7 +94,7 @@
       <Ballspeed2>70</Ballspeed2>
       <Ballspeed3>100</Ballspeed3>
       <Ballspeed4>150</Ballspeed4>
-      <BowlingType>12</BowlingType>
+      <BowlingType>9</BowlingType>
       <BowlerPath>C:\cricket simulator\Media\bowler\legspin</BowlerPath>
       <BallReleasePos>2100</BallReleasePos>
       <Ballspeed1>55</Ballspeed1>
@@ -112,17 +112,17 @@
     </ModeData>
   </ModeInfo>
   <AutoScoringInfo>
-    <SerialNo>DISTS</SerialNo>
+    <SerialNo>test</SerialNo>
     <PortNo>4211</PortNo>
     <StumpsEnable>true</StumpsEnable>
     <StumpsValue>11</StumpsValue>
     <SolenoidEnable>true</SolenoidEnable>
     <SolenoidValue>12</SolenoidValue>
-    <BallSensor1>3</BallSensor1>
-    <BallSensor2>4</BallSensor2>
+    <BallSensor1>6</BallSensor1>
+    <BallSensor2>6</BallSensor2>
     <SpeedFactor>3.0</SpeedFactor>
-    <ComPort>COM3</ComPort>
-    <BaudRate>57600</BaudRate>
+    <ComPort>COM9</ComPort>
+    <BaudRate>56000</BaudRate>
     <SixOutput>2</SixOutput>
     <FourOutput>1</FourOutput>
     <TwoOutput>0</TwoOutput>
@@ -137,42 +137,26 @@
     <DI8Pole>-1</DI8Pole>
     <DI9Pole>-1</DI9Pole>
     <DI10Pole>-1</DI10Pole>
-    <skill_1_score_time_1>1000</skill_1_score_time_1>
-    <skill_1_score_time_2>1200</skill_1_score_time_2>
-    <skill_1_score_time_3>1500</skill_1_score_time_3>
-    <skill_2_score_time_1>900</skill_2_score_time_1>
-    <skill_2_score_time_2>1200</skill_2_score_time_2>
-    <skill_2_score_time_3>1500</skill_2_score_time_3>
-    <skill_3_score_time_1>1200</skill_3_score_time_1>
-    <skill_3_score_time_2>1600</skill_3_score_time_2>
-    <skill_3_score_time_3>1800</skill_3_score_time_3>
-    <skill_4_score_time_1>1200</skill_4_score_time_1>
-    <skill_4_score_time_2>1400</skill_4_score_time_2>
-    <skill_4_score_time_3>1600</skill_4_score_time_3>
+    <skill_1_score_time_1>2000</skill_1_score_time_1>
+    <skill_1_score_time_2>2600</skill_1_score_time_2>
+    <skill_1_score_time_3>2900</skill_1_score_time_3>
+    <skill_2_score_time_1>1800</skill_2_score_time_1>
+    <skill_2_score_time_2>2000</skill_2_score_time_2>
+    <skill_2_score_time_3>2200</skill_2_score_time_3>
+    <skill_3_score_time_1>1600</skill_3_score_time_1>
+    <skill_3_score_time_2>1800</skill_3_score_time_2>
+    <skill_3_score_time_3>2000</skill_3_score_time_3>
+    <skill_4_score_time_1>1400</skill_4_score_time_1>
+    <skill_4_score_time_2>1600</skill_4_score_time_2>
+    <skill_4_score_time_3>1800</skill_4_score_time_3>
     <skill_1_wicket_time>1300</skill_1_wicket_time>
     <skill_2_wicket_time>1100</skill_2_wicket_time>
     <skill_3_wicket_time>1000</skill_3_wicket_time>
     <skill_4_wicket_time>900</skill_4_wicket_time>
     <CombinationInfo>
       <Combination>
-        <Result>1</Result>
-        <Pos1>1</Pos1>
-        <Pos2>0</Pos2>
-        <Pos3>0</Pos3>
-        <Pos4>0</Pos4>
-        <Pos5>0</Pos5>
-      </Combination>
-      <Combination>
         <Result>2</Result>
         <Pos1>2</Pos1>
-        <Pos2>0</Pos2>
-        <Pos3>0</Pos3>
-        <Pos4>0</Pos4>
-        <Pos5>0</Pos5>
-      </Combination>
-      <Combination>
-        <Result>3</Result>
-        <Pos1>3</Pos1>
         <Pos2>0</Pos2>
         <Pos3>0</Pos3>
         <Pos4>0</Pos4>
@@ -195,170 +179,186 @@
         <Pos5>0</Pos5>
       </Combination>
       <Combination>
+        <Result>2</Result>
+        <Pos1>1</Pos1>
+        <Pos2>3</Pos2>
+        <Pos3>0</Pos3>
+        <Pos4>0</Pos4>
+        <Pos5>0</Pos5>
+      </Combination>
+      <Combination>
+        <Result>2</Result>
+        <Pos1>2</Pos1>
+        <Pos2>3</Pos2>
+        <Pos3>0</Pos3>
+        <Pos4>0</Pos4>
+        <Pos5>0</Pos5>
+      </Combination>
+      <Combination>
+        <Result>4</Result>
+        <Pos1>1</Pos1>
+        <Pos2>5</Pos2>
+        <Pos3>0</Pos3>
+        <Pos4>0</Pos4>
+        <Pos5>0</Pos5>
+      </Combination>
+      <Combination>
+        <Result>4</Result>
+        <Pos1>1</Pos1>
+        <Pos2>6</Pos2>
+        <Pos3>0</Pos3>
+        <Pos4>0</Pos4>
+        <Pos5>0</Pos5>
+      </Combination>
+      <Combination>
+        <Result>4</Result>
+        <Pos1>2</Pos1>
+        <Pos2>5</Pos2>
+        <Pos3>0</Pos3>
+        <Pos4>0</Pos4>
+        <Pos5>0</Pos5>
+      </Combination>
+      <Combination>
         <Result>6</Result>
-        <Pos1>6</Pos1>
+        <Pos1>2</Pos1>
+        <Pos2>6</Pos2>
+        <Pos3>0</Pos3>
+        <Pos4>0</Pos4>
+        <Pos5>0</Pos5>
+      </Combination>
+      <Combination>
+        <Result>4</Result>
+        <Pos1>3</Pos1>
+        <Pos2>5</Pos2>
+        <Pos3>0</Pos3>
+        <Pos4>0</Pos4>
+        <Pos5>0</Pos5>
+      </Combination>
+      <Combination>
+        <Result>4</Result>
+        <Pos1>3</Pos1>
+        <Pos2>6</Pos2>
+        <Pos3>0</Pos3>
+        <Pos4>0</Pos4>
+        <Pos5>0</Pos5>
+      </Combination>
+      <Combination>
+        <Result>6</Result>
+        <Pos1>4</Pos1>
+        <Pos2>6</Pos2>
+        <Pos3>0</Pos3>
+        <Pos4>0</Pos4>
+        <Pos5>0</Pos5>
+      </Combination>
+      <Combination>
+        <Result>4</Result>
+        <Pos1>4</Pos1>
+        <Pos2>5</Pos2>
+        <Pos3>0</Pos3>
+        <Pos4>0</Pos4>
+        <Pos5>0</Pos5>
+      </Combination>
+      <Combination>
+        <Result>4</Result>
+        <Pos1>1</Pos1>
+        <Pos2>3</Pos2>
+        <Pos3>5</Pos3>
+        <Pos4>0</Pos4>
+        <Pos5>0</Pos5>
+      </Combination>
+      <Combination>
+        <Result>4</Result>
+        <Pos1>1</Pos1>
+        <Pos2>3</Pos2>
+        <Pos3>6</Pos3>
+        <Pos4>0</Pos4>
+        <Pos5>0</Pos5>
+      </Combination>
+      <Combination>
+        <Result>4</Result>
+        <Pos1>1</Pos1>
+        <Pos2>4</Pos2>
+        <Pos3>5</Pos3>
+        <Pos4>0</Pos4>
+        <Pos5>0</Pos5>
+      </Combination>
+      <Combination>
+        <Result>6</Result>
+        <Pos1>1</Pos1>
+        <Pos2>4</Pos2>
+        <Pos3>6</Pos3>
+        <Pos4>0</Pos4>
+        <Pos5>0</Pos5>
+      </Combination>
+      <Combination>
+        <Result>3</Result>
+        <Pos1>2</Pos1>
+        <Pos2>3</Pos2>
+        <Pos3>5</Pos3>
+        <Pos4>0</Pos4>
+        <Pos5>0</Pos5>
+      </Combination>
+      <Combination>
+        <Result>4</Result>
+        <Pos1>2</Pos1>
+        <Pos2>4</Pos2>
+        <Pos3>5</Pos3>
+        <Pos4>0</Pos4>
+        <Pos5>0</Pos5>
+      </Combination>
+      <Combination>
+        <Result>2</Result>
+        <Pos1>2</Pos1>
+        <Pos2>3</Pos2>
+        <Pos3>6</Pos3>
+        <Pos4>0</Pos4>
+        <Pos5>0</Pos5>
+      </Combination>
+      <Combination>
+        <Result>6</Result>
+        <Pos1>2</Pos1>
+        <Pos2>4</Pos2>
+        <Pos3>6</Pos3>
+        <Pos4>0</Pos4>
+        <Pos5>0</Pos5>
+      </Combination>
+      <Combination>
+        <Result>-1</Result>
+        <Pos1>-1</Pos1>
+        <Pos2>-1</Pos2>
+        <Pos3>-1</Pos3>
+        <Pos4>-1</Pos4>
+        <Pos5>-1</Pos5>
+      </Combination>
+      <Combination>
+        <Result>-1</Result>
+        <Pos1>-1</Pos1>
+        <Pos2>-1</Pos2>
+        <Pos3>-1</Pos3>
+        <Pos4>-1</Pos4>
+        <Pos5>-1</Pos5>
+      </Combination>
+      <Combination>
+        <Result>-1</Result>
+        <Pos1>-1</Pos1>
+        <Pos2>-1</Pos2>
+        <Pos3>-1</Pos3>
+        <Pos4>-1</Pos4>
+        <Pos5>-1</Pos5>
+      </Combination>
+      <Combination>
+        <Result>6</Result>
+        <Pos1>3</Pos1>
         <Pos2>0</Pos2>
         <Pos3>0</Pos3>
         <Pos4>0</Pos4>
         <Pos5>0</Pos5>
       </Combination>
       <Combination>
-        <Result>2</Result>
-        <Pos1>1</Pos1>
-        <Pos2>3</Pos2>
-        <Pos3>0</Pos3>
-        <Pos4>0</Pos4>
-        <Pos5>0</Pos5>
-      </Combination>
-      <Combination>
-        <Result>3</Result>
-        <Pos1>1</Pos1>
-        <Pos2>4</Pos2>
-        <Pos3>0</Pos3>
-        <Pos4>0</Pos4>
-        <Pos5>0</Pos5>
-      </Combination>
-      <Combination>
-        <Result>2</Result>
-        <Pos1>2</Pos1>
-        <Pos2>3</Pos2>
-        <Pos3>0</Pos3>
-        <Pos4>0</Pos4>
-        <Pos5>0</Pos5>
-      </Combination>
-      <Combination>
-        <Result>4</Result>
-        <Pos1>2</Pos1>
-        <Pos2>4</Pos2>
-        <Pos3>0</Pos3>
-        <Pos4>0</Pos4>
-        <Pos5>0</Pos5>
-      </Combination>
-      <Combination>
-        <Result>4</Result>
-        <Pos1>1</Pos1>
-        <Pos2>5</Pos2>
-        <Pos3>0</Pos3>
-        <Pos4>0</Pos4>
-        <Pos5>0</Pos5>
-      </Combination>
-      <Combination>
-        <Result>4</Result>
-        <Pos1>1</Pos1>
-        <Pos2>6</Pos2>
-        <Pos3>0</Pos3>
-        <Pos4>0</Pos4>
-        <Pos5>0</Pos5>
-      </Combination>
-      <Combination>
-        <Result>4</Result>
-        <Pos1>2</Pos1>
-        <Pos2>5</Pos2>
-        <Pos3>0</Pos3>
-        <Pos4>0</Pos4>
-        <Pos5>0</Pos5>
-      </Combination>
-      <Combination>
-        <Result>6</Result>
-        <Pos1>2</Pos1>
-        <Pos2>6</Pos2>
-        <Pos3>0</Pos3>
-        <Pos4>0</Pos4>
-        <Pos5>0</Pos5>
-      </Combination>
-      <Combination>
         <Result>4</Result>
         <Pos1>3</Pos1>
-        <Pos2>5</Pos2>
-        <Pos3>0</Pos3>
-        <Pos4>0</Pos4>
-        <Pos5>0</Pos5>
-      </Combination>
-      <Combination>
-        <Result>4</Result>
-        <Pos1>3</Pos1>
-        <Pos2>6</Pos2>
-        <Pos3>0</Pos3>
-        <Pos4>0</Pos4>
-        <Pos5>0</Pos5>
-      </Combination>
-      <Combination>
-        <Result>6</Result>
-        <Pos1>4</Pos1>
-        <Pos2>6</Pos2>
-        <Pos3>0</Pos3>
-        <Pos4>0</Pos4>
-        <Pos5>0</Pos5>
-      </Combination>
-      <Combination>
-        <Result>4</Result>
-        <Pos1>4</Pos1>
-        <Pos2>5</Pos2>
-        <Pos3>0</Pos3>
-        <Pos4>0</Pos4>
-        <Pos5>0</Pos5>
-      </Combination>
-      <Combination>
-        <Result>4</Result>
-        <Pos1>1</Pos1>
-        <Pos2>3</Pos2>
-        <Pos3>5</Pos3>
-        <Pos4>0</Pos4>
-        <Pos5>0</Pos5>
-      </Combination>
-      <Combination>
-        <Result>4</Result>
-        <Pos1>1</Pos1>
-        <Pos2>3</Pos2>
-        <Pos3>6</Pos3>
-        <Pos4>0</Pos4>
-        <Pos5>0</Pos5>
-      </Combination>
-      <Combination>
-        <Result>4</Result>
-        <Pos1>1</Pos1>
         <Pos2>4</Pos2>
-        <Pos3>5</Pos3>
-        <Pos4>0</Pos4>
-        <Pos5>0</Pos5>
-      </Combination>
-      <Combination>
-        <Result>6</Result>
-        <Pos1>1</Pos1>
-        <Pos2>4</Pos2>
-        <Pos3>6</Pos3>
-        <Pos4>0</Pos4>
-        <Pos5>0</Pos5>
-      </Combination>
-      <Combination>
-        <Result>3</Result>
-        <Pos1>2</Pos1>
-        <Pos2>3</Pos2>
-        <Pos3>5</Pos3>
-        <Pos4>0</Pos4>
-        <Pos5>0</Pos5>
-      </Combination>
-      <Combination>
-        <Result>4</Result>
-        <Pos1>2</Pos1>
-        <Pos2>4</Pos2>
-        <Pos3>5</Pos3>
-        <Pos4>0</Pos4>
-        <Pos5>0</Pos5>
-      </Combination>
-      <Combination>
-        <Result>2</Result>
-        <Pos1>2</Pos1>
-        <Pos2>3</Pos2>
-        <Pos3>6</Pos3>
-        <Pos4>0</Pos4>
-        <Pos5>0</Pos5>
-      </Combination>
-      <Combination>
-        <Result>6</Result>
-        <Pos1>2</Pos1>
-        <Pos2>4</Pos2>
-        <Pos3>6</Pos3>
+        <Pos3>0</Pos3>
         <Pos4>0</Pos4>
         <Pos5>0</Pos5>
       </Combination>

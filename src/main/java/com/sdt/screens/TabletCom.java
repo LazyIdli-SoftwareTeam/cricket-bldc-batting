@@ -12,12 +12,15 @@ import com.sdt.logging.LogManager;
 import com.sdt.serial.HandleSerial;
 import com.sdt.system.ErrorAlert;
 import java.io.BufferedReader;
+import com.sdt.xml.HandleFile;
 import java.io.DataOutputStream;
 import java.io.InputStreamReader;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
+
+import com.sdt.xml.ScriptFiles;
 import javafx.application.Platform;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -64,14 +67,16 @@ public class TabletCom implements Runnable{
     public static ServerSocket tcp_socket = null;
     public static Socket connectionSocket = null;
     BufferedReader inFromClient = null;
-    DataOutputStream outToClient =null;
+    public static DataOutputStream outToClient =null;
     public void run(){
         System.out.println("TCP Listnetr started");
         while (active) {            
             try {
                 if(!connected){
-                    if(tcp_socket==null || !tcp_socket.isBound())
+                    if(tcp_socket==null || !tcp_socket.isBound()) {
                         tcp_socket = new ServerSocket(HandleEvents.generalSettings.getTcp_port());
+                        System.out.println("port "  +  HandleEvents.generalSettings.getTcp_port());
+                    }
                     connectionSocket = tcp_socket.accept();
                     System.out.println("Client connected "+connectionSocket.getInetAddress());
                     inFromClient =  new BufferedReader(new InputStreamReader(connectionSocket.getInputStream()));
@@ -102,6 +107,7 @@ public class TabletCom implements Runnable{
     }
     public void process_json_cmd(String readval){
         try {
+            System.out.println("readval" + readval);
             JSONParser parser = new JSONParser();
             //System.out.println(readval);
             if(readval==null){
@@ -116,7 +122,8 @@ public class TabletCom implements Runnable{
             response.put("machine_id", HandleEvents.generalSettings.getAutoScotringBean().getSerial_no());
             response.put("speed", HandleEvents.machineDataBean.getSet_speed());
             switch(command){
-                case "init":                     
+                case "init":
+                    System.out.println("init recived");
                     if(HandleEvents.game_mode==Variables.game_mode_sp){
                         //{"command":"init","machineId":"machine_1","type":"single"
                         //,"data":[{"customerId":"customer1","nickName":"nickname1","gameLevel":"Beginner/Intermediate/Club Player/Professional","totalOvers":2,"bowlSelect":"Auto/Manual"}]}
@@ -181,6 +188,7 @@ public class TabletCom implements Runnable{
                 case "action":
                     switch(type){
                         case "single":
+                            System.out.println("commamnd");
                             if(request.get("data")==null){
                                 //HandleEvents.handleEvent(Variables.mode_sellection, Variables.game_mode_sp);
                                 HomeScreen1.this_obj.changeScreen(Variables.game_mode_sp);
@@ -193,6 +201,8 @@ public class TabletCom implements Runnable{
                                     JSONObject player = (JSONObject)array.get(0);
                                     SinglePlayerScreen.bplayer_id.setText(player.get("customerId").toString());
                                     SinglePlayerScreen.bplayer_name.setText(player.get("nickName").toString());
+//                                    System.out.println(player.get("skill").toString());
+//                                    System
 //                                    SinglePlayerScreen.bplayer_skill.selectValue(player.get("gameLevel").toString());
                                     SinglePlayerScreen.bplayer_skill.selectValue(Integer.parseInt(player.get("hand").toString()),Integer.parseInt(player.get("skill").toString()));
                                     SinglePlayerScreen.no_of_overs.getValueFactory().setValue(Integer.parseInt(player.get("totalOvers").toString()));
@@ -200,6 +210,8 @@ public class TabletCom implements Runnable{
                                     response.put("type", "started");
                                     HandleEvents.handleEvent(Variables.button_type_start, 0);
                                 } catch (Exception e) {
+                                    e.printStackTrace();
+                                    System.out.println(e);
                                     response.put("type", "error");
                                 }
                                 
@@ -240,6 +252,13 @@ public class TabletCom implements Runnable{
                             response.put("type", "paused");
                             break;
                         case "play":
+//                            HandleEvents.initData();
+//
+//                            HandleFile.readData();
+
+                            ScriptFiles.loadScripts();
+//                            bowler_pos = generalSettings.getDefault_bowler();
+//                            workingDir = System.getProperty("user.dir");
                             HandleEvents.handleEvent(Variables.button_type_play, 0);
                             response.put("type", "playing");
                             break;

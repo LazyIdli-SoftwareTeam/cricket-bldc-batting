@@ -1,171 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <MainData>
   <BallInfo>
-    <BallData>
-      <index>0</index>
-      <bowler_path>C:\cricket simulator\Media\bowler\fast</bowler_path>
-      <ball_release>1950</ball_release>
-      <ball_speed_1>70</ball_speed_1>
-      <ball_speed_2>200</ball_speed_2>
-      <ball_speed_3>200</ball_speed_3>
-      <ball_speed_4>280</ball_speed_4>
-      <tilt>3500</tilt>
-      <pan>2900</pan>
-      <left>1300</left>
-      <right>1700</right>
-    </BallData>
-    <BallData>
-      <index>1</index>
-      <bowler_path>C:\cricket simulator\Media\bowler\fast</bowler_path>
-      <ball_release>1950</ball_release>
-      <ball_speed_1>70</ball_speed_1>
-      <ball_speed_2>200</ball_speed_2>
-      <ball_speed_3>200</ball_speed_3>
-      <ball_speed_4>280</ball_speed_4>
-      <tilt>3500</tilt>
-      <pan>2900</pan>
-      <left>1300</left>
-      <right>1700</right>
-    </BallData>
-    <BallData>
-      <index>2</index>
-      <bowler_path>C:\cricket simulator\Media\bowler\fast</bowler_path>
-      <ball_release>1950</ball_release>
-      <ball_speed_1>70</ball_speed_1>
-      <ball_speed_2>200</ball_speed_2>
-      <ball_speed_3>200</ball_speed_3>
-      <ball_speed_4>280</ball_speed_4>
-      <tilt>3500</tilt>
-      <pan>2900</pan>
-      <left>1300</left>
-      <right>1700</right>
-    </BallData>
-    <BallData>
-      <index>3</index>
-      <bowler_path>C:\cricket simulator\Media\bowler\fast</bowler_path>
-      <ball_release>1950</ball_release>
-      <ball_speed_1>70</ball_speed_1>
-      <ball_speed_2>200</ball_speed_2>
-      <ball_speed_3>200</ball_speed_3>
-      <ball_speed_4>280</ball_speed_4>
-      <tilt>3500</tilt>
-      <pan>2900</pan>
-      <left>1300</left>
-      <right>1700</right>
-    </BallData>
-    <BallData>
-      <index>4</index>
-      <bowler_path>C:\cricket simulator\Media\bowler\fast</bowler_path>
-      <ball_release>1950</ball_release>
-      <ball_speed_1>70</ball_speed_1>
-      <ball_speed_2>200</ball_speed_2>
-      <ball_speed_3>200</ball_speed_3>
-      <ball_speed_4>280</ball_speed_4>
-      <tilt>3500</tilt>
-      <pan>2900</pan>
-      <left>1300</left>
-      <right>1700</right>
-    </BallData>
-    <BallData>
-      <index>5</index>
-      <bowler_path>C:\cricket simulator\Media\bowler\fast</bowler_path>
-      <ball_release>1950</ball_release>
-      <ball_speed_1>70</ball_speed_1>
-      <ball_speed_2>200</ball_speed_2>
-      <ball_speed_3>200</ball_speed_3>
-      <ball_speed_4>280</ball_speed_4>
-      <tilt>3500</tilt>
-      <pan>2900</pan>
-      <left>1300</left>
-      <right>1700</right>
-    </BallData>
-    <BallData>
-      <index>6</index>
-      <bowler_path>C:\cricket simulator\Media\bowler\mediumfast</bowler_path>
-      <ball_release>2150</ball_release>
-      <ball_speed_1>70</ball_speed_1>
-      <ball_speed_2>200</ball_speed_2>
-      <ball_speed_3>200</ball_speed_3>
-      <ball_speed_4>280</ball_speed_4>
-      <tilt>3300</tilt>
-      <pan>2900</pan>
-      <left>1700</left>
-      <right>1300</right>
-    </BallData>
-    <BallData>
-      <index>7</index>
-      <bowler_path>C:\cricket simulator\Media\bowler\mediumfast</bowler_path>
-      <ball_release>2150</ball_release>
-      <ball_speed_1>70</ball_speed_1>
-      <ball_speed_2>200</ball_speed_2>
-      <ball_speed_3>200</ball_speed_3>
-      <ball_speed_4>280</ball_speed_4>
-      <tilt>3300</tilt>
-      <pan>2900</pan>
-      <left>1700</left>
-      <right>1300</right>
-    </BallData>
-    <BallData>
-      <index>8</index>
-      <bowler_path>C:\cricket simulator\Media\bowler\mediumfast</bowler_path>
-      <ball_release>2150</ball_release>
-      <ball_speed_1>70</ball_speed_1>
-      <ball_speed_2>200</ball_speed_2>
-      <ball_speed_3>200</ball_speed_3>
-      <ball_speed_4>280</ball_speed_4>
-      <tilt>3300</tilt>
-      <pan>2900</pan>
-      <left>1700</left>
-      <right>1300</right>
-    </BallData>
-    <BallData>
-      <index>9</index>
-      <bowler_path>C:\cricket simulator\Media\bowler\mediumfast</bowler_path>
-      <ball_release>2150</ball_release>
-      <ball_speed_1>70</ball_speed_1>
-      <ball_speed_2>200</ball_speed_2>
-      <ball_speed_3>200</ball_speed_3>
-      <ball_speed_4>280</ball_speed_4>
-      <tilt>3300</tilt>
-      <pan>2900</pan>
-      <left>1700</left>
-      <right>1300</right>
-    </BallData>
-    <BallData>
-      <index>10</index>
-      <bowler_path>C:\cricket simulator\Media\bowler\mediumfast</bowler_path>
-      <ball_release>2150</ball_release>
-      <ball_speed_1>70</ball_speed_1>
-      <ball_speed_2>200</ball_speed_2>
-      <ball_speed_3>200</ball_speed_3>
-      <ball_speed_4>240</ball_speed_4>
-      <tilt>3300</tilt>
-      <pan>2900</pan>
-      <left>1700</left>
-      <right>1300</right>
-    </BallData>
-    <BallData>
-      <index>11</index>
-      <bowler_path>C:\cricket simulator\Media\bowler\mediumfast</bowler_path>
-      <ball_release>2150</ball_release>
-      <ball_speed_1>70</ball_speed_1>
-      <ball_speed_2>200</ball_speed_2>
-      <ball_speed_3>200</ball_speed_3>
-      <ball_speed_4>280</ball_speed_4>
-      <tilt>3300</tilt>
-      <pan>2900</pan>
-      <left>1700</left>
-      <right>1300</right>
-    </BallData>
-    <BallData>
+       <BallData>
       <index>12</index>
       <bowler_path>C:\cricket simulator\Media\bowler\legspin</bowler_path>
       <ball_release>1850</ball_release>
       <ball_speed_1>70</ball_speed_1>
-      <ball_speed_2>180</ball_speed_2>
-      <ball_speed_3>180</ball_speed_3>
+      <ball_speed_2>200</ball_speed_2>
+      <ball_speed_3>200</ball_speed_3>
       <ball_speed_4>280</ball_speed_4>
-      <tilt>2900</tilt>
+      <tilt>3300</tilt>
       <pan>2900</pan>
       <left>300</left>
       <right>2700</right>
@@ -175,10 +19,10 @@
       <bowler_path>C:\cricket simulator\Media\bowler\legspin</bowler_path>
       <ball_release>1850</ball_release>
       <ball_speed_1>70</ball_speed_1>
-      <ball_speed_2>180</ball_speed_2>
-      <ball_speed_3>180</ball_speed_3>
+      <ball_speed_2>200</ball_speed_2>
+      <ball_speed_3>200</ball_speed_3>
       <ball_speed_4>280</ball_speed_4>
-      <tilt>2900</tilt>
+      <tilt>3300</tilt>
       <pan>2900</pan>
       <left>300</left>
       <right>2700</right>
@@ -188,10 +32,10 @@
       <bowler_path>C:\cricket simulator\Media\bowler\legspin</bowler_path>
       <ball_release>1850</ball_release>
       <ball_speed_1>70</ball_speed_1>
-      <ball_speed_2>180</ball_speed_2>
-      <ball_speed_3>180</ball_speed_3>
+      <ball_speed_2>200</ball_speed_2>
+      <ball_speed_3>200</ball_speed_3>
       <ball_speed_4>280</ball_speed_4>
-      <tilt>2900</tilt>
+      <tilt>3300</tilt>
       <pan>2900</pan>
       <left>300</left>
       <right>2700</right>
@@ -201,10 +45,10 @@
       <bowler_path>C:\cricket simulator\Media\bowler\legspin</bowler_path>
       <ball_release>1850</ball_release>
       <ball_speed_1>70</ball_speed_1>
-      <ball_speed_2>180</ball_speed_2>
-      <ball_speed_3>180</ball_speed_3>
+      <ball_speed_2>200</ball_speed_2>
+      <ball_speed_3>200</ball_speed_3>
       <ball_speed_4>280</ball_speed_4>
-      <tilt>2900</tilt>
+      <tilt>3300</tilt>
       <pan>2900</pan>
       <left>300</left>
       <right>2700</right>
@@ -214,10 +58,10 @@
       <bowler_path>C:\cricket simulator\Media\bowler\legspin</bowler_path>
       <ball_release>1850</ball_release>
       <ball_speed_1>70</ball_speed_1>
-      <ball_speed_2>180</ball_speed_2>
-      <ball_speed_3>180</ball_speed_3>
+      <ball_speed_2>200</ball_speed_2>
+      <ball_speed_3>200</ball_speed_3>
       <ball_speed_4>280</ball_speed_4>
-      <tilt>2900</tilt>
+      <tilt>3300</tilt>
       <pan>2900</pan>
       <left>300</left>
       <right>2700</right>
@@ -227,10 +71,10 @@
       <bowler_path>C:\cricket simulator\Media\bowler\legspin</bowler_path>
       <ball_release>1850</ball_release>
       <ball_speed_1>70</ball_speed_1>
-      <ball_speed_2>180</ball_speed_2>
-      <ball_speed_3>180</ball_speed_3>
+      <ball_speed_2>200</ball_speed_2>
+      <ball_speed_3>200</ball_speed_3>
       <ball_speed_4>280</ball_speed_4>
-      <tilt>2900</tilt>
+      <tilt>3300</tilt>
       <pan>2900</pan>
       <left>300</left>
       <right>2700</right>
@@ -240,10 +84,10 @@
       <bowler_path>C:\cricket simulator\Media\bowler\offspin</bowler_path>
       <ball_release>2150</ball_release>
       <ball_speed_1>70</ball_speed_1>
-      <ball_speed_2>180</ball_speed_2>
-      <ball_speed_3>180</ball_speed_3>
+      <ball_speed_2>200</ball_speed_2>
+      <ball_speed_3>200</ball_speed_3>
       <ball_speed_4>280</ball_speed_4>
-      <tilt>2900</tilt>
+      <tilt>3300</tilt>
       <pan>2700</pan>
       <left>2800</left>
       <right>100</right>
@@ -253,10 +97,10 @@
       <bowler_path>C:\cricket simulator\Media\bowler\offspin</bowler_path>
       <ball_release>2150</ball_release>
       <ball_speed_1>70</ball_speed_1>
-      <ball_speed_2>180</ball_speed_2>
-      <ball_speed_3>180</ball_speed_3>
+      <ball_speed_2>200</ball_speed_2>
+      <ball_speed_3>200</ball_speed_3>
       <ball_speed_4>280</ball_speed_4>
-      <tilt>2900</tilt>
+      <tilt>3300</tilt>
       <pan>2700</pan>
       <left>2800</left>
       <right>100</right>
@@ -266,10 +110,10 @@
       <bowler_path>C:\cricket simulator\Media\bowler\offspin</bowler_path>
       <ball_release>2150</ball_release>
       <ball_speed_1>70</ball_speed_1>
-      <ball_speed_2>180</ball_speed_2>
-      <ball_speed_3>180</ball_speed_3>
+      <ball_speed_2>200</ball_speed_2>
+      <ball_speed_3>200</ball_speed_3>
       <ball_speed_4>280</ball_speed_4>
-      <tilt>2900</tilt>
+      <tilt>3300</tilt>
       <pan>2700</pan>
       <left>2800</left>
       <right>100</right>
@@ -279,10 +123,10 @@
       <bowler_path>C:\cricket simulator\Media\bowler\offspin</bowler_path>
       <ball_release>2150</ball_release>
       <ball_speed_1>70</ball_speed_1>
-      <ball_speed_2>180</ball_speed_2>
-      <ball_speed_3>180</ball_speed_3>
+      <ball_speed_2>200</ball_speed_2>
+      <ball_speed_3>200</ball_speed_3>
       <ball_speed_4>280</ball_speed_4>
-      <tilt>2900</tilt>
+      <tilt>3300</tilt>
       <pan>2700</pan>
       <left>2800</left>
       <right>100</right>
@@ -292,10 +136,10 @@
       <bowler_path>C:\cricket simulator\Media\bowler\offspin</bowler_path>
       <ball_release>2150</ball_release>
       <ball_speed_1>70</ball_speed_1>
-      <ball_speed_2>180</ball_speed_2>
-      <ball_speed_3>180</ball_speed_3>
+      <ball_speed_2>200</ball_speed_2>
+      <ball_speed_3>200</ball_speed_3>
       <ball_speed_4>280</ball_speed_4>
-      <tilt>2900</tilt>
+      <tilt>3300</tilt>
       <pan>2700</pan>
       <left>2800</left>
       <right>100</right>
@@ -305,10 +149,10 @@
       <bowler_path>C:\cricket simulator\Media\bowler\offspin</bowler_path>
       <ball_release>2150</ball_release>
       <ball_speed_1>70</ball_speed_1>
-      <ball_speed_2>180</ball_speed_2>
-      <ball_speed_3>180</ball_speed_3>
+      <ball_speed_2>200</ball_speed_2>
+      <ball_speed_3>200</ball_speed_3>
       <ball_speed_4>280</ball_speed_4>
-      <tilt>2900</tilt>
+      <tilt>3300</tilt>
       <pan>2700</pan>
       <left>2800</left>
       <right>100</right>
@@ -318,10 +162,10 @@
       <bowler_path>C:\cricket simulator\Media\bowler\fast</bowler_path>
       <ball_release>1950</ball_release>
       <ball_speed_1>70</ball_speed_1>
-      <ball_speed_2>240</ball_speed_2>
-      <ball_speed_3>240</ball_speed_3>
+      <ball_speed_2>200</ball_speed_2>
+      <ball_speed_3>200</ball_speed_3>
       <ball_speed_4>280</ball_speed_4>
-      <tilt>3100</tilt>
+      <tilt>3300</tilt>
       <pan>2700</pan>
       <left>1800</left>
       <right>1800</right>
@@ -331,10 +175,10 @@
       <bowler_path>C:\cricket simulator\Media\bowler\fast</bowler_path>
       <ball_release>1950</ball_release>
       <ball_speed_1>70</ball_speed_1>
-      <ball_speed_2>240</ball_speed_2>
-      <ball_speed_3>240</ball_speed_3>
+      <ball_speed_2>200</ball_speed_2>
+      <ball_speed_3>200</ball_speed_3>
       <ball_speed_4>280</ball_speed_4>
-      <tilt>3100</tilt>
+      <tilt>3300</tilt>
       <pan>2700</pan>
       <left>1800</left>
       <right>1800</right>
@@ -344,10 +188,10 @@
       <bowler_path>C:\cricket simulator\Media\bowler\fast</bowler_path>
       <ball_release>1950</ball_release>
       <ball_speed_1>70</ball_speed_1>
-      <ball_speed_2>240</ball_speed_2>
-      <ball_speed_3>240</ball_speed_3>
+      <ball_speed_2>200</ball_speed_2>
+      <ball_speed_3>200</ball_speed_3>
       <ball_speed_4>280</ball_speed_4>
-      <tilt>3100</tilt>
+      <tilt>3300</tilt>
       <pan>2700</pan>
       <left>1800</left>
       <right>1800</right>
@@ -357,10 +201,10 @@
       <bowler_path>C:\cricket simulator\Media\bowler\fast</bowler_path>
       <ball_release>1950</ball_release>
       <ball_speed_1>70</ball_speed_1>
-      <ball_speed_2>240</ball_speed_2>
-      <ball_speed_3>240</ball_speed_3>
+      <ball_speed_2>200</ball_speed_2>
+      <ball_speed_3>200</ball_speed_3>
       <ball_speed_4>280</ball_speed_4>
-      <tilt>3100</tilt>
+      <tilt>3300</tilt>
       <pan>2700</pan>
       <left>1800</left>
       <right>1800</right>
@@ -370,10 +214,10 @@
       <bowler_path>C:\cricket simulator\Media\bowler\fast</bowler_path>
       <ball_release>1950</ball_release>
       <ball_speed_1>70</ball_speed_1>
-      <ball_speed_2>240</ball_speed_2>
-      <ball_speed_3>240</ball_speed_3>
+      <ball_speed_2>200</ball_speed_2>
+      <ball_speed_3>200</ball_speed_3>
       <ball_speed_4>280</ball_speed_4>
-      <tilt>3100</tilt>
+      <tilt>3300</tilt>
       <pan>2700</pan>
       <left>1800</left>
       <right>1800</right>
@@ -383,10 +227,10 @@
       <bowler_path>C:\cricket simulator\Media\bowler\fast</bowler_path>
       <ball_release>1950</ball_release>
       <ball_speed_1>70</ball_speed_1>
-      <ball_speed_2>240</ball_speed_2>
-      <ball_speed_3>240</ball_speed_3>
+      <ball_speed_2>200</ball_speed_2>
+      <ball_speed_3>200</ball_speed_3>
       <ball_speed_4>280</ball_speed_4>
-      <tilt>3100</tilt>
+      <tilt>3300</tilt>
       <pan>2700</pan>
       <left>1800</left>
       <right>1800</right>

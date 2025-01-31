@@ -83,7 +83,12 @@ public class HandleEvents {
                     backup_bowler_pos = subtype;
                     bowler_path=generalSettings.getModeData().getBowler_path()[bowler_pos-1];
                     bowler_trigger = generalSettings.getModeData().getTrigger_interval()[bowler_pos-1];
+//                    generalSettings.getModeData().setBowler_path(bowler_pos);
+                    //NextBall.ballBean.setBowler_path(bowler_path);
                     MediaStageNew.this_obj.handleBowling(Variables.bowler_intro);
+                    System.out.println("intro " + Variables.bowler_intro);
+                    System.out.println("path " + bowler_path);
+                    System.out.println("positiion " + bowler_pos);
                     if(game_status == Variables.game_status_paused){
                         game_status = prev_game_status;
                     }

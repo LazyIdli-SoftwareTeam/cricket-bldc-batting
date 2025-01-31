@@ -7,9 +7,14 @@ package com.sdt.serial;
 
 import com.sdt.displaycomponents.SpeedButton1;
 import com.sdt.screens.NextBall;
+import com.sdt.screens.TabletCom;
 import javafx.application.Platform;
 import jssc.SerialPort;
+import org.json.simple.JSONObject;
 import zapcricketsimulator.HandleEvents;
+
+import java.io.DataOutputStream;
+import java.io.IOException;
 
 /**
  *
@@ -36,7 +41,10 @@ public class HandleSerial {
     public static final int bowler6_update = 0xF6;
     public static final int bowler7_update = 0xF7;
     public static final int bowler8_update = 0xF8;
-    
+
+    public HandleSerial() throws IOException {
+    }
+
     public static byte[] getCmd(int cmd , byte [] data,int data_len){
         byte [] cmd_data = new byte[5+data_len];    
         cmd_data[0] = '#';
@@ -99,7 +107,8 @@ public class HandleSerial {
         }
     }
 
-    public static void initSerial(String port){        
+    public static void initSerial(String port){
+
         USB_Com.Connect(port, HandleEvents.generalSettings.getBaudrate(), SerialPort.DATABITS_8, SerialPort.STOPBITS_1, SerialPort.PARITY_NONE);        
         new SerialReceive();
         if(USB_Com.status){
@@ -110,6 +119,7 @@ public class HandleSerial {
     }
     public static boolean ball_released = false;
     public static boolean closing = false;
+
     public static void handleCom(int type){
         if(!USB_Com.status)
             return;
@@ -122,6 +132,11 @@ public class HandleSerial {
                 //USB_Com.WriteData(data);
                 data1=getCmd1(ball_release, null, 0);
                 System.out.println("ball realesed");
+                try {
+                    TabletCom.outToClient.writeByte(64);
+                } catch ( Exception e) {
+                    e.printStackTrace();
+                }
                 USB_Com.WriteData(data1);
                 if(HandleEvents.generalSettings.getAuto_scoring_enable()==1)
                     ball_released=true;               

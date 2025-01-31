@@ -36,7 +36,7 @@ public class GeneralSettingsBean {
     int max_replay_delay = 2000;
     boolean skill_test=false;
     int skill_test_value=10;
-    int baudrate =57600;
+    int baudrate = 57600;
     int tcp_port = 9999;
     boolean play_sixer_video = true;
     boolean play_wicket_video = true;
