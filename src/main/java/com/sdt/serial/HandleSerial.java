@@ -126,20 +126,23 @@ public class HandleSerial {
         byte data [] = new byte[1];
         byte data1 [] = new byte[4];
         switch(type){
-            case ball_release:                
-                //data[0]=(byte)ball_release;
-                //Calendar cal = Calendar.getInstance();
-                //USB_Com.WriteData(data);
-                data1=getCmd1(ball_release, null, 0);
-                System.out.println("ball realesed");
+            case ball_release:
                 try {
-                    TabletCom.outToClient.writeByte(64);
-                } catch ( Exception e) {
+
+                    data1 = getCmd1(ball_release, null, 0);
+                    System.out.println("ball realesed");
+                    if (TabletCom.connectionSocket != null) {
+                        DataOutputStream outToClient = new DataOutputStream(TabletCom.connectionSocket.getOutputStream());
+                        outToClient.write(64 + '\r');
+                        outToClient.flush();
+                    }
+                    USB_Com.WriteData(data1);
+                    if (HandleEvents.generalSettings.getAuto_scoring_enable() == 1)
+                        ball_released = true;
+                } catch (Exception e) {
                     e.printStackTrace();
+                    System.out.println("error in release");
                 }
-                USB_Com.WriteData(data1);
-                if(HandleEvents.generalSettings.getAuto_scoring_enable()==1)
-                    ball_released=true;               
                 break;
             case read_data:
                 data1=getCmd1(read_data, null, 0);
@@ -148,7 +151,7 @@ public class HandleSerial {
             case ball_init:
                 data1=getCmd1(ball_init, null, 0);
                 System.out.println("ball init");
-                USB_Com.WriteData(data1);
+                 USB_Com.WriteData(data1);
                 break;
             case power_on:
                 //System.out.println(HandleEvents.machineDataBean.getSet_speed());
@@ -163,10 +166,7 @@ public class HandleSerial {
                 }
                 USB_Com.WriteData(data1);
                 break;
-            case skill_test://handles by software
-               /* byte [] cmd_data2 = {(byte)HandleEvents.generalSettings.getSkill_test()};
-                data1=getCmd(skill_test, cmd_data2,1);
-                USB_Com.WriteData(data1);*/
+            case skill_test:
                 break;
             case update_mode:{
                 byte [] cmd_data3 = {(byte)NextBall.temp_mode};
@@ -181,9 +181,7 @@ public class HandleSerial {
                 byte speed_byte2 = (byte)(speed_value);
                 byte [] cmd_data = {(byte)speed,speed_byte1,speed_byte2,speed_byte1,speed_byte2,0,0};
                 data1=getCmd1(update_speed, cmd_data, 7);
-                /*data1[1]=(byte)HandleEvents.current_speed;
-                data1[2]=(byte)HandleEvents.current_speed;
-                data1[3]=(byte)0xDF;*/
+
                 USB_Com.WriteData(data1);
                 Platform.runLater(new Runnable() {
                     @Override

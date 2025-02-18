@@ -2,94 +2,94 @@
 <MainData>
   <BallInfo>
     <BallData>
-      <index>6</index>
-      <bowler_path>C:\cricket simulator\Media\bowler\legspin</bowler_path>
-      <ball_release>1850</ball_release>
+      <index>0</index>
+      <bowler_path>C:\cricket simulator\Media\bowler\fast</bowler_path>
+      <ball_release>1950</ball_release>
       <ball_speed_1>70</ball_speed_1>
-      <ball_speed_2>200</ball_speed_2>
-      <ball_speed_3>200</ball_speed_3>
+      <ball_speed_2>180</ball_speed_2>
+      <ball_speed_3>180</ball_speed_3>
       <ball_speed_4>280</ball_speed_4>
       <Level>Backyard</Level>
       <hand>left</hand>
       <tilt>2500</tilt>
-      <pan>3400</pan>
-      <left>200</left>
-      <right>2600</right>
+      <pan>3100</pan>
+      <left>1700</left>
+      <right>1700</right>
     </BallData>
     <BallData>
-      <index>7</index>
-      <bowler_path>C:\cricket simulator\Media\bowler\legspin</bowler_path>
-      <ball_release>1850</ball_release>
+      <index>1</index>
+      <bowler_path>C:\cricket simulator\Media\bowler\fast</bowler_path>
+      <ball_release>1950</ball_release>
       <ball_speed_1>70</ball_speed_1>
-      <ball_speed_2>200</ball_speed_2>
-      <ball_speed_3>200</ball_speed_3>
+      <ball_speed_2>180</ball_speed_2>
+      <ball_speed_3>180</ball_speed_3>
       <ball_speed_4>280</ball_speed_4>
       <Level>Backyard</Level>
       <hand>left</hand>
       <tilt>2500</tilt>
-      <pan>3400</pan>
-      <left>200</left>
-      <right>2600</right>
+      <pan>3100</pan>
+      <left>1700</left>
+      <right>1700</right>
     </BallData>
     <BallData>
-      <index>8</index>
-      <bowler_path>C:\cricket simulator\Media\bowler\legspin</bowler_path>
-      <ball_release>1850</ball_release>
+      <index>2</index>
+      <bowler_path>C:\cricket simulator\Media\bowler\fast</bowler_path>
+      <ball_release>1950</ball_release>
       <ball_speed_1>70</ball_speed_1>
-      <ball_speed_2>200</ball_speed_2>
-      <ball_speed_3>200</ball_speed_3>
+      <ball_speed_2>180</ball_speed_2>
+      <ball_speed_3>180</ball_speed_3>
       <ball_speed_4>280</ball_speed_4>
       <Level>Backyard</Level>
       <hand>left</hand>
       <tilt>2500</tilt>
-      <pan>3400</pan>
-      <left>200</left>
-      <right>2600</right>
+      <pan>3100</pan>
+      <left>1700</left>
+      <right>1700</right>
     </BallData>
     <BallData>
-      <index>9</index>
-      <bowler_path>C:\cricket simulator\Media\bowler\legspin</bowler_path>
-      <ball_release>1850</ball_release>
+      <index>3</index>
+      <bowler_path>C:\cricket simulator\Media\bowler\fast</bowler_path>
+      <ball_release>1950</ball_release>
       <ball_speed_1>70</ball_speed_1>
-      <ball_speed_2>200</ball_speed_2>
-      <ball_speed_3>200</ball_speed_3>
+      <ball_speed_2>180</ball_speed_2>
+      <ball_speed_3>180</ball_speed_3>
       <ball_speed_4>280</ball_speed_4>
       <Level>Backyard</Level>
       <hand>left</hand>
       <tilt>2500</tilt>
-      <pan>3400</pan>
-      <left>200</left>
-      <right>2600</right>
+      <pan>3100</pan>
+      <left>1700</left>
+      <right>1700</right>
     </BallData>
     <BallData>
-      <index>10</index>
-      <bowler_path>C:\cricket simulator\Media\bowler\legspin</bowler_path>
-      <ball_release>1850</ball_release>
+      <index>4</index>
+      <bowler_path>C:\cricket simulator\Media\bowler\fast</bowler_path>
+      <ball_release>1950</ball_release>
       <ball_speed_1>70</ball_speed_1>
-      <ball_speed_2>200</ball_speed_2>
-      <ball_speed_3>200</ball_speed_3>
+      <ball_speed_2>180</ball_speed_2>
+      <ball_speed_3>180</ball_speed_3>
       <ball_speed_4>280</ball_speed_4>
       <Level>Backyard</Level>
       <hand>left</hand>
       <tilt>2500</tilt>
-      <pan>3400</pan>
-      <left>200</left>
-      <right>2600</right>
+      <pan>3100</pan>
+      <left>1700</left>
+      <right>1700</right>
     </BallData>
     <BallData>
-      <index>11</index>
-      <bowler_path>C:\cricket simulator\Media\bowler\legspin</bowler_path>
-      <ball_release>1850</ball_release>
+      <index>5</index>
+      <bowler_path>C:\cricket simulator\Media\bowler\fast</bowler_path>
+      <ball_release>1950</ball_release>
       <ball_speed_1>70</ball_speed_1>
-      <ball_speed_2>200</ball_speed_2>
-      <ball_speed_3>200</ball_speed_3>
+      <ball_speed_2>180</ball_speed_2>
+      <ball_speed_3>180</ball_speed_3>
       <ball_speed_4>280</ball_speed_4>
       <Level>Backyard</Level>
       <hand>left</hand>
       <tilt>2500</tilt>
-      <pan>3400</pan>
-      <left>200</left>
-      <right>2600</right>
+      <pan>3100</pan>
+      <left>1700</left>
+      <right>1700</right>
     </BallData>
   </BallInfo>
 </MainData>

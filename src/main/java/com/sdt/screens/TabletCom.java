@@ -67,7 +67,7 @@ public class TabletCom implements Runnable{
     public static ServerSocket tcp_socket = null;
     public static Socket connectionSocket = null;
     BufferedReader inFromClient = null;
-    public static DataOutputStream outToClient =null;
+    DataOutputStream outToClient =null;
     public void run(){
         System.out.println("TCP Listnetr started");
         while (active) {            
@@ -136,7 +136,7 @@ public class TabletCom implements Runnable{
                             PlayerGameBean playerbean = HandleEvents.gameBean.getPlayer_data().get(0);
                             player.put("customerId",playerbean.getPlayer_id());
                             player.put("nickName",playerbean.getPlayer_name());
-                            player.put("gameLevel",SinglePlayerScreen.bplayer_skill.getValue().toString());
+                            player.put("gameLevel",  SinglePlayerScreen.bplayer_skill.getValue().toString());
 //                            player.put("gameLevel",MultiPlayerScreen.skill_levels.get(playerbean.getSkill_level()-1).getValue());
                             player.put("totalOvers",HandleEvents.gameBean.getNo_of_overs_each());
                             player.put("bowlSelect",SinglePlayerScreen.boler_select.get(HandleEvents.gameBean.getBowler_selection()).getValue());
@@ -211,7 +211,7 @@ public class TabletCom implements Runnable{
                                     HandleEvents.handleEvent(Variables.button_type_start, 0);
                                 } catch (Exception e) {
                                     e.printStackTrace();
-                                    System.out.println(e);
+                                    System.out.println("error 12" + e);
                                     response.put("type", "error");
                                 }
                                 
@@ -248,6 +248,7 @@ public class TabletCom implements Runnable{
                             }
                             break;
                         case "pause":
+                            System.out.println("puased event");
                             HandleEvents.handleEvent(Variables.button_type_pause, 0);
                             response.put("type", "paused");
                             break;
@@ -423,7 +424,7 @@ public class TabletCom implements Runnable{
                     break;
                 case "result":
                     response.put("type", type);
-                    System.out.println(type);
+                    System.out.println("result type  " + type);
                     switch(type){
                         case "1LEG":
                             HandleEvents.handleEvent(Variables.button_type_result_runs_leg, 1);

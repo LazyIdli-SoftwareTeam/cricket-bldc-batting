@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<MainData>
+  <BallInfo>
+    <BallData>
+      <index>0</index>
+      <bowler_path>C:\cricket simulator\Media\bowler\fast</bowler_path>
+      <ball_release>1800</ball_release>
+      <ball_speed_1>60</ball_speed_1>
+      <ball_speed_2>350</ball_speed_2>
+      <ball_speed_3>350</ball_speed_3>
+      <ball_speed_4>350</ball_speed_4>
+      <tilt>1500</tilt>
+      <pan>2400</pan>
+      <left>2400</left>
+      <right>400</right>
+    </BallData>
+    <BallData>
+      <index>1</index>
+      <bowler_path>C:\cricket simulator\Media\bowler\fast</bowler_path>
+      <ball_release>1800</ball_release>
+      <ball_speed_1>65</ball_speed_1>
+      <ball_speed_2>350</ball_speed_2>
+      <ball_speed_3>350</ball_speed_3>
+      <ball_speed_4>350</ball_speed_4>
+      <tilt>800</tilt>
+      <pan>3400</pan>
+      <left>2400</left>
+      <right>400</right>
+    </BallData>
+  </BallInfo>
+</MainData>

@@ -35,7 +35,7 @@ public class TCPClient {
                 DpReceive = new DatagramPacket(receive, receive.length);
                 ds.receive(DpReceive);
                 String packet = data(receive).toString();
-                System.out.println(packet);
+                System.out.println("packet" + packet);
                 if(packet.indexOf("SDT")>=0){
                     String ipaddress = DpReceive.getAddress().getHostAddress();
                     System.out.println(ipaddress);
@@ -53,7 +53,6 @@ public class TCPClient {
                     inFromServer.read(data);
                     int prefix_len = 5;//HandleEvents.generalSettings.getAutoScotringBean().getSerial_no().length();
                     //sequences.clear();                    
-                    System.out.println();
                     datavals = "";
                     for(int i=0;i<20;i++){
                         int start = (i*4)+prefix_len;

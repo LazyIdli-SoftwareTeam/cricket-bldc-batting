@@ -185,7 +185,7 @@ public class SinglePlayerScreen {
             bplayer_skill.setLayoutX(width*0.2);
             bplayer_skill.setLayoutY(height*0.605);
             pane.getChildren().add(bplayer_skill);
-            System.out.println(bplayer_skill.getValue());
+            System.out.println("player skill " + bplayer_skill.getValue());
             /*bPlayer_mob= new CTextField_Data("",16);
             bPlayer_mob.setLayoutX(width*0.225);
             bPlayer_mob.setLayoutY(height*0.605);

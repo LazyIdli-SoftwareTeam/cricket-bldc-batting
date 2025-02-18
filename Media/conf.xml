@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ZAPCricketSimulator UpdatedOn="Fri Jan 31 17:30:00 IST 2025" version="V2.15">
+<ZAPCricketSimulator UpdatedOn="Fri Feb 14 18:35:10 IST 2025" version="V2.15">
   <GeneralSettings>
     <KeypadEnable>false</KeypadEnable>
-    <TestMode>true</TestMode>
+    <TestMode>false</TestMode>
     <TabletEnable>true</TabletEnable>
     <TCPPort>9998</TCPPort>
     <ReplayEnable>false</ReplayEnable>
-    <ReplayDuration>3000</ReplayDuration>
+    <ReplayDuration>1500</ReplayDuration>
     <ReplayFormat>libx264</ReplayFormat>
     <CameraIP>192.168.0.64</CameraIP>
     <CameraPort>554</CameraPort>
