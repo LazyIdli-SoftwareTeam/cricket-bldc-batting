@@ -125,7 +125,7 @@ public class MediaStageNew extends Stage {
     public static int screen_status = -1;
    
     public void clearScreen(){
-        System.out.println("clearing screen");
+        //System.out.println("clearing screen");
         try {
             /*int index=0;
             int i=0;
@@ -148,7 +148,7 @@ public class MediaStageNew extends Stage {
     static ArrayList<String> video_seq = new ArrayList<String>();
     static File video = null;
     public void handleScore(int type , int sub_type,boolean replay){
-        System.out.println("handling score");
+        //System.out.println("handling score");
         try {            
             clearScreen();            
             switch(type){
@@ -252,10 +252,10 @@ public class MediaStageNew extends Stage {
             if(video_seq.size()>0){
                 video = new File(video_seq.remove(0));
                 loadVideo(video);
-                System.out.println("added target and loaded");
+                //System.out.println("added target and loaded");
                 doMediaSeq();
             }else {
-                System.out.println("bro size is the issye " + video_seq.size());
+                //System.out.println("bro size is the issye " + video_seq.size());
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -371,7 +371,7 @@ public class MediaStageNew extends Stage {
                 loadVideo(video);
                 doMediaSeq();
             } else {
-                System.out.println("bro size here is the issey " + video_seq.size());
+                //System.out.println("bro size here is the issey " + video_seq.size());
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -510,7 +510,7 @@ public class MediaStageNew extends Stage {
     public static boolean init_player = false;
     public boolean doMediaSeq(){
         for (int i = 0; i< video_seq.size(); i++) {
-            System.out.println(" vid " + video_seq.get(i).toString());
+            //System.out.println(" vid " + video_seq.get(i).toString());
         }
         try {
             ms1 = Calendar.getInstance().getTimeInMillis();
@@ -519,7 +519,7 @@ public class MediaStageNew extends Stage {
                 @Override
                 public void run() {                    
                     try {
-                        System.out.println("error playing "+mp.getError().getMessage());
+                        //System.out.println("error playing "+mp.getError().getMessage());
                         LogManager.logError("error playing "+mp.getError().getMessage());
                         if(current_video!=null){                            
                             loadVideo(current_video);                            
@@ -537,7 +537,7 @@ public class MediaStageNew extends Stage {
                 }                    
             });
             if(current_video.getPath().contains("bowling")){
-                System.out.println("bowlimnggggg");
+                //System.out.println("bowlimnggggg");
                 markers = m.getMarkers();
                 markers.put("INTERVAL", Duration.millis(NextBall.ballBean.getBall_release()));
                 mp.setOnMarker(new EventHandler<MediaMarkerEvent>() 
@@ -576,32 +576,32 @@ public class MediaStageNew extends Stage {
                                     if(video.length()>HandleEvents.generalSettings.getMin_file_size()){
                                         ready=true;
                                     } else {
-                                        System.out.println("file size is very small");
+                                        //System.out.println("file size is very small");
                                     }
                                 }
-                                System.out.println("readty " +  ready);
+                                //System.out.println("readty " +  ready);
                                 if(!ready){
-                                    System.out.println("here sleeping for 2 seconds");
+                                    //System.out.println("here sleeping for 2 seconds");
                                     Thread.sleep(HandleEvents.generalSettings.getMax_replay_delay());
-                                    System.out.println("woke up sleeping for 2 seconds");
+                                    //System.out.println("woke up sleeping for 2 seconds");
 
                                     if(video.exists()&&video.isFile()){
                                         if(video.length()>HandleEvents.generalSettings.getMin_file_size()){
                                             ready=true;
                                         }else{
                                             LogManager.logError("Replay Video File Size "+video.length());
-                                            System.out.println("Replay Video File Size " + video.toURI().toString());
+                                            //System.out.println("Replay Video File Size " + video.toURI().toString());
                                         }
                                     } else {
-                                        System.out.println("vid not a file or does' exits " + video.toURI().toString());
+                                        //System.out.println("vid not a file or does' exits " + video.toURI().toString());
                                     }
                                     if(!ready){
                                         if(video_seq.size()!=0){
                                             path = video_seq.remove(0);
                                             video = new File(path);
-                                            System.out.println("vid removed " + video);
+                                            //System.out.println("vid removed " + video);
                                         }else{
-                                            System.out.println("empty return");
+                                            //System.out.println("empty return");
                                             return;
                                         }
                                     }
@@ -619,7 +619,7 @@ public class MediaStageNew extends Stage {
                                 Platform.runLater(new Runnable() {
                                     @Override
                                     public void run() {
-                                        System.out.println("planningggg next ballll");
+                                        //System.out.println("planningggg next ballll");
 //                                        if(game_ended)
 //                                            HandleEvents.gameBean.setSeq_pos(0);
                                         NextBall.planNextBall();
@@ -684,7 +684,7 @@ public class MediaStageNew extends Stage {
                                    }
                                }else{
                                    //report data
-                                   //System.out.println("Game Completed");
+                                   ////System.out.println("Game Completed");
                                    if(HandleEvents.generalSettings.isCloud_reporting())
                                         GameDataHandler.pushData(HandleEvents.gameBean);
                                    if(HandleEvents.game_mode==Variables.game_mode_mp)
@@ -706,7 +706,7 @@ public class MediaStageNew extends Stage {
                                        doMediaLoop();
                                    }
                                }else if(error_status==Variables.button_type_ball_error){
-                                    System.out.println("ball error");
+                                    //System.out.println("ball error");
                                }
                            }else if(current_video.getPath().contains("WelcomePlayer")&&init_player){
                                init_player=false;
@@ -1191,7 +1191,7 @@ public class MediaStageNew extends Stage {
 
             }
             if(HandleEvents.generalSettings.isTest_mode()){
-                //System.out.println( AutoScoring.score_data+" \n "+AutoScoring.display_string);
+                ////System.out.println( AutoScoring.score_data+" \n "+AutoScoring.display_string);
                 text_5 = new TextType5(screenwidth*0.9, screenheight*0.05, AutoScoring.score_data+" , "+AutoScoring.score_time,Color.BLACK,Color.WHITE);
                 text_5.setLayoutX(screenwidth*0.05);
                 text_5.setLayoutY(screenheight*0.8);
@@ -1253,7 +1253,7 @@ public class MediaStageNew extends Stage {
                 width.bind(Bindings.selectDouble(mv.sceneProperty(), "width"));
                 height.bind(Bindings.selectDouble(mv.sceneProperty(), "height"));
 
-                System.out.println("vid  hereeeee" + video.toURI().toString());
+                //System.out.println("vid  hereeeee" + video.toURI().toString());
                 String path = video.toURI().toString();
 
                 if (!path.contains("Target") && !path.contains("Welcome")) {
@@ -1368,7 +1368,7 @@ public class MediaStageNew extends Stage {
                 }
 
                 ballBox.setLayoutX(buf + 350); // Right aligned
-                ballBox.layoutYProperty().bind(overlayBackground.yProperty().add(10));
+//                ballBox.layoutYProperty().bind(overlayBackground.yProperty().add(10));
 //                overlayBackground.setArcWidth(30); // Curve width
 //                overlayBackground.setArcHeight(30); // Curve height
 
@@ -1389,10 +1389,10 @@ public class MediaStageNew extends Stage {
                 rightBosx.setAlignment(Pos.CENTER);
                 rightBosx.layoutXProperty().bind(overlayBackground.widthProperty().subtract(150 - buf)); // Right aligned
                 rightBosx.layoutYProperty().bind(overlayBackground.yProperty().add(10));
-                    root.getChildren().addAll(overlayBackground, scoreBox, ballBox,   rightBox, rightBosx);
+//                    root.getChildren().addAll(overlayBackground, scoreBox, ballBox,   rightBox, rightBosx);
                 }
             } else {
-                System.out.println("Error loading media");
+                //System.out.println("Error loading media");
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -1411,7 +1411,7 @@ public class MediaStageNew extends Stage {
     public boolean doMediaLoop(){
         try {
             mp.play();
-            System.out.println("Video triggered");
+            //System.out.println("Video triggered");
             mp.setCycleCount(2);            
             mp.setOnError(new Runnable() {
                 @Override
@@ -1432,10 +1432,10 @@ public class MediaStageNew extends Stage {
 
                     try {
                         if(mp.getCurrentCount()>=mp.getCycleCount()-1){
-                            System.out.println("cycle1");
+                            //System.out.println("cycle1");
                             mp.setCycleCount(mp.getCurrentCount()+2);
                         } else {
-                            System.out.println("cycle2");
+                            //System.out.println("cycle2");
                         }
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -1467,7 +1467,7 @@ public class MediaStageNew extends Stage {
                m.setOnError(new Runnable() {
                     public void run() {
                         // Handle asynchronous error in Media object.
-                        System.out.println("Handle asynchronous error in Media object");
+                        //System.out.println("Handle asynchronous error in Media object");
                     }
                 });
                 mp = new MediaPlayer(m); 
@@ -1475,13 +1475,13 @@ public class MediaStageNew extends Stage {
                 /*mv.setOnError(new EventHandler() {
                      public void handle(MediaErrorEvent t) {
                          // Handle asynchronous error in MediaView.
-                         System.out.println("Handle asynchronous error in MediaView: "+ t.getMediaError());
+                         //System.out.println("Handle asynchronous error in MediaView: "+ t.getMediaError());
                      }
 
                      @Override
                      public void handle(Event arg0) {
                          // TODO Auto-generated method stub
-                         System.out.println("Handle asynchronous error in MediaView arg0: "+arg0.toString());
+                         //System.out.println("Handle asynchronous error in MediaView arg0: "+arg0.toString());
                      }
                  });*/
                 width = mv.fitWidthProperty();

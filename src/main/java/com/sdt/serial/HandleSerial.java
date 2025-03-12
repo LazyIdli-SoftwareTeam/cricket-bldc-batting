@@ -11,7 +11,9 @@ import com.sdt.screens.TabletCom;
 import javafx.application.Platform;
 import jssc.SerialPort;
 import org.json.simple.JSONObject;
+import zapcricketsimulator.AutoScoringSensors;
 import zapcricketsimulator.HandleEvents;
+import zapcricketsimulator.Variables;
 
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -113,7 +115,7 @@ public class HandleSerial {
         new SerialReceive();
         if(USB_Com.status){
              byte [] cmd1 = {35,(byte)0x12,9,1,1,0x40,33};//stop setting Request
-            System.out.print("init serial done " + cmd1);
+            // System.out.print("init serial done " + cmd1);
              USB_Com.WriteData(cmd1);
         }
     }
@@ -129,8 +131,11 @@ public class HandleSerial {
             case ball_release:
                 try {
 
+                    int temp = AutoScoringSensors.score;
+                    System.out.println("Temp" + temp);
                     data1 = getCmd1(ball_release, null, 0);
                     System.out.println("ball realesed");
+                    AutoScoringSensors.ballReleased = true;
                     if (TabletCom.connectionSocket != null) {
                         DataOutputStream outToClient = new DataOutputStream(TabletCom.connectionSocket.getOutputStream());
                         outToClient.write(64 + '\r');
@@ -139,6 +144,20 @@ public class HandleSerial {
                     USB_Com.WriteData(data1);
                     if (HandleEvents.generalSettings.getAuto_scoring_enable() == 1)
                         ball_released = true;
+                    new Thread(() -> {
+                        try {
+                            Thread.sleep(5000); // Sleep for 5 seconds
+                            if (temp == AutoScoringSensors.score) {
+                                System.out.println("no sensors detected so giving a manual score");
+                                Platform.runLater(() -> {
+                                    HandleEvents.handleEvent(Variables.button_type_result_norun, 0);
+                                });
+                            }
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    }).start();
+
                 } catch (Exception e) {
                     e.printStackTrace();
                     System.out.println("error in release");
@@ -150,7 +169,7 @@ public class HandleSerial {
                 break;
             case ball_init:
                 data1=getCmd1(ball_init, null, 0);
-                System.out.println("ball init");
+                // System.out.println("ball init");
                  USB_Com.WriteData(data1);
                 break;
             case power_on:
@@ -158,11 +177,11 @@ public class HandleSerial {
                 if(closing){
                     byte [] cmd_data1 = {0,0};
                     data1=getCmd1(power_on, cmd_data1, 2);
-                    System.out.println("power on cmd 1");
+                    // System.out.println("power on cmd 1");
                 }else{
                     byte [] cmd_data1 = {1,(byte)25};
                     data1=getCmd1(power_on, cmd_data1, 2);
-                    System.out.println("power on cmd 2");
+                    // System.out.println("power on cmd 2");
                 }
                 USB_Com.WriteData(data1);
                 break;

@@ -55,6 +55,7 @@ public class HandleEvents {
         LogManager.initLogger();
         HandleFile.readData();
         ScriptFiles.loadScripts();
+        new AutoScoringSensors(HandleEvents.generalSettings.getAutoComPort());
         bowler_pos = generalSettings.getDefault_bowler();
         workingDir = System.getProperty("user.dir"); 
         if(generalSettings.getModeData()!=null && !generalSettings.getModeData().getBowler_path()[bowler_pos-1].equals("")){
@@ -71,7 +72,7 @@ public class HandleEvents {
         
     }
     public static void handleEvent(int type ,int subtype){
-        System.out.println("type " + type);
+        //System.out.println("type " + type);
         switch(type){
             case Variables.mode_sellection:
                 game_mode = subtype;
@@ -87,9 +88,9 @@ public class HandleEvents {
 //                    generalSettings.getModeData().setBowler_path(bowler_pos);
                     //NextBall.ballBean.setBowler_path(bowler_path);
                     MediaStageNew.this_obj.handleBowling(Variables.bowler_intro);
-                    System.out.println("intro " + Variables.bowler_intro);
-                    System.out.println("path " + bowler_path);
-                    System.out.println("positiion " + bowler_pos);
+                    //System.out.println("intro " + Variables.bowler_intro);
+                    //System.out.println("path " + bowler_path);
+                    //System.out.println("positiion " + bowler_pos);
                     if(game_status == Variables.game_status_paused){
                         game_status = prev_game_status;
                     }
@@ -101,15 +102,15 @@ public class HandleEvents {
                 MediaStageNew.this_obj.handleErrorScreen(type);
                 break;
             case Variables.button_type_play:   
-                System.out.println("playing");             
+                //System.out.println("playing");             
                 //if(game_sub_status==Variables.game_sub_status_bowled){
-                //    System.out.println(MediaStageNew.mp.getStatus());
+                //    //System.out.println(MediaStageNew.mp.getStatus());
                 //}
-                //System.out.println("ball status "+machineDataBean.getBall_status());
-                //System.out.println(MediaStageNew.player_change+","+game_status+","+game_sub_status);
+                ////System.out.println("ball status "+machineDataBean.getBall_status());
+                ////System.out.println(MediaStageNew.player_change+","+game_status+","+game_sub_status);
                     
                 if(MediaStageNew.player_change){
-                    System.out.println("here 1");
+                    //System.out.println("here 1");
                     Platform.runLater(new Runnable() {
                         @Override
                         public void run() {
@@ -122,9 +123,9 @@ public class HandleEvents {
                     MediaStageNew.this_obj.initPlayerSettings();                   
                     return;
                 }else{
-                    System.out.println("here 2");
+                    //System.out.println("here 2");
                     if(machineDataBean.getBall_status()!=1){
-                        System.out.println("ball status is not 1");
+                        //System.out.println("ball status is not 1");
                         HandleSerial.handleCom(HandleSerial.ball_init);
                         try {
                             Thread.sleep(2000);
@@ -137,24 +138,24 @@ public class HandleEvents {
                     }           
 //                    MediaStageNew.error_status=0;
                     if(game_status == Variables.game_status_paused){
-                        System.out.println("previous game paused");
+                        //System.out.println("previous game paused");
                         game_status = prev_game_status;
                         MediaStageNew.this_obj.handlePlay();
                     }else if(game_status == Variables.game_status_started && game_sub_status!=Variables.game_sub_status_bowled){
-                        System.out.println("here 3");
+                        //System.out.println("here 3");
                         switch(game_mode){
                             case Variables.game_mode_sp:
-                            System.out.println("here 4");
+                            //System.out.println("here 4");
                                 if((gameBean.getNo_of_overs_each()*6)>gameBean.getPlayer_data().get(0).getBall_count()){
-                            System.out.println("here 5");
+                            //System.out.println("here 5");
                                     MediaStageNew.this_obj.handleBowling(Variables.bowler_bowling);
                                     game_sub_status=Variables.game_sub_status_bowled;
                                 }
                                 break;
                             case Variables.game_mode_mp:
-                                System.out.println("here 6");
+                                //System.out.println("here 6");
                                 if(gameBean.getSeq_pos()<gameBean.getNo_of_players()){
-                                                  System.out.println("here 7");
+                                                  //System.out.println("here 7");
                                     MediaStageNew.this_obj.handleBowling(Variables.bowler_bowling);
                                     game_sub_status=Variables.game_sub_status_bowled; 
                                 }
@@ -165,7 +166,7 @@ public class HandleEvents {
                             
                 break;
             case Variables.button_type_pause:
-                System.out.println("paused game =======================");
+                //System.out.println("paused game =======================");
                 prev_game_status = game_status;
                 game_status = Variables.game_status_paused;
                 MediaStageNew.this_obj.handlePause();
@@ -454,7 +455,7 @@ public class HandleEvents {
                             bowler_trigger = generalSettings.getModeData().getTrigger_interval()[generalSettings.getBowler_sequence2().get(0)-1];
                             HandleSerial.handleCom(0xF0+generalSettings.getBowler_sequence2().get(0));
                         }else{
-                            System.out.println("batsman changed");
+                            //System.out.println("batsman changed");
                             bowler_pos=backup_bowler_pos;
                             bowler_path=generalSettings.getModeData().getBowler_path()[bowler_pos-1];
                             bowler_trigger = generalSettings.getModeData().getTrigger_interval()[bowler_pos-1]; 
@@ -501,7 +502,7 @@ public class HandleEvents {
                         bowler_trigger = generalSettings.getModeData().getTrigger_interval()[generalSettings.getBowler_sequence2().get(0)-1];
                         //HandleSerial.handleCom(0xF0+generalSettings.getBowler_sequence2().get(0));
                     }else{
-                        //System.out.println("batsman changed");
+                        ////System.out.println("batsman changed");
                         bowler_pos=backup_bowler_pos;
                         bowler_path=generalSettings.getModeData().getBowler_path()[bowler_pos-1];
                         bowler_trigger = generalSettings.getModeData().getTrigger_interval()[bowler_pos-1]; 
@@ -512,7 +513,7 @@ public class HandleEvents {
                     gameBean.getPlayer_data().get(0).setWickets(0);
                     gameBean.getPlayer_data().get(0).getOvers().clear();
                 }
-                System.out.println("handle events 1");
+                //System.out.println("handle events 1");
                 MediaStageNew.this_obj.handlewelcome(TargetScreen.targetBean.getName());
                 game_sub_status=Variables.game_sub_status_idle;
                 break;
@@ -540,7 +541,7 @@ public class HandleEvents {
                             bowler_trigger = generalSettings.getModeData().getTrigger_interval()[generalSettings.getBowler_sequence2().get(0)-1];
                             //HandleSerial.handleCom(0xF0+generalSettings.getBowler_sequence2().get(0));
                         }else{
-                            //System.out.println("batsman changed");
+                            ////System.out.println("batsman changed");
                             bowler_pos=backup_bowler_pos;
                             bowler_path=generalSettings.getModeData().getBowler_path()[bowler_pos-1];
                             bowler_trigger = generalSettings.getModeData().getTrigger_interval()[bowler_pos-1]; 
@@ -552,19 +553,19 @@ public class HandleEvents {
                     gameBean.getPlayer_data().get(i).setWickets(0);
                     gameBean.getPlayer_data().get(i).getOvers().clear();
                 }
-                System.out.println("handle events 2");
+                //System.out.println("handle events 2");
                 MediaStageNew.this_obj.handlewelcome(TargetScreen.targetBean.getName());
                 game_sub_status=Variables.game_sub_status_idle;
                 break;
            
         }
         if(gameBean.getBowler_selection()==2 &&  generalSettings.getBowler_sequence1().size()>0){
-                            System.out.println("handle events 3");
+                            //System.out.println("handle events 3");
             bowler_path=generalSettings.getModeData().getBowler_path()[generalSettings.getBowler_sequence1().get(0)-1];
             bowler_trigger = generalSettings.getModeData().getTrigger_interval()[generalSettings.getBowler_sequence1().get(0)-1];
             HandleSerial.handleCom(0xF0+generalSettings.getBowler_sequence1().get(0)-1);
         }else if(gameBean.getBowler_selection()==3& generalSettings.getBowler_sequence2().size()>0){
-                            System.out.println("handle events 4");
+                            //System.out.println("handle events 4");
             bowler_path=generalSettings.getModeData().getBowler_path()[generalSettings.getBowler_sequence2().get(0)-1];
             bowler_trigger = generalSettings.getModeData().getTrigger_interval()[generalSettings.getBowler_sequence2().get(0)-1];
             HandleSerial.handleCom(0xF0+generalSettings.getBowler_sequence2().get(0)-1);

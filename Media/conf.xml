@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ZAPCricketSimulator UpdatedOn="Fri Feb 14 18:35:10 IST 2025" version="V2.15">
+<ZAPCricketSimulator UpdatedOn="Wed Mar 12 15:32:28 IST 2025" version="V2.15">
   <GeneralSettings>
     <KeypadEnable>false</KeypadEnable>
     <TestMode>false</TestMode>
@@ -15,17 +15,18 @@
     <DefaultBowler>1</DefaultBowler>
     <TouchScreenIndex>0</TouchScreenIndex>
     <ProjectorScreenIndex>1</ProjectorScreenIndex>
-    <ComPort>COM5</ComPort>
+    <ComPort>COM12</ComPort>
     <MatchNegativeScoring>2</MatchNegativeScoring>
     <MinFileSize>50000</MinFileSize>
     <MaxReplayDelay>2000</MaxReplayDelay>
+    <AutoScoreComPort>COM7</AutoScoreComPort>
     <SkillTest>false</SkillTest>
     <SkillTestValue>10</SkillTestValue>
     <BaudRate>115200</BaudRate>
     <AutoScoringType>2</AutoScoringType>
     <SixerVideo>false</SixerVideo>
     <WicketVideo>false</WicketVideo>
-    <CloudReporting>true</CloudReporting>
+    <CloudReporting>false</CloudReporting>
     <DefaultSpeed>45</DefaultSpeed>
     <PlayerInitTime>10</PlayerInitTime>
   </GeneralSettings>

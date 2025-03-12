@@ -53,6 +53,8 @@ public class HandleFile {
                         HandleEvents.generalSettings.setTablet_mode_enable(Boolean.parseBoolean(general_info.getChildText("TabletEnable")));
                     HandleEvents.generalSettings.setReplay_enable(Boolean.parseBoolean(general_info.getChildText("ReplayEnable")));
                     HandleEvents.generalSettings.setReplayduration_ms(new BigDecimal(general_info.getChildText("ReplayDuration")).intValue());
+                    HandleEvents.generalSettings.setAutoComPort(general_info.getChildText("AutoScoreComPort"));
+
                     try {
                         HandleEvents.generalSettings.setCamera_port(new BigDecimal(general_info.getChildText("CameraPort")).intValue());
                         HandleEvents.generalSettings.setFormat(general_info.getChildText("ReplayFormat"));
@@ -307,6 +309,8 @@ public class HandleFile {
             general_info.addContent(createElement("MatchNegativeScoring", HandleEvents.generalSettings.getMatch_negative_scoring()+""));
             general_info.addContent(createElement("MinFileSize", HandleEvents.generalSettings.getMin_file_size()+""));
             general_info.addContent(createElement("MaxReplayDelay", HandleEvents.generalSettings.getMax_replay_delay()+""));
+           general_info.addContent(createElement("AutoScoreComPort", HandleEvents.generalSettings.getAutoComPort()+""));
+
             general_info.addContent(createElement("SkillTest", HandleEvents.generalSettings.isSkill_test()+""));
             general_info.addContent(createElement("SkillTestValue", HandleEvents.generalSettings.getSkill_test_value()+""));
             general_info.addContent(createElement("BaudRate", HandleEvents.generalSettings.getBaudrate()+""));            

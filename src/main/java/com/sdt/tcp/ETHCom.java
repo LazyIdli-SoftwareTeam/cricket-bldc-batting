@@ -42,7 +42,7 @@ public class ETHCom {
                     //start threads
                     trsnsmission = new Transmission();
                     reception = new Reception();
-                    System.out.println("Ethernet Connected");
+                    // System.out.println("Ethernet Connected");
                 }else{
                     //ErrorAlert.alert("Unable to Connect Please Try Again");
                 }

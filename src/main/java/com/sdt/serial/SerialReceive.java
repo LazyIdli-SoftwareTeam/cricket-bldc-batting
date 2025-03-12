@@ -33,11 +33,11 @@ public class SerialReceive implements Runnable{
     int ctr =0;
     int req_ctr=0;
     public void processData(){
-        // System.out.println(" data received 1");
+        // //System.out.println(" data received 1");
         switch(data[2]){
             case 0xE0:
                 if(data[3]==0x08){
-                    // System.out.println(" data received 2     ");
+                    // //System.out.println(" data received 2     ");
                     HandleEvents.machineDataBean.getMotor_speed()[0]=data[5];
                     HandleEvents.machineDataBean.getMotor_speed()[1]=data[6];
                     HandleEvents.machineDataBean.getMotor_speed()[2]=data[7];
@@ -45,7 +45,7 @@ public class SerialReceive implements Runnable{
                     HandleEvents.machineDataBean.setBall_status(data[9]);
                     HandleEvents.machineDataBean.setLed_status(data[10]);
                     HandleEvents.machineDataBean.setRead_status(1);
-                    System.out.println("   data received from machine about ball status " + HandleEvents.machineDataBean.getBall_status());
+                    //System.out.println("   data received from machine about ball status " + HandleEvents.machineDataBean.getBall_status());
                 }
                 break;
             case 0x0F:
@@ -67,10 +67,10 @@ public class SerialReceive implements Runnable{
                     left_motor = (left_motor << 8) | data[8 + 1];
                     right_motor = data[9 + 1];
                     right_motor = (right_motor << 8) | data[10 + 1];
-                    System.out.println("Pan " + pan);
-                    System.out.println("Tilt " + tilt);
-                    System.out.println("Left Motor " + left_motor);
-                    System.out.println("Right Motor " + right_motor);
+                    //System.out.println("Pan " + pan);
+                    //System.out.println("Tilt " + tilt);
+                    //System.out.println("Left Motor " + left_motor);
+                    //System.out.println("Right Motor " + right_motor);
 //                    ObjectNode o = new ObjectNode();
                     JSONObject o = new JSONObject();
 
@@ -88,14 +88,14 @@ public class SerialReceive implements Runnable{
     public void run(){
         while(USB_Com.status){
             if(init_machine){
-                //System.out.println(HandleEvents.machineDataBean.getRead_status());
+                ////System.out.println(HandleEvents.machineDataBean.getRead_status());
                 if(first){
                     first=false;
                     if(MediaStageNew.error_status==0)
                         Platform.runLater(new Runnable() {
                             @Override
                             public void run() {
-                                // System.out.println("from here1");
+                                // //System.out.println("from here1");
                                 // HandleEvents.handleEvent(Variables.button_type_ball_init, 0);//0xE2 error reset
                             }
                         });                                 
@@ -115,7 +115,7 @@ public class SerialReceive implements Runnable{
                                 Platform.runLater(new Runnable() {
                                     @Override
                                     public void run() {
-                                System.out.println("from here2");
+                                //System.out.println("from here2");
                                         HandleEvents.handleEvent(Variables.button_type_ball_init, 0);//0xE2 error reset
                                     }
                                 });                                 
@@ -196,7 +196,7 @@ public class SerialReceive implements Runnable{
                         Platform.runLater(new Runnable() {
                             @Override
                             public void run() {
-                                System.out.println("from here3");
+                                //System.out.println("from here3");
                                 HandleEvents.handleEvent(Variables.button_type_ball_init, 0);
                             }
                         });
@@ -257,7 +257,7 @@ public class SerialReceive implements Runnable{
             while(USB_Com.status){
                 int temp = -1;
                 temp = USB_Com.readByte(1000);
-                //System.out.println(temp+","+ctr);
+                ////System.out.println(temp+","+ctr);
                 if(temp!=-1){
                     data[ctr++]=temp;
                 }else{

@@ -33,6 +33,7 @@ public class GeneralSettingsBean {
     String com_port="COM3";
     int match_negative_scoring = 2;
     int min_file_size = 50000;
+    String autoComPort = "COM7";
     int max_replay_delay = 2000;
     boolean skill_test=false;
     int skill_test_value=10;
@@ -84,6 +85,13 @@ public class GeneralSettingsBean {
     
     public boolean isReplay_enable() {
         return replay_enable;
+    }
+    public String getAutoComPort() {
+        return this.autoComPort;
+    }
+
+    public  void setAutoComPort(String port) {
+        this.autoComPort = port;
     }
 
     public String getFormat() {

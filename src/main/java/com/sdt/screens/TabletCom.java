@@ -424,7 +424,7 @@ public class TabletCom implements Runnable{
                     break;
                 case "result":
                     response.put("type", type);
-                    System.out.println("result type  " + type);
+                    // System.out.println("result type  " + type);
                     switch(type){
                         case "1LEG":
                             HandleEvents.handleEvent(Variables.button_type_result_runs_leg, 1);

@@ -533,7 +533,18 @@ public class SettingsButton extends Group{
         grid[0].add(new CLabel("Auto Scoring"), 1, row1);
         final CChoiceBox_KeyValue autoscoring = new CChoiceBox_KeyValue(autoscoring_sel,HandleEvents.generalSettings.getAuto_scoring_enable());
         grid[0].add(autoscoring, 2, row1++);
-        
+
+        grid[0].add(new CLabel("AutoScoring Com Port"), 1, row1);
+        ArrayList<String> autoComList = new ArrayList<>();
+        for(int i=0;i<USB_Com.getPortList().length;i++){
+            autoComList.add(USB_Com.getPortList()[i]);
+        }
+        final ChoiceBox<String> auto_com_port = new ChoiceBox<>();
+        auto_com_port.getItems().addAll(autoComList);
+        auto_com_port.getSelectionModel().select(HandleEvents.generalSettings.getAutoComPort());
+        grid[0].add(auto_com_port, 2, row1++);
+
+
         grid[0].add(new CLabel("Auto Scoring"), 1, row1);
         Button auto_scoring_config  = new Button("Config");
         grid[0].add(auto_scoring_config, 2, row1++);
@@ -659,6 +670,8 @@ public class SettingsButton extends Group{
             HandleEvents.generalSettings.setBaudrate(t_baudrate.getValue());
             if(com_port.getValue()!=null)
                 HandleEvents.generalSettings.setCom_port(com_port.getValue());
+            if(auto_com_port.getValue()!=null)
+                HandleEvents.generalSettings.setAutoComPort(auto_com_port.getValue());
             for(int j=0;j<8;j++){
                 HandleEvents.generalSettings.getModeData().getBowler_path()[j]=bowler_path[j].getText();
                 HandleEvents.generalSettings.getModeData().getTrigger_interval()[j]=b_relese_pos[j].getValue();

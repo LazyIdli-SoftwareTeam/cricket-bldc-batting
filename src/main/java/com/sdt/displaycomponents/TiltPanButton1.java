@@ -70,7 +70,7 @@ public class TiltPanButton1 extends Group{
 
             byteval[0] = Byte.parseByte(actCommand);
             int val = Integer.parseInt(data.get("pan").toString());
-            System.out.println(val);
+            // System.out.println(val);
             byteval[1]=(byte)(val>>8);
             byteval[2]=(byte)(val&0xFF);
             //700-2400
@@ -100,16 +100,16 @@ public class TiltPanButton1 extends Group{
             //100-2000/1800
             //7
             val = Integer.parseInt(data.get("rightMotor").toString());
-            System.out.println(val);
+            // System.out.println(val);
             byteval[7]=(byte)(val>>8);
             byteval[8]=(byte)(val&0xFF);
             //100-2000/1800
             //8
             val = Integer.parseInt(data.get("leftMotor").toString());
-            System.out.println(val);
+            // System.out.println(val);
             byteval[5]=(byte)(val>>8);
             byteval[6]=(byte)(val&0xFF);
-            System.out.println("command written " +  val);
+            // System.out.println("command written " +  val);
             USB_Com.WriteData(getCmd1((byte)0x82,byteval));
             WriteJsonFile.writeFile(data);
 
