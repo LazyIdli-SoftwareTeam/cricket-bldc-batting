@@ -24,7 +24,6 @@ public class NextBall {
     public static int temp_mode = 0;
     public static int temp_val = 0;
     public static void planNextBall(){
-        System.out.println("planning next ball");
         // skill test 
         int pos=HandleEvents.gameBean.getSeq_pos();            
         PlayerGameBean playerGameBean = HandleEvents.gameBean.getPlayer_data().get(pos);
@@ -44,24 +43,14 @@ public class NextBall {
                 selectHand = "R";
                 break;
         }
-
-
-        System.out.println("hand usaged " +hand_usage);
         ArrayList<BallBean> ball_list = ScriptFiles.script_map.get("Default "+selectHand+skill);
-        System.out.println("list " + ball_list);
         if(ball_list!=null){
             ballBean = ball_list.get(balls%ball_list.size());
-
         }
-        System.out.println("balls " + balls);
-        System.out.println(" size  list " + ball_list.size());
-        System.out.println("beann " + ball_list.get(balls%ball_list.size()).getIndex());
         byte [] cmd1 = {35,(byte)0x12,7,13,(byte)250,0,100,0,100,0,100,0,0,0,0,0,0,0x40,33};//test do value
         cmd1[17]=USB_Com.getCRC(cmd1, 17);
         USB_Com.WriteData(cmd1);
-
-        System.out.println("written data cmdd");
-
+        //send actuator command
         try {
             Thread.sleep(1000);
         } catch (Exception e) {
@@ -82,7 +71,8 @@ public class NextBall {
         byteval[5]=(byte)(val>>8);
         byteval[6]=(byte)(val&0xFF);        
         USB_Com.WriteData(getCmd1((byte)0xDD,byteval));
-        System.out.println("left speed done");
+        //updateText("Set Speed");
+        //send actuator command
         try {
             Thread.sleep(1000);
         } catch (Exception e) {
@@ -102,8 +92,47 @@ public class NextBall {
         byteval[7]=(byte)(val>>8);
         byteval[8]=(byte)(val&0xFF);
         USB_Com.WriteData(getCmd1((byte)0x82,byteval));
-        System.out.println("right speed done");
-
+        /*if(HandleEvents.generalSettings.isSkill_test()){
+            int max  = HandleEvents.generalSettings.getSkill_test_value();
+            int min = (-1) * HandleEvents.generalSettings.getSkill_test_value();
+            int random_no = (int)(Math.random()*(max-min+1)+min);
+            //System.out.println(random_no);
+            randon_speed = HandleEvents.machineDataBean.getSet_speed()+random_no;
+            HandleSerial.handleCom(HandleSerial.update_speed_skilltest);
+        }
+        int mode = HandleEvents.generalSettings.getModeData().getBowling_type()[HandleEvents.bowler_pos-1];
+        if(mode==12){
+            if(temp_val==0){
+                temp_val=1;
+                temp_mode=8;
+                HandleSerial.handleCom(HandleSerial.update_mode);
+            }else{
+                temp_val=0;
+                temp_mode=9;
+                HandleSerial.handleCom(HandleSerial.update_mode);
+            }
+        }else if(mode==13){
+            if(temp_val==0){
+                temp_val=1;
+                temp_mode=6;
+                HandleSerial.handleCom(HandleSerial.update_mode);
+            }else{
+                temp_val=0;
+                temp_mode=7;
+                HandleSerial.handleCom(HandleSerial.update_mode);
+            }
+        }else if(mode==14){
+            try {
+                int random_no = (int)(Math.random()*(3+1));
+                HandleEvents.bowler_path=HandleEvents.generalSettings.getModeData().getBowler_path()[random_no];
+                HandleEvents.bowler_trigger = HandleEvents.generalSettings.getModeData().getTrigger_interval()[random_no];
+                temp_mode = HandleEvents.generalSettings.getModeData().getBowling_type()[random_no];
+                HandleSerial.handleCom(HandleSerial.update_mode);
+            } catch (Exception e) {
+            }           
+        }else{
+            
+        }*/
     }
     public static byte [] getCmd1(byte cmd,byte [] cmddata){
         byte data[] = new byte[6+cmddata.length];

@@ -12,7 +12,7 @@ import java.util.ArrayList;
  * @author possi
  */
 public class GeneralSettingsBean {
-    
+
     String machine_id = "TestMach001";
     boolean keypad_enable = false;
     boolean test_mode = false;
@@ -22,7 +22,7 @@ public class GeneralSettingsBean {
     String camera_ip = "192.168.1.64";
     int camera_port=554;
     String camera_user_id="admin";
-    String camera_password="Sd123456";    
+    String camera_password="Sd123456";
     int replayduration_ms = 5000;
     //String default_bowler_path="";
     //int default_bowler_relese_pos=500;
@@ -33,6 +33,7 @@ public class GeneralSettingsBean {
     String com_port="COM3";
     int match_negative_scoring = 2;
     int min_file_size = 50000;
+    String autoComPort = "COM7";
     int max_replay_delay = 2000;
     boolean skill_test=false;
     int skill_test_value=10;
@@ -46,7 +47,7 @@ public class GeneralSettingsBean {
     ModeDatBean modeData = new ModeDatBean();
     ArrayList<Integer> bowler_sequence1 = new ArrayList<>();
     ArrayList<Integer> bowler_sequence2 = new ArrayList<>();
-    
+
     int default_speed = 45;
     int player_init_time = 15;
 
@@ -57,7 +58,7 @@ public class GeneralSettingsBean {
     public void setMachine_id(String machine_id) {
         this.machine_id = machine_id;
     }
-    
+
     public boolean isKeypad_enable() {
         return keypad_enable;
     }
@@ -81,9 +82,16 @@ public class GeneralSettingsBean {
     public void setTablet_mode_enable(boolean tablet_mode_enable) {
         this.tablet_mode_enable = tablet_mode_enable;
     }
-    
+
     public boolean isReplay_enable() {
         return replay_enable;
+    }
+    public String getAutoComPort() {
+        return this.autoComPort;
+    }
+
+    public  void setAutoComPort(String port) {
+        this.autoComPort = port;
     }
 
     public String getFormat() {
@@ -93,7 +101,7 @@ public class GeneralSettingsBean {
     public void setFormat(String format) {
         this.format = format;
     }
-    
+
     public String getCamera_ip() {
         return camera_ip;
     }
@@ -126,8 +134,8 @@ public class GeneralSettingsBean {
         this.camera_password = camera_password;
     }
 
-    
-    
+
+
     public void setReplay_enable(boolean replay_enable) {
         this.replay_enable = replay_enable;
     }
@@ -170,7 +178,7 @@ public class GeneralSettingsBean {
 
     public void setDefault_bowler(int default_bowler) {
         this.default_bowler = default_bowler;
-    }   
+    }
 
     public int getProjector_screen_index() {
         return projector_screen_index;
@@ -234,7 +242,7 @@ public class GeneralSettingsBean {
 
     public void setSkill_test_value(int skill_test_value) {
         this.skill_test_value = skill_test_value;
-    }    
+    }
 
     public boolean isPlay_sixer_video() {
         return play_sixer_video;
@@ -349,7 +357,7 @@ public class GeneralSettingsBean {
     public void setPlayer_init_time(int player_init_time) {
         this.player_init_time = player_init_time;
     }
-    
-    
-    
+
+
+
 }

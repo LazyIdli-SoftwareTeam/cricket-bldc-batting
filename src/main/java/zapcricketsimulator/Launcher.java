@@ -5,3 +5,4 @@ public class Launcher {
         ZaPCricketSimulator.main(args);
     }
 }
+//java -Xms2g -Xmx4g -XX:+UseG1GC -XX:InitiatingHeapOccupancyPercent=40 -XX:MaxGCPauseMillis=50 -jar YourApp.jar

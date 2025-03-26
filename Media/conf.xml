@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ZAPCricketSimulator UpdatedOn="Fri Feb 14 18:35:10 IST 2025" version="V2.15">
+<ZAPCricketSimulator UpdatedOn="Wed Mar 26 12:44:54 IST 2025" version="V2.15">
   <GeneralSettings>
     <KeypadEnable>false</KeypadEnable>
     <TestMode>false</TestMode>
     <TabletEnable>true</TabletEnable>
-    <TCPPort>9998</TCPPort>
+    <TCPPort>9999</TCPPort>
     <ReplayEnable>false</ReplayEnable>
     <ReplayDuration>1500</ReplayDuration>
     <ReplayFormat>libx264</ReplayFormat>
@@ -15,14 +15,15 @@
     <DefaultBowler>1</DefaultBowler>
     <TouchScreenIndex>0</TouchScreenIndex>
     <ProjectorScreenIndex>1</ProjectorScreenIndex>
-    <ComPort>COM5</ComPort>
+    <ComPort>COM13</ComPort>
     <MatchNegativeScoring>2</MatchNegativeScoring>
     <MinFileSize>50000</MinFileSize>
     <MaxReplayDelay>2000</MaxReplayDelay>
+    <AutoScoreComPort>COM16</AutoScoreComPort>
     <SkillTest>false</SkillTest>
     <SkillTestValue>10</SkillTestValue>
     <BaudRate>115200</BaudRate>
-    <AutoScoringType>2</AutoScoringType>
+    <AutoScoringType>3</AutoScoringType>
     <SixerVideo>false</SixerVideo>
     <WicketVideo>false</WicketVideo>
     <CloudReporting>true</CloudReporting>

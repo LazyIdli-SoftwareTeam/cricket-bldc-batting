@@ -6,15 +6,19 @@
 package com.sdt.serial;
 
 import com.sdt.displaycomponents.SpeedButton1;
+import com.sdt.screens.MultiPlayerScreen;
 import com.sdt.screens.NextBall;
-import com.sdt.screens.TabletCom;
+import java.net.DatagramPacket;
+import java.net.DatagramSocket;
+import java.net.Inet4Address;
+import java.net.InetAddress;
+import java.util.Calendar;
 import javafx.application.Platform;
 import jssc.SerialPort;
-import org.json.simple.JSONObject;
+import zapcricketsimulator.AutoScoringSensors;
 import zapcricketsimulator.HandleEvents;
-
-import java.io.DataOutputStream;
-import java.io.IOException;
+//import zapcricketsimulator.MediaStage;
+import zapcricketsimulator.Variables;
 
 /**
  *
@@ -41,10 +45,7 @@ public class HandleSerial {
     public static final int bowler6_update = 0xF6;
     public static final int bowler7_update = 0xF7;
     public static final int bowler8_update = 0xF8;
-
-    public HandleSerial() throws IOException {
-    }
-
+    
     public static byte[] getCmd(int cmd , byte [] data,int data_len){
         byte [] cmd_data = new byte[5+data_len];    
         cmd_data[0] = '#';
@@ -60,21 +61,21 @@ public class HandleSerial {
         return cmd_data;
     }
     
-         public static byte[] getCmd1(int cmd , byte [] data,int data_len){
-            byte [] cmd_data = new byte[6+data_len];
-            cmd_data[0] = '#';
-            cmd_data[1] = 0x01;
-            cmd_data[2] = (byte)cmd;
-            cmd_data[3] = (byte)data_len;
-            if(data_len>0){
-                for(int i=0;i<data_len;i++){
-                    cmd_data[4+i] = data[i];
-                }
+     public static byte[] getCmd1(int cmd , byte [] data,int data_len){
+        byte [] cmd_data = new byte[6+data_len];    
+        cmd_data[0] = '#';
+        cmd_data[1] = 0x01;
+        cmd_data[2] = (byte)cmd;
+        cmd_data[3] = (byte)data_len;
+        if(data_len>0){
+            for(int i=0;i<data_len;i++){
+                cmd_data[4+i] = data[i];
             }
-            cmd_data[4+data_len] = USB_Com.getCRC(cmd_data, 4+data_len);
-            cmd_data[5+data_len] ='!';
-            return cmd_data;
         }
+        cmd_data[4+data_len] = USB_Com.getCRC(cmd_data, 4+data_len);
+        cmd_data[5+data_len] ='!';
+        return cmd_data;
+    }
      public static byte[] getCmd12(int cmd , byte [] data,int data_len){
         byte [] cmd_data = new byte[6+data_len];    
         cmd_data[0] = '#';
@@ -106,20 +107,16 @@ public class HandleSerial {
              USB_Com.WriteData(cmd1);
         }
     }
-
-    public static void initSerial(String port){
-
+    public static void initSerial(String port){        
         USB_Com.Connect(port, HandleEvents.generalSettings.getBaudrate(), SerialPort.DATABITS_8, SerialPort.STOPBITS_1, SerialPort.PARITY_NONE);        
         new SerialReceive();
         if(USB_Com.status){
              byte [] cmd1 = {35,(byte)0x12,9,1,1,0x40,33};//stop setting Request
-            System.out.print("init serial done " + cmd1);
              USB_Com.WriteData(cmd1);
         }
     }
     public static boolean ball_released = false;
     public static boolean closing = false;
-
     public static void handleCom(int type){
         if(!USB_Com.status)
             return;
@@ -129,19 +126,37 @@ public class HandleSerial {
             case ball_release:
                 try {
 
+                    int temp = AutoScoringSensors.score;
+                    // System.out.println("Temp" + temp);
                     data1 = getCmd1(ball_release, null, 0);
-                    System.out.println("ball realesed");
-                    if (TabletCom.connectionSocket != null) {
-                        DataOutputStream outToClient = new DataOutputStream(TabletCom.connectionSocket.getOutputStream());
-                        outToClient.write(64 + '\r');
-                        outToClient.flush();
-                    }
+                    // System.out.println("ball realesed");
+//                    HandleEvents.machineDataBean.setBall_status(4);
+                    AutoScoringSensors.ballReleased = true;
+                    // if (TabletCom.connectionSocket != null) {
+                    //     DataOutputStream outToClient = new DataOutputStream(TabletCom.connectionSocket.getOutputStream());
+                    //     outToClient.write(64 + '\r');
+                    //     outToClient.flush();
+                    // }
                     USB_Com.WriteData(data1);
-                    if (HandleEvents.generalSettings.getAuto_scoring_enable() == 1)
+                    if (HandleEvents.generalSettings.getAuto_scoring_enable() == 3)
                         ball_released = true;
+                    new Thread(() -> {
+                        try {
+                            Thread.sleep(5000); // Sleep for 5 seconds
+                            if (temp == AutoScoringSensors.score) {
+                                System.out.println("no sensors detected so giving a manual score");
+                                Platform.runLater(() -> {
+                                    HandleEvents.handleEvent(Variables.button_type_result_norun, 0);
+                                });
+                            }
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    }).start();
+
                 } catch (Exception e) {
                     e.printStackTrace();
-                    System.out.println("error in release");
+                    // System.out.println("error in release");
                 }
                 break;
             case read_data:
@@ -150,23 +165,23 @@ public class HandleSerial {
                 break;
             case ball_init:
                 data1=getCmd1(ball_init, null, 0);
-                System.out.println("ball init");
-                 USB_Com.WriteData(data1);
+                USB_Com.WriteData(data1);
                 break;
             case power_on:
                 //System.out.println(HandleEvents.machineDataBean.getSet_speed());
                 if(closing){
                     byte [] cmd_data1 = {0,0};
                     data1=getCmd1(power_on, cmd_data1, 2);
-                    System.out.println("power on cmd 1");
                 }else{
                     byte [] cmd_data1 = {1,(byte)25};
                     data1=getCmd1(power_on, cmd_data1, 2);
-                    System.out.println("power on cmd 2");
-                }
+                }               
                 USB_Com.WriteData(data1);
                 break;
-            case skill_test:
+            case skill_test://handles by software
+               /* byte [] cmd_data2 = {(byte)HandleEvents.generalSettings.getSkill_test()};
+                data1=getCmd(skill_test, cmd_data2,1);
+                USB_Com.WriteData(data1);*/
                 break;
             case update_mode:{
                 byte [] cmd_data3 = {(byte)NextBall.temp_mode};
@@ -181,7 +196,9 @@ public class HandleSerial {
                 byte speed_byte2 = (byte)(speed_value);
                 byte [] cmd_data = {(byte)speed,speed_byte1,speed_byte2,speed_byte1,speed_byte2,0,0};
                 data1=getCmd1(update_speed, cmd_data, 7);
-
+                /*data1[1]=(byte)HandleEvents.current_speed;
+                data1[2]=(byte)HandleEvents.current_speed;
+                data1[3]=(byte)0xDF;*/
                 USB_Com.WriteData(data1);
                 Platform.runLater(new Runnable() {
                     @Override
@@ -193,7 +210,13 @@ public class HandleSerial {
             case update_speed_skilltest:{
                  byte [] cmd_data = {(byte)NextBall.randon_speed};
                 data1=getCmd(update_speed, cmd_data, 1);
-                USB_Com.WriteData(data1);
+                USB_Com.WriteData(data1);      
+                /*Platform.runLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        SpeedButton1.updateSpeed(NextBall.randon_speed);
+                    }
+                });*/
             }break;
             /*case tilt_up:
                 data1=getCmd(tilt_up, null, 0);
@@ -235,8 +258,16 @@ public class HandleSerial {
                 }else if(mode ==14){
                     mode = HandleEvents.generalSettings.getModeData().getBowling_type()[0];
                 }
+                //System.out.println(speed+","+mode);
                 HandleEvents.machineDataBean.setSet_speed(speed);
                 handleCom(update_speed);
+                /*try {
+                    Thread.sleep(800);
+                } catch (Exception e) {
+                }
+                byte [] cmd_data3 = {(byte)mode};
+                data1=getCmd(update_mode, cmd_data3, 1);
+                USB_Com.WriteData(data1);*/
             }break;
             case bowler2_update:{
                 int speed = HandleEvents.generalSettings.getDefault_speed();
@@ -473,6 +504,7 @@ public class HandleSerial {
                 }else if(mode ==14){
                     mode = HandleEvents.generalSettings.getModeData().getBowling_type()[0];
                 }
+                //System.out.println(speed+","+mode);
                 HandleEvents.machineDataBean.setSet_speed(speed);
                 handleCom(update_speed);
                 try {

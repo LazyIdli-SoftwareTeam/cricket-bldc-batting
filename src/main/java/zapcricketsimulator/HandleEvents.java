@@ -32,11 +32,11 @@ import javafx.application.Platform;
  * @author possi
  */
 public class HandleEvents {
-    
-    
+
+
     public static GeneralSettingsBean generalSettings = new GeneralSettingsBean();
     public static MachineDataBean machineDataBean = new MachineDataBean();
-    
+
     public static int game_mode=0;
     public static int prev_game_status=Variables.game_status_none;
     public static int game_status=Variables.game_status_none;
@@ -50,13 +50,16 @@ public class HandleEvents {
     public static int magic_mode=0;
     public static boolean wideNoBallScore = false;
     public static GameBean gameBean= null;
-    
+
     public static void initData(){
         LogManager.initLogger();
         HandleFile.readData();
         ScriptFiles.loadScripts();
+        if (HandleEvents.generalSettings.getAuto_scoring_enable() == 3) {
+            new AutoScoringSensors(HandleEvents.generalSettings.getAutoComPort());
+        }
         bowler_pos = generalSettings.getDefault_bowler();
-        workingDir = System.getProperty("user.dir"); 
+        workingDir = System.getProperty("user.dir");
         if(generalSettings.getModeData()!=null && !generalSettings.getModeData().getBowler_path()[bowler_pos-1].equals("")){
             bowler_path = generalSettings.getModeData().getBowler_path()[bowler_pos-1];
             bowler_trigger = generalSettings.getModeData().getTrigger_interval()[bowler_pos-1];
@@ -68,15 +71,15 @@ public class HandleEvents {
         }
         HandleSerial.initSerial(generalSettings.getCom_port());
         SerialReceive.init_machine=true;
-        
+
     }
     public static void handleEvent(int type ,int subtype){
-        System.out.println("type " + type);
+        //System.out.println("type " + type);
         switch(type){
             case Variables.mode_sellection:
                 game_mode = subtype;
                 game_status = Variables.game_status_init;
-                MediaStageNew.this_obj.handlemode(game_mode);                
+                MediaStageNew.this_obj.handlemode(game_mode);
                 break;
             case Variables.button_type_bowler:
                 if(game_status == Variables.game_status_init||game_status == Variables.game_status_paused||game_sub_status == Variables.game_sub_status_idle){
@@ -87,44 +90,44 @@ public class HandleEvents {
 //                    generalSettings.getModeData().setBowler_path(bowler_pos);
                     //NextBall.ballBean.setBowler_path(bowler_path);
                     MediaStageNew.this_obj.handleBowling(Variables.bowler_intro);
-                    System.out.println("intro " + Variables.bowler_intro);
-                    System.out.println("path " + bowler_path);
-                    System.out.println("positiion " + bowler_pos);
+                    //System.out.println("intro " + Variables.bowler_intro);
+                    //System.out.println("path " + bowler_path);
+                    //System.out.println("positiion " + bowler_pos);
                     if(game_status == Variables.game_status_paused){
                         game_status = prev_game_status;
                     }
                     HandleSerial.handleCom(0xF0+subtype);
-                }               
+                }
                 break;
             case Variables.button_type_ball_init:
             case Variables.button_type_ball_error:
                 MediaStageNew.this_obj.handleErrorScreen(type);
                 break;
-            case Variables.button_type_play:   
-                System.out.println("playing");             
+            case Variables.button_type_play:
+                //System.out.println("playing");
                 //if(game_sub_status==Variables.game_sub_status_bowled){
-                //    System.out.println(MediaStageNew.mp.getStatus());
+                //    //System.out.println(MediaStageNew.mp.getStatus());
                 //}
-                //System.out.println("ball status "+machineDataBean.getBall_status());
-                //System.out.println(MediaStageNew.player_change+","+game_status+","+game_sub_status);
-                    
+                ////System.out.println("ball status "+machineDataBean.getBall_status());
+                ////System.out.println(MediaStageNew.player_change+","+game_status+","+game_sub_status);
+
                 if(MediaStageNew.player_change){
-                    System.out.println("here 1");
+                    //System.out.println("here 1");
                     Platform.runLater(new Runnable() {
                         @Override
                         public void run() {
                             NextBall.planNextBall();
                         }
-                     });
+                    });
                     //HandleSerial.handleCom(0xF0+bowler_pos);
                     MediaStageNew.player_change=false;
                     game_status = Variables.game_status_init;
-                    MediaStageNew.this_obj.initPlayerSettings();                   
+                    MediaStageNew.this_obj.initPlayerSettings();
                     return;
                 }else{
-                    System.out.println("here 2");
+                    //System.out.println("here 2");
                     if(machineDataBean.getBall_status()!=1){
-                        System.out.println("ball status is not 1");
+                        //System.out.println("ball status is not 1");
                         HandleSerial.handleCom(HandleSerial.ball_init);
                         try {
                             Thread.sleep(2000);
@@ -132,49 +135,50 @@ public class HandleEvents {
                         }
                         MediaStageNew.error_status=0;
                         SerialReceive.check_ball=true;
+                        // System.out.println("check ball made true in serial recivee " + SerialReceive.check_ball);
                         HandleEvents.machineDataBean.setRead_status(0);
                         break;
-                    }           
+                    }
 //                    MediaStageNew.error_status=0;
                     if(game_status == Variables.game_status_paused){
-                        System.out.println("previous game paused");
+                        //System.out.println("previous game paused");
                         game_status = prev_game_status;
                         MediaStageNew.this_obj.handlePlay();
                     }else if(game_status == Variables.game_status_started && game_sub_status!=Variables.game_sub_status_bowled){
-                        System.out.println("here 3");
+                        //System.out.println("here 3");
                         switch(game_mode){
                             case Variables.game_mode_sp:
-                            System.out.println("here 4");
+                                //System.out.println("here 4");
                                 if((gameBean.getNo_of_overs_each()*6)>gameBean.getPlayer_data().get(0).getBall_count()){
-                            System.out.println("here 5");
+                                    //System.out.println("here 5");
                                     MediaStageNew.this_obj.handleBowling(Variables.bowler_bowling);
                                     game_sub_status=Variables.game_sub_status_bowled;
                                 }
                                 break;
                             case Variables.game_mode_mp:
-                                System.out.println("here 6");
+                                //System.out.println("here 6");
                                 if(gameBean.getSeq_pos()<gameBean.getNo_of_players()){
-                                                  System.out.println("here 7");
+                                    //System.out.println("here 7");
                                     MediaStageNew.this_obj.handleBowling(Variables.bowler_bowling);
-                                    game_sub_status=Variables.game_sub_status_bowled; 
+                                    game_sub_status=Variables.game_sub_status_bowled;
                                 }
-                                break;                       
+                                break;
                         }
-                    }    
+                    }
                 }
-                            
+
                 break;
             case Variables.button_type_pause:
-                System.out.println("paused game =======================");
+                //System.out.println("paused game =======================");
                 prev_game_status = game_status;
                 game_status = Variables.game_status_paused;
                 MediaStageNew.this_obj.handlePause();
                 break;
-            case Variables.button_type_start:                
+            case Variables.button_type_start:
                 game_ended = false;
                 game_status =Variables.game_status_started;
                 game_sub_status=Variables.game_sub_status_idle;
-                handle_start_button();      
+                handle_start_button();
                 HandleSerial.handleCom(0xF0+bowler_pos);
                 MediaStageNew.player_change=true;
                 if(HandleEvents.generalSettings.isCloud_reporting())
@@ -200,11 +204,11 @@ public class HandleEvents {
             case Variables.button_type_result_catch:
             case Variables.button_type_result_lbw:
             case Variables.button_type_result_stumped:
-                if(game_sub_status==Variables.game_sub_status_bowled){  
+                if(game_sub_status==Variables.game_sub_status_bowled){
                     handle_score_button(type,subtype);
                 }
                 break;
-            
+
         }
     }
     //public static MatchResultBean matchresult = new MatchResultBean();
@@ -215,7 +219,7 @@ public class HandleEvents {
     public static void storeBallDetails(PlayerGameBean playerGameBean,int result){
         OverDataBean overDataBean = null;
         int overs = playerGameBean.getBall_count()/6;
-        if(playerGameBean.getBall_count()%6==0 && overs<gameBean.getNo_of_overs_each() && !HandleEvents.wideNoBallScore){            
+        if(playerGameBean.getBall_count()%6==0 && overs<gameBean.getNo_of_overs_each() && !HandleEvents.wideNoBallScore){
             if(gameBean.getBowler_selection()==1){
                 bowler_pos++;
                 if(bowler_pos>8)
@@ -236,7 +240,7 @@ public class HandleEvents {
             }
         }
         HandleEvents.wideNoBallScore = false;
-        if(balls%6==0){            
+        if(balls%6==0){
             overDataBean = new OverDataBean();
             playerGameBean.getOvers().add(overDataBean);
         }else{
@@ -247,13 +251,13 @@ public class HandleEvents {
 
     //score is handled here
     public static void handle_score_button(int type,int subtype){
-        pos=gameBean.getSeq_pos();            
+        pos=gameBean.getSeq_pos();
         PlayerGameBean playerGameBean = gameBean.getPlayer_data().get(pos);
         score = playerGameBean.getTotal_score();
         balls = playerGameBean.getBall_count();
         switch(type){
-            case Variables.button_type_result_runs_straight:                
-            case Variables.button_type_result_runs_off:                
+            case Variables.button_type_result_runs_straight:
+            case Variables.button_type_result_runs_off:
             case Variables.button_type_result_runs_leg:
                 if(subtype==9){
                     type=Variables.button_type_result_catch;
@@ -363,44 +367,44 @@ public class HandleEvents {
                             cmd[16]=USB_Com.getCRC(cmd, 16);
                             USB_Com.WriteData(cmd);
                         }
-                    }                    
+                    }
                     playerGameBean.setTotal_score(score+subtype);
                     playerGameBean.setBall_count(balls+1);
                     storeBallDetails(playerGameBean,subtype);
-                    game_sub_status=Variables.game_sub_status_scored; 
-                }                      
+                    game_sub_status=Variables.game_sub_status_scored;
+                }
                 break;
             case Variables.button_type_result_norun:
                 // playerGameBean .setTotal_score(score+subtype);
                 playerGameBean.setBall_count(balls+1);
                 storeBallDetails(playerGameBean,0);
-                game_sub_status=Variables.game_sub_status_scored;       
+                game_sub_status=Variables.game_sub_status_scored;
                 break;
             case Variables.button_type_result_wide:
                 playerGameBean .setTotal_score(score+1);
                 wideNoBallScore = true;
                 //playerGameBean.setBall_count(balls+1);
                 storeBallDetails(playerGameBean,Variables.button_type_result_wide);
-                game_sub_status=Variables.game_sub_status_scored;        
+                game_sub_status=Variables.game_sub_status_scored;
                 break;
             case Variables.button_type_result_noball:
                 playerGameBean .setTotal_score(score+1);
                 //playerGameBean.setBall_count(balls+1);
                 storeBallDetails(playerGameBean,Variables.button_type_result_noball);
-                game_sub_status=Variables.game_sub_status_scored;   
+                game_sub_status=Variables.game_sub_status_scored;
                 break;
             case Variables.button_type_result_freehit:
                 wideNoBallScore = true;
                 //playerGameBean .setTotal_score(score+1);
                 //playerGameBean.setBall_count(balls+1);
                 storeBallDetails(playerGameBean,Variables.button_type_result_freehit);
-                game_sub_status=Variables.game_sub_status_scored;   
+                game_sub_status=Variables.game_sub_status_scored;
                 break;
             case Variables.button_type_result_dedball:
                 //playerGameBean .setTotal_score(score+1);
                 //playerGameBean.setBall_count(balls+1);
                 storeBallDetails(playerGameBean,Variables.button_type_result_dedball);
-                game_sub_status=Variables.game_sub_status_scored;   
+                game_sub_status=Variables.game_sub_status_scored;
                 break;
             case Variables.button_type_result_bowled:
                 //playerGameBean .setTotal_score(score+1);
@@ -410,29 +414,29 @@ public class HandleEvents {
                 game_sub_status=Variables.game_sub_status_scored;
                 break;
             case Variables.button_type_result_catch:
-                 //playerGameBean .setTotal_score(score+1);
+                //playerGameBean .setTotal_score(score+1);
                 playerGameBean.setBall_count(balls+1);
                 playerGameBean.setWickets(playerGameBean.getWickets()+1);
                 storeBallDetails(playerGameBean,Variables.button_type_result_bowled);
                 game_sub_status=Variables.game_sub_status_scored;
                 break;
             case Variables.button_type_result_lbw:
-                 //playerGameBean .setTotal_score(score+1);
+                //playerGameBean .setTotal_score(score+1);
                 playerGameBean.setBall_count(balls+1);
                 playerGameBean.setWickets(playerGameBean.getWickets()+1);
                 storeBallDetails(playerGameBean,Variables.button_type_result_bowled);
                 game_sub_status=Variables.game_sub_status_scored;
                 break;
             case Variables.button_type_result_stumped:
-                 //playerGameBean .setTotal_score(score+1);
+                //playerGameBean .setTotal_score(score+1);
                 playerGameBean.setBall_count(balls+1);
                 playerGameBean.setWickets(playerGameBean.getWickets()+1);
                 storeBallDetails(playerGameBean,Variables.button_type_result_bowled);
-                game_sub_status=Variables.game_sub_status_scored;  
+                game_sub_status=Variables.game_sub_status_scored;
                 break;
         }
-        if(game_sub_status==Variables.game_sub_status_scored){                    
-            //TargetScreen.bscoredisplay.setText(matchresult.getCurrent_runs()+" of "+matchresult.getCurrent_balls()+" balls");            
+        if(game_sub_status==Variables.game_sub_status_scored){
+            //TargetScreen.bscoredisplay.setText(matchresult.getCurrent_runs()+" of "+matchresult.getCurrent_balls()+" balls");
             MediaStageNew.this_obj.handleScore(type, subtype,generalSettings.isReplay_enable());
             game_sub_status=Variables.game_sub_status_idle;
             if(game_mode==Variables.game_mode_mp){
@@ -454,10 +458,10 @@ public class HandleEvents {
                             bowler_trigger = generalSettings.getModeData().getTrigger_interval()[generalSettings.getBowler_sequence2().get(0)-1];
                             HandleSerial.handleCom(0xF0+generalSettings.getBowler_sequence2().get(0));
                         }else{
-                            System.out.println("batsman changed");
+                            //System.out.println("batsman changed");
                             bowler_pos=backup_bowler_pos;
                             bowler_path=generalSettings.getModeData().getBowler_path()[bowler_pos-1];
-                            bowler_trigger = generalSettings.getModeData().getTrigger_interval()[bowler_pos-1]; 
+                            bowler_trigger = generalSettings.getModeData().getTrigger_interval()[bowler_pos-1];
                             HandleSerial.handleCom(0xF0+bowler_pos);
                         }
                     }else{
@@ -473,7 +477,7 @@ public class HandleEvents {
                 }
             }
         }
-        
+
     }
     public static boolean game_ended = false;
     public static void handle_start_button(){
@@ -501,10 +505,10 @@ public class HandleEvents {
                         bowler_trigger = generalSettings.getModeData().getTrigger_interval()[generalSettings.getBowler_sequence2().get(0)-1];
                         //HandleSerial.handleCom(0xF0+generalSettings.getBowler_sequence2().get(0));
                     }else{
-                        //System.out.println("batsman changed");
+                        ////System.out.println("batsman changed");
                         bowler_pos=backup_bowler_pos;
                         bowler_path=generalSettings.getModeData().getBowler_path()[bowler_pos-1];
-                        bowler_trigger = generalSettings.getModeData().getTrigger_interval()[bowler_pos-1]; 
+                        bowler_trigger = generalSettings.getModeData().getTrigger_interval()[bowler_pos-1];
                         //HandleSerial.handleCom(0xF0+bowler_pos);
                     }
                     gameBean.getPlayer_data().get(0).setBall_count(0);
@@ -512,7 +516,7 @@ public class HandleEvents {
                     gameBean.getPlayer_data().get(0).setWickets(0);
                     gameBean.getPlayer_data().get(0).getOvers().clear();
                 }
-                System.out.println("handle events 1");
+                //System.out.println("handle events 1");
                 MediaStageNew.this_obj.handlewelcome(TargetScreen.targetBean.getName());
                 game_sub_status=Variables.game_sub_status_idle;
                 break;
@@ -540,10 +544,10 @@ public class HandleEvents {
                             bowler_trigger = generalSettings.getModeData().getTrigger_interval()[generalSettings.getBowler_sequence2().get(0)-1];
                             //HandleSerial.handleCom(0xF0+generalSettings.getBowler_sequence2().get(0));
                         }else{
-                            //System.out.println("batsman changed");
+                            ////System.out.println("batsman changed");
                             bowler_pos=backup_bowler_pos;
                             bowler_path=generalSettings.getModeData().getBowler_path()[bowler_pos-1];
-                            bowler_trigger = generalSettings.getModeData().getTrigger_interval()[bowler_pos-1]; 
+                            bowler_trigger = generalSettings.getModeData().getTrigger_interval()[bowler_pos-1];
                             //HandleSerial.handleCom(0xF0+bowler_pos);
                         }
                     }
@@ -552,23 +556,23 @@ public class HandleEvents {
                     gameBean.getPlayer_data().get(i).setWickets(0);
                     gameBean.getPlayer_data().get(i).getOvers().clear();
                 }
-                System.out.println("handle events 2");
+                //System.out.println("handle events 2");
                 MediaStageNew.this_obj.handlewelcome(TargetScreen.targetBean.getName());
                 game_sub_status=Variables.game_sub_status_idle;
                 break;
-           
+
         }
         if(gameBean.getBowler_selection()==2 &&  generalSettings.getBowler_sequence1().size()>0){
-                            System.out.println("handle events 3");
+            //System.out.println("handle events 3");
             bowler_path=generalSettings.getModeData().getBowler_path()[generalSettings.getBowler_sequence1().get(0)-1];
             bowler_trigger = generalSettings.getModeData().getTrigger_interval()[generalSettings.getBowler_sequence1().get(0)-1];
             HandleSerial.handleCom(0xF0+generalSettings.getBowler_sequence1().get(0)-1);
         }else if(gameBean.getBowler_selection()==3& generalSettings.getBowler_sequence2().size()>0){
-                            System.out.println("handle events 4");
+            //System.out.println("handle events 4");
             bowler_path=generalSettings.getModeData().getBowler_path()[generalSettings.getBowler_sequence2().get(0)-1];
             bowler_trigger = generalSettings.getModeData().getTrigger_interval()[generalSettings.getBowler_sequence2().get(0)-1];
             HandleSerial.handleCom(0xF0+generalSettings.getBowler_sequence2().get(0)-1);
         }
     }
-    
+
 }

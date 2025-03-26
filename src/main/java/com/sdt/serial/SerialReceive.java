@@ -5,12 +5,9 @@
  */
 package com.sdt.serial;
 
-import com.fasterxml.jackson.databind.node.ObjectNode;
-import com.sdt.logging.WriteJsonFile;
 import com.sdt.screens.AutoScoring;
 import com.sdt.upload_data.GameDataHandler;
 import javafx.application.Platform;
-import org.json.simple.JSONObject;
 import zapcricketsimulator.HandleEvents;
 import zapcricketsimulator.MediaStageNew;
 import zapcricketsimulator.Variables;
@@ -33,19 +30,28 @@ public class SerialReceive implements Runnable{
     int ctr =0;
     int req_ctr=0;
     public void processData(){
-        // System.out.println(" data received 1");
         switch(data[2]){
             case 0xE0:
-                if(data[3]==0x08){
-                    // System.out.println(" data received 2     ");
+                if(data[3]==0x08){                    
+                    //HandleEvents.machineDataBean.setSet_speed(data[4]);
                     HandleEvents.machineDataBean.getMotor_speed()[0]=data[5];
                     HandleEvents.machineDataBean.getMotor_speed()[1]=data[6];
                     HandleEvents.machineDataBean.getMotor_speed()[2]=data[7];
                     HandleEvents.machineDataBean.setPwm_start_stop(data[8]);
+                    //HandleEvents.machineDataBean.setSwing_in_level(data[8]);
+                    //HandleEvents.machineDataBean.setSwing_out_level(data[9]);
+                    //HandleEvents.machineDataBean.setSpin_off(data[10]);
+                    //HandleEvents.machineDataBean.setSpin_leg(data[11]);
+                    //HandleEvents.machineDataBean.setSeem_in(data[12]);
+                    //HandleEvents.machineDataBean.setSeem_out(data[13]);
+                    //HandleEvents.machineDataBean.setBounce_low(data[14]);
+                    //HandleEvents.machineDataBean.setBounce_high(data[15]);
+                    //HandleEvents.machineDataBean.setOperating_mode(data[16]);
                     HandleEvents.machineDataBean.setBall_status(data[9]);
                     HandleEvents.machineDataBean.setLed_status(data[10]);
+                    //HandleEvents.machineDataBean.setSkill_test(data[18]);
                     HandleEvents.machineDataBean.setRead_status(1);
-                    System.out.println("   data received from machine about ball status " + HandleEvents.machineDataBean.getBall_status());
+                    System.out.println(HandleEvents.machineDataBean.getBall_status());
                 }
                 break;
             case 0x0F:
@@ -53,40 +59,22 @@ public class SerialReceive implements Runnable{
                     AutoScoring.process(data);
                 }
                 break;
-            case 0x81:
-                if (data[2 + 1] == 0x08) {
-                    int pan = 0;
-                    int tilt = 0;
-                    int right_motor = 0;
-                    int left_motor = 0;
-                    pan = data[3 + 1];
-                    pan = (pan << 8) | data[4 + 1];
-                    tilt = data[5 + 1];
-                    tilt = (tilt << 8) | data[6 + 1];
-                    left_motor = data[7 + 1];
-                    left_motor = (left_motor << 8) | data[8 + 1];
-                    right_motor = data[9 + 1];
-                    right_motor = (right_motor << 8) | data[10 + 1];
-                    System.out.println("Pan " + pan);
-                    System.out.println("Tilt " + tilt);
-                    System.out.println("Left Motor " + left_motor);
-                    System.out.println("Right Motor " + right_motor);
-//                    ObjectNode o = new ObjectNode();
-                    JSONObject o = new JSONObject();
-
-                    o.put("pan", pan);
-
-                    o.put("tilt", tilt);
-                    o.put("leftMotor", left_motor);
-                    o.put("rightMotor", pan);
-                    WriteJsonFile.writeFile(o);
-                }
-                break;
         }
     }
     boolean first =true;
     public void run(){
         while(USB_Com.status){
+            /*int temp = -1;
+            temp = USB_Com.readByte(1000);
+            //System.out.println(temp+","+ctr);
+            if(temp!=-1){
+                data[ctr++]=temp;
+            }else{
+                if(ctr>0){
+                    processData();
+                }                
+                ctr=0;
+            }*/
             if(init_machine){
                 //System.out.println(HandleEvents.machineDataBean.getRead_status());
                 if(first){
@@ -95,8 +83,7 @@ public class SerialReceive implements Runnable{
                         Platform.runLater(new Runnable() {
                             @Override
                             public void run() {
-                                // System.out.println("from here1");
-                                // HandleEvents.handleEvent(Variables.button_type_ball_init, 0);//0xE2 error reset
+                                HandleEvents.handleEvent(Variables.button_type_ball_init, 0);//0xE2 error reset
                             }
                         });                                 
                         try {
@@ -115,7 +102,6 @@ public class SerialReceive implements Runnable{
                                 Platform.runLater(new Runnable() {
                                     @Override
                                     public void run() {
-                                System.out.println("from here2");
                                         HandleEvents.handleEvent(Variables.button_type_ball_init, 0);//0xE2 error reset
                                     }
                                 });                                 
@@ -196,7 +182,6 @@ public class SerialReceive implements Runnable{
                         Platform.runLater(new Runnable() {
                             @Override
                             public void run() {
-                                System.out.println("from here3");
                                 HandleEvents.handleEvent(Variables.button_type_ball_init, 0);
                             }
                         });

@@ -32,8 +32,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
-
-import com.sdt.serial.USB_Com;
 import javafx.application.Platform;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -52,25 +50,23 @@ import static zapcricketsimulator.HandleEvents.gameBean;
  *
  * @author possi
  */
-
 public class SinglePlayerScreen {
     //public static MatchBean matchBean = new MatchBean();    
     public static SinglePlayerScreen this_obj=null;
-
+    
     Pane pane = null;
     double width =0;
     double height = 0;
-
+    
     public SinglePlayerScreen(Pane pane, double width , double height){
         this_obj=this;
         this.pane = pane;
         this.width=width;
         this.height=height;
-//         new Receive();
         //System.out.println(width+","+height);
         showScreen();
     }
-
+    
     public static void refreshData(){
         Platform.runLater(new Runnable() {
             @Override
@@ -185,7 +181,7 @@ public class SinglePlayerScreen {
             bplayer_skill.setLayoutX(width*0.2);
             bplayer_skill.setLayoutY(height*0.605);
             pane.getChildren().add(bplayer_skill);
-            System.out.println("player skill " + bplayer_skill.getValue());
+            System.out.println(bplayer_skill.getValue());
             /*bPlayer_mob= new CTextField_Data("",16);
             bPlayer_mob.setLayoutX(width*0.225);
             bPlayer_mob.setLayoutY(height*0.605);
@@ -334,7 +330,7 @@ public class SinglePlayerScreen {
             
             TiltPanButton1 tiltpan = new TiltPanButton1(width*0.15, height*0.23);
             tiltpan.setLayoutX(width*0.43);
-            tiltpan.setLayoutY(height*0.59);
+            tiltpan.setLayoutY(height*0.59);            
             pane.getChildren().add(tiltpan);
 
             /*TiltButton1 tiltbtn = new TiltButton1(width*0.06, height*0.16);
