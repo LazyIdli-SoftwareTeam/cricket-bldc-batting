@@ -37,6 +37,7 @@ public class GeneralSettingsBean {
     int max_replay_delay = 2000;
     boolean skill_test=false;
     int skill_test_value=10;
+    int tilt_pan_timeout = 250;
     int baudrate = 57600;
     int tcp_port = 9999;
     boolean play_sixer_video = true;
@@ -61,6 +62,13 @@ public class GeneralSettingsBean {
 
     public boolean isKeypad_enable() {
         return keypad_enable;
+    }
+
+    public int getTilt_pan_timeout() {
+        return tilt_pan_timeout;
+    }
+    public void setTilt_pan_timeout(int value) {
+        this.tilt_pan_timeout = value;
     }
 
     public void setKeypad_enable(boolean keypad_enable) {

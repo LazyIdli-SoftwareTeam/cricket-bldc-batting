@@ -99,7 +99,7 @@ public class HandleEvents {
                     HandleSerial.handleCom(0xF0+subtype);
                 }
                 break;
-            case Variables.button_type_ball_init:
+            // case Variables.button_type_ball_init:
             case Variables.button_type_ball_error:
                 MediaStageNew.this_obj.handleErrorScreen(type);
                 break;

@@ -17,6 +17,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
+import zapcricketsimulator.ActTime;
 import zapcricketsimulator.HandleEvents;
 import zapcricketsimulator.Variables;
 
@@ -29,7 +30,7 @@ public class TiltPanButton1 extends Group{
     boolean active2 = false;
     boolean active3 = false;
     boolean active4 = false;
-    
+
     public TiltPanButton1(double width , double height){
         try {
             String workingDir = System.getProperty("user.dir");
@@ -42,7 +43,7 @@ public class TiltPanButton1 extends Group{
             tiltpan.setFitWidth(width*0.5);
             tiltpan.setFitHeight(width*0.5);
             getChildren().add(tiltpan);*/
-            
+
             String tiltup_path = "/Media/images/tilt_up.png";
             FileInputStream tiltup_img = new FileInputStream(new File(workingDir, tiltup_path));
             final Image tiltup_image = new Image(tiltup_img);
@@ -59,7 +60,7 @@ public class TiltPanButton1 extends Group{
             tiltup.setFitHeight(width*0.5);
             getChildren().add(tiltup);*/
             tiltup.setOnMousePressed(new EventHandler<MouseEvent>() {
-                public void handle(MouseEvent event) {   
+                public void handle(MouseEvent event) {
                     //tiltup.setScaleX(1);
                     //tiltup.setScaleY(1);
                     tiltup.setFill(new ImagePattern(tiltup_image));
@@ -68,6 +69,7 @@ public class TiltPanButton1 extends Group{
             });
             tiltup.setOnMouseReleased(new EventHandler<MouseEvent>() {
                 public void handle(MouseEvent event) {
+                    ActTime.move("TILT", "TOP");
                     //button.setStroke(Color.BLACK);
                     if(active1){
                         //tiltup.setScaleX(1.1);
@@ -95,7 +97,7 @@ public class TiltPanButton1 extends Group{
                     active1=false;
                 }
             });
-            
+
             String tiltdown_path = "/Media/images/tilt_down.png";
             FileInputStream tiltdown_img = new FileInputStream(new File(workingDir, tiltdown_path));
             final Image tiltdown_image = new Image(tiltdown_img);
@@ -111,9 +113,10 @@ public class TiltPanButton1 extends Group{
             tiltdown.setFitWidth(width*0.5);
             tiltdown.setFitHeight(width*0.5);
             getChildren().add(tiltdown);*/
-            
+
             tiltdown.setOnMousePressed(new EventHandler<MouseEvent>() {
-                public void handle(MouseEvent event) {   
+                public void handle(MouseEvent event) {
+                    ActTime.move("TILT", "BOTTOM");
                     //tiltdown.setScaleX(1);
                     //tiltdown.setScaleY(1);
                     tiltdown.setFill(new ImagePattern(tiltdown_image));
@@ -127,7 +130,7 @@ public class TiltPanButton1 extends Group{
                         //tiltdown.setScaleX(1.1);
                         //tiltdown.setScaleY(1.1);
                         tiltdown.setFill(new ImagePattern(tiltdownc_image));
-                    }                    
+                    }
                 }
             });
             tiltdown.setOnMouseEntered(new EventHandler<MouseEvent>() {
@@ -149,7 +152,7 @@ public class TiltPanButton1 extends Group{
                     active2=false;
                 }
             });
-            
+
             String panleft_path = "/Media/images/pan_left.png";
             FileInputStream panleft_img = new FileInputStream(new File(workingDir, panleft_path));
             final Image panleft_image = new Image(panleft_img);
@@ -165,9 +168,10 @@ public class TiltPanButton1 extends Group{
             panleft.setFitWidth(width*0.5);
             panleft.setFitHeight(width*0.5);
             getChildren().add(panleft);*/
-            
+
             panleft.setOnMousePressed(new EventHandler<MouseEvent>() {
-                public void handle(MouseEvent event) {   
+                public void handle(MouseEvent event) {
+                    ActTime.move("PAN", "LEFT");
                     //panleft.setScaleX(1);
                     //panleft.setScaleY(1);
                     panleft.setFill(new ImagePattern(panleft_image));
@@ -184,7 +188,7 @@ public class TiltPanButton1 extends Group{
                     }
                 }
             });
-            
+
              panleft.setOnMouseEntered(new EventHandler<MouseEvent>() {
                 public void handle(MouseEvent event) {
                     //button.setStroke(Color.BLACK);
@@ -204,7 +208,7 @@ public class TiltPanButton1 extends Group{
                     active3=false;
                 }
             });
-            
+
             String panright_path = "/Media/images/pan_right.png";
             FileInputStream panright_img = new FileInputStream(new File(workingDir, panright_path));
             final Image panright_image = new Image(panright_img);
@@ -221,9 +225,10 @@ public class TiltPanButton1 extends Group{
             panright.setFitWidth(width*0.5);
             panright.setFitHeight(width*0.5);
             getChildren().add(panright);*/
-            
+
             panright.setOnMousePressed(new EventHandler<MouseEvent>() {
-                public void handle(MouseEvent event) {   
+                public void handle(MouseEvent event) {
+                    ActTime.move("PAN","RIGHT");
                     //panright.setScaleX(1);
                     //panright.setScaleY(1);
                     panright.setFill(new ImagePattern(panright_image));
@@ -263,5 +268,5 @@ public class TiltPanButton1 extends Group{
             e.printStackTrace();
         }
     }
-    
+
 }
