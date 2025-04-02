@@ -7,6 +7,7 @@ package com.sdt.serial;
 
 import jssc.SerialPort;
 import jssc.SerialPortList;
+import zapcricketsimulator.ActTime;
 
 /**
  *
@@ -15,17 +16,43 @@ import jssc.SerialPortList;
 public class USB_Com {
     public static boolean status = false;
     static SerialPort serialPort = null;
-    
+    public static byte[] getCmd(int cmd , byte [] data,int data_len){
+        byte [] cmd_data = new byte[6+data_len];
+        cmd_data[0] = '#';
+        cmd_data[1] = 0x01;
+        cmd_data[2] = (byte)cmd;
+        cmd_data[3] = (byte)data_len;
+        if(data_len>0){
+            for(int i=0;i<data_len;i++){
+                cmd_data[4+i] = data[i];
+            }
+        }
+        cmd_data[4+data_len] = USB_Com.getCRC(cmd_data, 4+data_len);
+        cmd_data[5+data_len] ='!';
+        return cmd_data;
+    }
     public static String[] getPortList(){
         return  SerialPortList.getPortNames();
     }
-    
+    public static byte [] getCmd1(byte cmd){
+        byte data[] = new byte[6];
+        data[0]='#';
+        data[1]=0x01;
+        data[2]=cmd;
+        data[3]=0x00;
+        data[4]=USB_Com.getCRC(data, 3);
+        data[5]='!';
+        return data;
+    }
     public static void Connect(String port,int baudrate,int data_bits , int stop_bits , int parity){
         try {
             serialPort = new SerialPort(port);
             serialPort.openPort();
             serialPort.setParams(baudrate, data_bits, stop_bits, parity);
             status = true;
+            USB_Com.WriteData(getCmd1((byte)0x81));
+            System.out.println("command written changing pan tilt");
+
         } catch (Exception e) {
             //e.printStackTrace();
             status = false;
@@ -35,26 +62,24 @@ public class USB_Com {
         try {
             serialPort.closePort();
         } catch (Exception e) {
-            
+
         }
         status = false;
     }
     public static boolean WriteData(byte [] data){
         boolean success = true;
-        //for(int  i = 0 ; i < data.length ; i++)
-        //    System.out.println(Byte.toUnsignedInt(data[i]));
         try {
             if(status){
                 serialPort.writeBytes(data);
             }else{
-               success = false; 
+                success = false;
             }
         } catch (Exception e) {
             e.printStackTrace();
             success = false;
         }
         return success;
-    }    
+    }
     public static int readByte(int timeout){
         int tempbyte=-1;
         try {
@@ -62,11 +87,19 @@ public class USB_Com {
                 tempbyte = serialPort.readIntArray(1, timeout)[0];
             }
         } catch (Exception e) {
-            //e.printStackTrace();
+//            e.printStackTrace();
         }
         return tempbyte;
     }
-    
+    public static String print(byte[] bytes) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("[ ");
+        for (byte b : bytes) {
+            sb.append(String.format("0x%02X ", b));
+        }
+        sb.append("]");
+        return sb.toString();
+    }
     public static byte getCRC(byte [] temp , int len){
         byte crc = 0;
         for( int i = 0 ; i < len ; i++)

@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ZAPCricketSimulator UpdatedOn="Wed Mar 26 12:44:54 IST 2025" version="V2.15">
+<ZAPCricketSimulator UpdatedOn="Wed Apr 02 12:46:25 IST 2025" version="V2.15">
   <GeneralSettings>
     <KeypadEnable>false</KeypadEnable>
     <TestMode>false</TestMode>
     <TabletEnable>true</TabletEnable>
     <TCPPort>9999</TCPPort>
+    <TiltPanTimeout>250</TiltPanTimeout>
     <ReplayEnable>false</ReplayEnable>
     <ReplayDuration>1500</ReplayDuration>
     <ReplayFormat>libx264</ReplayFormat>
@@ -19,7 +20,7 @@
     <MatchNegativeScoring>2</MatchNegativeScoring>
     <MinFileSize>50000</MinFileSize>
     <MaxReplayDelay>2000</MaxReplayDelay>
-    <AutoScoreComPort>COM16</AutoScoreComPort>
+    <AutoScoreComPort>COM7</AutoScoreComPort>
     <SkillTest>false</SkillTest>
     <SkillTestValue>10</SkillTestValue>
     <BaudRate>115200</BaudRate>
@@ -56,31 +57,31 @@
     <ModeData>
       <BowlerPath>C:\cricket simulator\Media\bowler\fast</BowlerPath>
       <BallReleasePos>1800</BallReleasePos>
-      <Ballspeed1>55</Ballspeed1>
-      <Ballspeed2>75</Ballspeed2>
-      <Ballspeed3>100</Ballspeed3>
-      <Ballspeed4>150</Ballspeed4>
+      <Ballspeed1>45</Ballspeed1>
+      <Ballspeed2>55</Ballspeed2>
+      <Ballspeed3>65</Ballspeed3>
+      <Ballspeed4>75</Ballspeed4>
       <BowlingType>3</BowlingType>
       <BowlerPath>C:\cricket simulator\Media\bowler\mediumfast</BowlerPath>
       <BallReleasePos>2100</BallReleasePos>
-      <Ballspeed1>55</Ballspeed1>
-      <Ballspeed2>100</Ballspeed2>
-      <Ballspeed3>100</Ballspeed3>
-      <Ballspeed4>150</Ballspeed4>
-      <BowlingType>8</BowlingType>
+      <Ballspeed1>50</Ballspeed1>
+      <Ballspeed2>60</Ballspeed2>
+      <Ballspeed3>70</Ballspeed3>
+      <Ballspeed4>80</Ballspeed4>
+      <BowlingType>9</BowlingType>
       <BowlerPath>C:\cricket simulator\Media\bowler\offspin</BowlerPath>
       <BallReleasePos>2100</BallReleasePos>
-      <Ballspeed1>55</Ballspeed1>
-      <Ballspeed2>70</Ballspeed2>
-      <Ballspeed3>100</Ballspeed3>
-      <Ballspeed4>150</Ballspeed4>
-      <BowlingType>6</BowlingType>
+      <Ballspeed1>48</Ballspeed1>
+      <Ballspeed2>58</Ballspeed2>
+      <Ballspeed3>68</Ballspeed3>
+      <Ballspeed4>78</Ballspeed4>
+      <BowlingType>8</BowlingType>
       <BowlerPath>C:\cricket simulator\Media\bowler\legspin</BowlerPath>
       <BallReleasePos>2100</BallReleasePos>
-      <Ballspeed1>55</Ballspeed1>
-      <Ballspeed2>70</Ballspeed2>
-      <Ballspeed3>100</Ballspeed3>
-      <Ballspeed4>150</Ballspeed4>
+      <Ballspeed1>46</Ballspeed1>
+      <Ballspeed2>56</Ballspeed2>
+      <Ballspeed3>66</Ballspeed3>
+      <Ballspeed4>76</Ballspeed4>
       <BowlingType>7</BowlingType>
       <BowlerPath>C:\cricket simulator\Media\bowler\panda</BowlerPath>
       <BallReleasePos>2100</BallReleasePos>

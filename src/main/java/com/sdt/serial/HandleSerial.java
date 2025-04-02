@@ -15,6 +15,7 @@ import java.net.InetAddress;
 import java.util.Calendar;
 import javafx.application.Platform;
 import jssc.SerialPort;
+import zapcricketsimulator.ActTime;
 import zapcricketsimulator.AutoScoringSensors;
 import zapcricketsimulator.HandleEvents;
 //import zapcricketsimulator.MediaStage;
@@ -45,9 +46,9 @@ public class HandleSerial {
     public static final int bowler6_update = 0xF6;
     public static final int bowler7_update = 0xF7;
     public static final int bowler8_update = 0xF8;
-    
+
     public static byte[] getCmd(int cmd , byte [] data,int data_len){
-        byte [] cmd_data = new byte[5+data_len];    
+        byte [] cmd_data = new byte[5+data_len];
         cmd_data[0] = '#';
         cmd_data[1] = (byte)cmd;
         cmd_data[2] = (byte)data_len;
@@ -60,9 +61,9 @@ public class HandleSerial {
         cmd_data[4+data_len] ='!';
         return cmd_data;
     }
-    
+
      public static byte[] getCmd1(int cmd , byte [] data,int data_len){
-        byte [] cmd_data = new byte[6+data_len];    
+        byte [] cmd_data = new byte[6+data_len];
         cmd_data[0] = '#';
         cmd_data[1] = 0x01;
         cmd_data[2] = (byte)cmd;
@@ -77,7 +78,7 @@ public class HandleSerial {
         return cmd_data;
     }
      public static byte[] getCmd12(int cmd , byte [] data,int data_len){
-        byte [] cmd_data = new byte[6+data_len];    
+        byte [] cmd_data = new byte[6+data_len];
         cmd_data[0] = '#';
         cmd_data[1] = 0x12;
         cmd_data[2] = (byte)cmd;
@@ -91,7 +92,7 @@ public class HandleSerial {
         cmd_data[5+data_len] ='!';
         return cmd_data;
     }
-    
+
     static String port_name="COM3";
     public static void printPorts(){
         String portlist []= USB_Com.getPortList();
@@ -107,8 +108,8 @@ public class HandleSerial {
              USB_Com.WriteData(cmd1);
         }
     }
-    public static void initSerial(String port){        
-        USB_Com.Connect(port, HandleEvents.generalSettings.getBaudrate(), SerialPort.DATABITS_8, SerialPort.STOPBITS_1, SerialPort.PARITY_NONE);        
+    public static void initSerial(String port){
+        USB_Com.Connect(port, HandleEvents.generalSettings.getBaudrate(), SerialPort.DATABITS_8, SerialPort.STOPBITS_1, SerialPort.PARITY_NONE);
         new SerialReceive();
         if(USB_Com.status){
              byte [] cmd1 = {35,(byte)0x12,9,1,1,0x40,33};//stop setting Request
@@ -175,8 +176,17 @@ public class HandleSerial {
                 }else{
                     byte [] cmd_data1 = {1,(byte)25};
                     data1=getCmd1(power_on, cmd_data1, 2);
-                }               
+                }
                 USB_Com.WriteData(data1);
+                if (!closing) {
+
+                    try {
+                        Thread.sleep(2000);
+                        ActTime.initCalibration();
+
+                    } catch (Exception e) {
+                    }
+                }
                 break;
             case skill_test://handles by software
                /* byte [] cmd_data2 = {(byte)HandleEvents.generalSettings.getSkill_test()};
@@ -210,7 +220,7 @@ public class HandleSerial {
             case update_speed_skilltest:{
                  byte [] cmd_data = {(byte)NextBall.randon_speed};
                 data1=getCmd(update_speed, cmd_data, 1);
-                USB_Com.WriteData(data1);      
+                USB_Com.WriteData(data1);
                 /*Platform.runLater(new Runnable() {
                     @Override
                     public void run() {
@@ -271,7 +281,7 @@ public class HandleSerial {
             }break;
             case bowler2_update:{
                 int speed = HandleEvents.generalSettings.getDefault_speed();
-                
+
                 switch(HandleEvents.gameBean.getPlayer_data().get(HandleEvents.gameBean.getSeq_pos()).getSkill_level()){
                     case 1:
                         speed = HandleEvents.generalSettings.getModeData().getBowling_speed()[1][0];
@@ -515,8 +525,8 @@ public class HandleSerial {
                 data1=getCmd(update_mode, cmd_data3, 1);
                  USB_Com.WriteData(data1);
             }break;
-                
+
         }
     }
-    
+
 }

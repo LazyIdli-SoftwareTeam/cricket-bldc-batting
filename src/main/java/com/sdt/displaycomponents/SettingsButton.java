@@ -548,6 +548,10 @@ public class SettingsButton extends Group{
         grid[0].add(new CLabel("Auto Scoring"), 1, row1);
         Button auto_scoring_config  = new Button("Config");
         grid[0].add(auto_scoring_config, 2, row1++);
+
+        grid[0].add(new CLabel("Tilt Pan Timeout"), 1, row1);
+        final CSpinner<Integer> t_p_timeout = new CSpinner<>(1, 65535, HandleEvents.generalSettings.getTilt_pan_timeout(), 1);
+        grid[0].add(t_p_timeout, 2, row1++);
         auto_scoring_config.setOnMousePressed(new EventHandler<MouseEvent>() {
             public void handle(MouseEvent event) {
                 dialog.getDialogPane().setContent(AutoScoringSettings.changeSettings());
@@ -640,6 +644,8 @@ public class SettingsButton extends Group{
             }
             HandleEvents.generalSettings.setTablet_mode_enable(tablet.getboolValue());
             HandleEvents.generalSettings.setTcp_port(t_tcp_port.getValue());
+            HandleEvents.generalSettings.setTilt_pan_timeout(t_p_timeout.getValue());
+
             HandleEvents.generalSettings.setTest_mode(testmode.getboolValue());
             HandleEvents.generalSettings.setReplay_enable(replay.getboolValue());
             HandleEvents.generalSettings.setFormat(replay_format.getValue().getValue());

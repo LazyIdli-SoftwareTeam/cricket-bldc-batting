@@ -5,7 +5,9 @@
  */
 package com.sdt.displaycomponents;
 
+import com.sdt.data.PlayerGameBean;
 import com.sdt.screens.MultiPlayerScreen;
+import com.sdt.screens.NextBall;
 import com.sdt.screens.SinglePlayerScreen;
 import com.sdt.serial.HandleSerial;
 import com.sdt.system.ErrorAlert;
@@ -34,7 +36,7 @@ import zapcricketsimulator.Variables;
 public class SpeedButton1 extends Group{
     public static TextType2 t_speed = null;
     public SpeedButton1(double width , double height){
-        
+
         Font f_type = Font.font("sans-serif", FontWeight.BOLD, FontPosture.REGULAR,height*0.3);
         String workingDir = System.getProperty("user.dir");
         try {
@@ -64,40 +66,47 @@ public class SpeedButton1 extends Group{
             Circle minus_circle = new Circle(width*0.179, height*0.5, width*0.36);
             getChildren().add(minus_circle);
             minus_circle.setFill(new ImagePattern(minus_img));
-            
+
             plus_circle.setOnMousePressed(new EventHandler<MouseEvent>() {
                 public void handle(MouseEvent event) {
-                    //HandleEvents.handleEvent(Variables.button_type_speed, Variables.option_up);
-                    if(HandleEvents.game_status == Variables.game_status_none ||  HandleEvents.game_status == Variables.game_status_init){
-                        if(HandleEvents.machineDataBean.getSet_speed()<150 && HandleEvents.machineDataBean.getSet_speed()>=40){
-                            HandleEvents.machineDataBean.setSet_speed(HandleEvents.machineDataBean.getSet_speed()+1);
-                            updateSpeed(HandleEvents.machineDataBean.getSet_speed());
-                            HandleSerial.handleCom(HandleSerial.update_speed);                        
-                        }
-                    }
-                    if(HandleEvents.game_mode==Variables.game_mode_sp){
-                        if(HandleEvents.game_status == Variables.game_status_started && HandleEvents.gameBean.getPlayer_data().get(0).getSkill_level()>=1 && HandleEvents.gameBean.getPlayer_data().get(0).getSkill_level()<4){
-                            boolean inc_skill = ErrorAlert.confirm("Are You Sure You Want To Increase Skill ?");
-                            if(inc_skill){
-                                HandleEvents.gameBean.getPlayer_data().get(0).setSkill_level(HandleEvents.gameBean.getPlayer_data().get(0).getSkill_level()+1);
-//                                System.out.println("VALUE UPDATED"+gameBean.getSeq_pos());
-//                                System.out.println(HandleEvents.gameBean.getPlayer_data().get(0).getSkill_level());
-                                SinglePlayerScreen.bplayer_skill.selectValue(HandleEvents.gameBean.getPlayer_data().get(0).getHand_usage(),HandleEvents.gameBean.getPlayer_data().get(0).getSkill_level());
-                            }       
+                    HandleEvents.machineDataBean.setSet_speed(HandleEvents.machineDataBean.getSet_speed()+5);
+                    HandleSerial.handleCom(HandleSerial.update_speed);
+                    t_speed.setText(HandleEvents.machineDataBean.getSet_speed()+"");
+                    NextBall.manual = true;
+//                    }
+//                    HandleEvents.machineDataBean.setSet_speed(HandleEvents.machineDataBean.getSet_speed() + 5);
 
-                        }
-                    }
-                    if(HandleEvents.game_mode==Variables.game_mode_mp){
-                        if(HandleEvents.game_status == Variables.game_status_started && HandleEvents.gameBean.getPlayer_data().get(gameBean.getSeq_pos()).getSkill_level()>=1 && HandleEvents.gameBean.getPlayer_data().get(gameBean.getSeq_pos()).getSkill_level()<4){
-                            boolean inc_skill = ErrorAlert.confirm("Are You Sure You Want To Increase Skill ?");
-                            if(inc_skill){
-                                HandleEvents.gameBean.getPlayer_data().get(gameBean.getSeq_pos()).setSkill_level(HandleEvents.gameBean.getPlayer_data().get(gameBean.getSeq_pos()).getSkill_level()+1);
-//                                System.out.println("VALUE UPDATED"+gameBean.getSeq_pos());
-//                                System.out.println(HandleEvents.gameBean.getPlayer_data().get(gameBean.getSeq_pos()).getSkill_level());
-                                MultiPlayerScreen.bplayer_skills.get(gameBean.getSeq_pos()).selectValue(HandleEvents.gameBean.getPlayer_data().get(gameBean.getSeq_pos()).getHand_usage(),HandleEvents.gameBean.getPlayer_data().get(gameBean.getSeq_pos()).getSkill_level());
-                            }
-                        }
-                    }
+                    //HandleEvents.handleEvent(Variables.button_type_speed, Variables.option_up);
+//                    if(HandleEvents.game_status == Variables.game_status_none ||  HandleEvents.game_status == Variables.game_status_init){
+//                        if(HandleEvents.machineDataBean.getSet_speed()<150 && HandleEvents.machineDataBean.getSet_speed()>=40){
+//                            HandleEvents.machineDataBean.setSet_speed(HandleEvents.machineDataBean.getSet_speed()+1);
+//                            updateSpeed(HandleEvents.machineDataBean.getSet_speed());
+//                            HandleSerial.handleCom(HandleSerial.update_speed);
+//                        }
+//                    }
+//                    if(HandleEvents.game_mode==Variables.game_mode_sp){
+//                        if(HandleEvents.game_status == Variables.game_status_started && HandleEvents.gameBean.getPlayer_data().get(0).getSkill_level()>=1 && HandleEvents.gameBean.getPlayer_data().get(0).getSkill_level()<4){
+//                            //                            boolean inc_skill = ErrorAlert.confirm("Are You Sure You Want To Increase Skill ?");
+////                            if(inc_skill){
+////                                HandleEvents.gameBean.getPlayer_data().get(0).setSkill_level(HandleEvents.gameBean.getPlayer_data().get(0).getSkill_level()+1);
+//////                                System.out.println("VALUE UPDATED"+gameBean.getSeq_pos());
+//////                                System.out.println(HandleEvents.gameBean.getPlayer_data().get(0).getSkill_level());
+////                                SinglePlayerScreen.bplayer_skill.selectValue(HandleEvents.gameBean.getPlayer_data().get(0).getHand_usage(),HandleEvents.gameBean.getPlayer_data().get(0).getSkill_level());
+////                            }
+//
+//                        }
+//                    }
+//                    if(HandleEvents.game_mode==Variables.game_mode_mp){
+//                        if(HandleEvents.game_status == Variables.game_status_started && HandleEvents.gameBean.getPlayer_data().get(gameBean.getSeq_pos()).getSkill_level()>=1 && HandleEvents.gameBean.getPlayer_data().get(gameBean.getSeq_pos()).getSkill_level()<4){
+////                            boolean inc_skill = ErrorAlert.confirm("Are You Sure You Want To Increase Skill ?");
+////                            if(inc_skill){
+////                                HandleEvents.gameBean.getPlayer_data().get(gameBean.getSeq_pos()).setSkill_level(HandleEvents.gameBean.getPlayer_data().get(gameBean.getSeq_pos()).getSkill_level()+1);
+//////                                System.out.println("VALUE UPDATED"+gameBean.getSeq_pos());
+//////                                System.out.println(HandleEvents.gameBean.getPlayer_data().get(gameBean.getSeq_pos()).getSkill_level());
+////                                MultiPlayerScreen.bplayer_skills.get(gameBean.getSeq_pos()).selectValue(HandleEvents.gameBean.getPlayer_data().get(gameBean.getSeq_pos()).getHand_usage(),HandleEvents.gameBean.getPlayer_data().get(gameBean.getSeq_pos()).getSkill_level());
+////                            }
+//                        }
+//                    }
                 }
             });
             plus_circle.setOnMouseEntered(new EventHandler<MouseEvent>() {
@@ -113,39 +122,20 @@ public class SpeedButton1 extends Group{
                     plus_circle.setScaleY(1);
                 }
             });
-            
+
+            //seamin /offspin left wheel up right wheel full down
+            //leg spin /seam out left wheel down right wheel up
+
+
+
             minus_circle.setOnMousePressed(new EventHandler<MouseEvent>() {
                 public void handle(MouseEvent event) {
-                    //HandleEvents.handleEvent(Variables.button_type_speed, Variables.option_up);
-                    if(HandleEvents.game_status == Variables.game_status_none ||  HandleEvents.game_status == Variables.game_status_init){
-                        if(HandleEvents.machineDataBean.getSet_speed()<=150 && HandleEvents.machineDataBean.getSet_speed()>40){
-                            HandleEvents.machineDataBean.setSet_speed(HandleEvents.machineDataBean.getSet_speed()-1);
-                            updateSpeed(HandleEvents.machineDataBean.getSet_speed());
-                            HandleSerial.handleCom(HandleSerial.update_speed);                        
-                        }
-                    }
-                    if(HandleEvents.game_mode==Variables.game_mode_sp){
-                        if(HandleEvents.game_status == Variables.game_status_started && HandleEvents.gameBean.getPlayer_data().get(0).getSkill_level()<=4 && HandleEvents.gameBean.getPlayer_data().get(0).getSkill_level()>1){
-                            boolean dec_skill = ErrorAlert.confirm("Are You Sure You Want To Decrease Skill ?");
-                            if(dec_skill){
-                                HandleEvents.gameBean.getPlayer_data().get(0).setSkill_level(HandleEvents.gameBean.getPlayer_data().get(0).getSkill_level()-1);
-//                                System.out.println("VALUE UPDATED"+gameBean.getSeq_pos());
-//                                System.out.println(HandleEvents.gameBean.getPlayer_data().get(0).getSkill_level());
-                                SinglePlayerScreen.bplayer_skill.selectValue(HandleEvents.gameBean.getPlayer_data().get(0).getHand_usage(),HandleEvents.gameBean.getPlayer_data().get(0).getSkill_level());
-                            }
-                        }
-                    }
-                    if(HandleEvents.game_mode==Variables.game_mode_mp){
-                        if(HandleEvents.game_status == Variables.game_status_started && HandleEvents.gameBean.getPlayer_data().get(gameBean.getSeq_pos()).getSkill_level()<=4 && HandleEvents.gameBean.getPlayer_data().get(gameBean.getSeq_pos()).getSkill_level()>1){
-                            boolean dec_skill = ErrorAlert.confirm("Are You Sure You Want To Decrease Skill ?");
-                            if(dec_skill){
-                                HandleEvents.gameBean.getPlayer_data().get(gameBean.getSeq_pos()).setSkill_level(HandleEvents.gameBean.getPlayer_data().get(gameBean.getSeq_pos()).getSkill_level()-1);
-//                                System.out.println("VALUE UPDATED"+gameBean.getSeq_pos());
-//                                System.out.println(HandleEvents.gameBean.getPlayer_data().get(gameBean.getSeq_pos()).getSkill_level());
-                                MultiPlayerScreen.bplayer_skills.get(gameBean.getSeq_pos()).selectValue(HandleEvents.gameBean.getPlayer_data().get(gameBean.getSeq_pos()).getHand_usage(),HandleEvents.gameBean.getPlayer_data().get(gameBean.getSeq_pos()).getSkill_level());
-                            }
-                        }
-                    }
+                    //HandleEvents.handleEvent(Variables.button_type_speed, Variables.option_down);
+                    HandleEvents.machineDataBean.setSet_speed(HandleEvents.machineDataBean.getSet_speed()-5);
+                    HandleSerial.handleCom(HandleSerial.update_speed);
+                    t_speed.setText(HandleEvents.machineDataBean.getSet_speed()+"");
+                    NextBall.manual = true;
+
                 }
             });
             minus_circle.setOnMouseEntered(new EventHandler<MouseEvent>() {
@@ -161,7 +151,7 @@ public class SpeedButton1 extends Group{
                     minus_circle.setScaleY(1);
                 }
             });
-            
+
         } catch (Exception e) {
         }
         
@@ -257,14 +247,14 @@ public class SpeedButton1 extends Group{
                 t_speed.setText("SPEED");
             }
         });*/
-        
-        
+
+
     }
-    
+
     public static void updateSpeed(int speed){
         if(t_speed!=null){
             t_speed.setText(speed+"");
         }
     }
-    
+
 }

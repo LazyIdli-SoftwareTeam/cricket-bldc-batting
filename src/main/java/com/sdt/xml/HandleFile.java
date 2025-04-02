@@ -93,6 +93,11 @@ public class HandleFile {
                         HandleEvents.generalSettings.setBaudrate(new BigDecimal(general_info.getChildText("BaudRate")).intValue());
                     if(general_info.getChildText("TCPPort")!=null)
                         HandleEvents.generalSettings.setTcp_port(new BigDecimal(general_info.getChildText("TCPPort")).intValue());
+                    System.out.println(" reading " + general_info.getChildText("TiltPanTimeout"));
+                    if (general_info.getChildText("TiltPanTimeout")!=null)
+                        HandleEvents.generalSettings.setTilt_pan_timeout(new BigDecimal(general_info.getChildText("TiltPanTimeout")).intValue());
+
+
                     if(general_info.getChildText("AutoScoringType")!=null)
                         HandleEvents.generalSettings.setAuto_scoring_enable(Integer.parseInt(general_info.getChildText("AutoScoringType")));
                     if(general_info.getChildText("DefaultSpeed")!=null)
@@ -293,6 +298,9 @@ public class HandleFile {
             general_info.addContent(createElement("TestMode", HandleEvents.generalSettings.isTest_mode()+""));
             general_info.addContent(createElement("TabletEnable", HandleEvents.generalSettings.isTablet_mode_enable()+""));
             general_info.addContent(createElement("TCPPort", HandleEvents.generalSettings.getTcp_port()+""));
+            System.out.println("saving this " + HandleEvents.generalSettings.getTilt_pan_timeout());
+            general_info.addContent(createElement("TiltPanTimeout", HandleEvents.generalSettings.getTilt_pan_timeout()+""));
+
             general_info.addContent(createElement("ReplayEnable", HandleEvents.generalSettings.isReplay_enable()+""));
             general_info.addContent(createElement("ReplayDuration", HandleEvents.generalSettings.getReplayduration_ms()+""));
             general_info.addContent(createElement("ReplayFormat", HandleEvents.generalSettings.getFormat()+""));

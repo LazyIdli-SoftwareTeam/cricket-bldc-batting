@@ -4659,3 +4659,97 @@ INFO03-26-2025 12:32:30 || LogManager.logInfo() : Application Opened
 INFO03-26-2025 12:40:51 || LogManager.logInfo() : Application Opened
 INFO03-26-2025 12:44:43 || LogManager.logInfo() : Application Opened
 INFO03-26-2025 12:45:01 || LogManager.logInfo() : Application Opened
+INFO04-02-2025 10:44:46 || LogManager.logInfo() : Application Opened
+SEVERE04-02-2025 10:44:48 || LogManager.logError() : Sequencer error null
+SEVERE04-02-2025 10:44:50 || LogManager.logError() : Sequencer error null
+SEVERE04-02-2025 10:44:55 || LogManager.logError() : Sequencer error null
+SEVERE04-02-2025 10:45:16 || LogManager.logError() : Sequencer error null
+SEVERE04-02-2025 10:45:35 || LogManager.logError() : Sequencer error null
+INFO04-02-2025 10:47:21 || LogManager.logInfo() : Application Opened
+SEVERE04-02-2025 10:47:22 || LogManager.logError() : Sequencer error null
+SEVERE04-02-2025 10:47:42 || LogManager.logError() : Sequencer error null
+SEVERE04-02-2025 10:47:43 || LogManager.logError() : Sequencer error null
+SEVERE04-02-2025 10:48:05 || LogManager.logError() : Sequencer error null
+INFO04-02-2025 10:48:28 || LogManager.logInfo() : Application Opened
+INFO04-02-2025 11:06:07 || LogManager.logInfo() : Application Opened
+INFO04-02-2025 11:08:46 || LogManager.logInfo() : Application Opened
+SEVERE04-02-2025 11:08:50 || LogManager.logError() : Sequencer error null
+SEVERE04-02-2025 11:09:07 || LogManager.logError() : Sequencer error null
+SEVERE04-02-2025 11:10:10 || LogManager.logError() : Sequencer error null
+INFO04-02-2025 11:10:17 || LogManager.logInfo() : Application Opened
+SEVERE04-02-2025 11:10:19 || LogManager.logError() : Sequencer error null
+SEVERE04-02-2025 11:10:24 || LogManager.logError() : Sequencer error null
+SEVERE04-02-2025 11:10:39 || LogManager.logError() : Sequencer error null
+SEVERE04-02-2025 11:10:53 || LogManager.logError() : Sequencer error null
+SEVERE04-02-2025 11:10:54 || LogManager.logError() : Sequencer error null
+SEVERE04-02-2025 11:11:08 || LogManager.logError() : Sequencer error null
+INFO04-02-2025 11:11:40 || LogManager.logInfo() : Application Opened
+INFO04-02-2025 11:14:18 || LogManager.logInfo() : Application Opened
+INFO04-02-2025 11:30:24 || LogManager.logInfo() : Application Opened
+INFO04-02-2025 11:32:43 || LogManager.logInfo() : Application Opened
+SEVERE04-02-2025 11:34:29 || LogManager.logError() : error playing [com.sun.media.jfxmediaimpl.platform.gstreamer.GSTMediaPlayer@71062210] ERROR_MEDIA_INVALID: ERROR_MEDIA_INVALID
+SEVERE04-02-2025 11:34:29 || LogManager.logError() : error playing [com.sun.media.jfxmediaimpl.platform.gstreamer.GSTMediaPlayer@18301ca] ERROR_MEDIA_INVALID: ERROR_MEDIA_INVALID
+SEVERE04-02-2025 11:34:29 || LogManager.logError() : error playing [com.sun.media.jfxmediaimpl.platform.gstreamer.GSTMediaPlayer@3d68850] ERROR_MEDIA_INVALID: ERROR_MEDIA_INVALID
+INFO04-02-2025 11:37:10 || LogManager.logInfo() : Application Opened
+INFO04-02-2025 11:41:39 || LogManager.logInfo() : Application Opened
+INFO04-02-2025 11:42:41 || LogManager.logInfo() : Application Opened
+INFO04-02-2025 11:48:34 || LogManager.logInfo() : Application Opened
+INFO04-02-2025 11:52:21 || LogManager.logInfo() : Application Opened
+INFO04-02-2025 11:58:59 || LogManager.logInfo() : Application Opened
+SEVERE04-02-2025 12:01:26 || LogManager.logError() : error playing [com.sun.media.jfxmediaimpl.platform.gstreamer.GSTMediaPlayer@1352d4f6] ERROR_MEDIA_INVALID: ERROR_MEDIA_INVALID
+INFO04-02-2025 12:02:10 || LogManager.logInfo() : Application Opened
+SEVERE04-02-2025 12:02:15 || LogManager.logError() : error playing [com.sun.media.jfxmediaimpl.platform.gstreamer.GSTMediaPlayer@4d0d7628] ERROR_MEDIA_INVALID: ERROR_MEDIA_INVALID
+INFO04-02-2025 12:03:22 || LogManager.logInfo() : Application Opened
+SEVERE04-02-2025 12:03:24 || LogManager.logError() : error playing [com.sun.media.jfxmediaimpl.platform.gstreamer.GSTMediaPlayer@1e639751] ERROR_MEDIA_INVALID: ERROR_MEDIA_INVALID
+INFO04-02-2025 12:05:29 || LogManager.logInfo() : Application Opened
+INFO04-02-2025 12:05:58 || LogManager.logInfo() : Application Opened
+INFO04-02-2025 12:10:21 || LogManager.logInfo() : Application Opened
+INFO04-02-2025 12:12:00 || LogManager.logInfo() : Application Opened
+SEVERE04-02-2025 12:14:29 || LogManager.logError() : error playing [com.sun.media.jfxmediaimpl.platform.gstreamer.GSTMediaPlayer@158b4e93] ERROR_MEDIA_INVALID: ERROR_MEDIA_INVALID
+INFO04-02-2025 12:18:50 || LogManager.logInfo() : Application Opened
+INFO04-02-2025 12:21:33 || LogManager.logInfo() : Application Opened
+INFO04-02-2025 12:21:58 || LogManager.logInfo() : Application Opened
+INFO04-02-2025 12:27:54 || LogManager.logInfo() : Application Opened
+SEVERE04-02-2025 12:31:28 || LogManager.logError() : error playing [com.sun.media.jfxmediaimpl.platform.gstreamer.GSTMediaPlayer@1e494ccb] ERROR_MEDIA_INVALID: ERROR_MEDIA_INVALID
+SEVERE04-02-2025 12:31:28 || LogManager.logError() : error playing [com.sun.media.jfxmediaimpl.platform.gstreamer.GSTMediaPlayer@c386156] ERROR_MEDIA_INVALID: ERROR_MEDIA_INVALID
+SEVERE04-02-2025 12:31:28 || LogManager.logError() : error playing [com.sun.media.jfxmediaimpl.platform.gstreamer.GSTMediaPlayer@695a47af] ERROR_MEDIA_INVALID: ERROR_MEDIA_INVALID
+SEVERE04-02-2025 12:31:28 || LogManager.logError() : error playing [com.sun.media.jfxmediaimpl.platform.gstreamer.GSTMediaPlayer@115ece5d] ERROR_MEDIA_INVALID: ERROR_MEDIA_INVALID
+SEVERE04-02-2025 12:31:28 || LogManager.logError() : error playing [com.sun.media.jfxmediaimpl.platform.gstreamer.GSTMediaPlayer@6a8348ea] ERROR_MEDIA_INVALID: ERROR_MEDIA_INVALID
+SEVERE04-02-2025 12:34:21 || LogManager.logError() : error playing [com.sun.media.jfxmediaimpl.platform.gstreamer.GSTMediaPlayer@40be9732] ERROR_MEDIA_INVALID: ERROR_MEDIA_INVALID
+SEVERE04-02-2025 12:34:21 || LogManager.logError() : error playing [com.sun.media.jfxmediaimpl.platform.gstreamer.GSTMediaPlayer@505ef0f7] ERROR_MEDIA_INVALID: ERROR_MEDIA_INVALID
+SEVERE04-02-2025 12:34:27 || LogManager.logError() : error playing [com.sun.media.jfxmediaimpl.platform.gstreamer.GSTMediaPlayer@b410148] ERROR_MEDIA_INVALID: ERROR_MEDIA_INVALID
+SEVERE04-02-2025 12:34:27 || LogManager.logError() : error playing [com.sun.media.jfxmediaimpl.platform.gstreamer.GSTMediaPlayer@f8263ff] ERROR_MEDIA_INVALID: ERROR_MEDIA_INVALID
+SEVERE04-02-2025 12:34:27 || LogManager.logError() : error playing [com.sun.media.jfxmediaimpl.platform.gstreamer.GSTMediaPlayer@6097502d] ERROR_MEDIA_INVALID: ERROR_MEDIA_INVALID
+SEVERE04-02-2025 12:34:27 || LogManager.logError() : error playing [com.sun.media.jfxmediaimpl.platform.gstreamer.GSTMediaPlayer@dcbc320] ERROR_MEDIA_INVALID: ERROR_MEDIA_INVALID
+SEVERE04-02-2025 12:34:27 || LogManager.logError() : error playing [com.sun.media.jfxmediaimpl.platform.gstreamer.GSTMediaPlayer@1efec0fc] ERROR_MEDIA_INVALID: ERROR_MEDIA_INVALID
+SEVERE04-02-2025 12:34:27 || LogManager.logError() : error playing [com.sun.media.jfxmediaimpl.platform.gstreamer.GSTMediaPlayer@85667ae] ERROR_MEDIA_INVALID: ERROR_MEDIA_INVALID
+SEVERE04-02-2025 12:34:27 || LogManager.logError() : error playing [com.sun.media.jfxmediaimpl.platform.gstreamer.GSTMediaPlayer@622cb167] ERROR_MEDIA_INVALID: ERROR_MEDIA_INVALID
+SEVERE04-02-2025 12:36:10 || LogManager.logError() : error playing [com.sun.media.jfxmediaimpl.platform.gstreamer.GSTMediaPlayer@5be85eaf] ERROR_MEDIA_INVALID: ERROR_MEDIA_INVALID
+SEVERE04-02-2025 12:36:20 || LogManager.logError() : error playing [com.sun.media.jfxmediaimpl.platform.gstreamer.GSTMediaPlayer@2e421723] ERROR_MEDIA_INVALID: ERROR_MEDIA_INVALID
+SEVERE04-02-2025 12:36:26 || LogManager.logError() : error playing [com.sun.media.jfxmediaimpl.platform.gstreamer.GSTMediaPlayer@716931c8] ERROR_MEDIA_INVALID: ERROR_MEDIA_INVALID
+SEVERE04-02-2025 12:37:25 || LogManager.logError() : error playing [com.sun.media.jfxmediaimpl.platform.gstreamer.GSTMediaPlayer@99a1eb9] ERROR_MEDIA_INVALID: ERROR_MEDIA_INVALID
+SEVERE04-02-2025 12:37:41 || LogManager.logError() : error playing [com.sun.media.jfxmediaimpl.platform.gstreamer.GSTMediaPlayer@66f0bf7b] ERROR_MEDIA_INVALID: ERROR_MEDIA_INVALID
+SEVERE04-02-2025 12:37:41 || LogManager.logError() : error playing [com.sun.media.jfxmediaimpl.platform.gstreamer.GSTMediaPlayer@419412f2] ERROR_MEDIA_INVALID: ERROR_MEDIA_INVALID
+SEVERE04-02-2025 12:37:41 || LogManager.logError() : error playing [com.sun.media.jfxmediaimpl.platform.gstreamer.GSTMediaPlayer@ff59109] ERROR_MEDIA_INVALID: ERROR_MEDIA_INVALID
+SEVERE04-02-2025 12:37:57 || LogManager.logError() : error playing [com.sun.media.jfxmediaimpl.platform.gstreamer.GSTMediaPlayer@6c7f479f] ERROR_MEDIA_INVALID: ERROR_MEDIA_INVALID
+SEVERE04-02-2025 12:39:47 || LogManager.logError() : error playing [com.sun.media.jfxmediaimpl.platform.gstreamer.GSTMediaPlayer@74397240] ERROR_MEDIA_INVALID: ERROR_MEDIA_INVALID
+SEVERE04-02-2025 12:39:47 || LogManager.logError() : error playing [com.sun.media.jfxmediaimpl.platform.gstreamer.GSTMediaPlayer@2b519cbc] ERROR_MEDIA_INVALID: ERROR_MEDIA_INVALID
+SEVERE04-02-2025 12:39:47 || LogManager.logError() : error playing [com.sun.media.jfxmediaimpl.platform.gstreamer.GSTMediaPlayer@49fae993] ERROR_MEDIA_INVALID: ERROR_MEDIA_INVALID
+SEVERE04-02-2025 12:39:47 || LogManager.logError() : error playing [com.sun.media.jfxmediaimpl.platform.gstreamer.GSTMediaPlayer@7a4c3681] ERROR_MEDIA_INVALID: ERROR_MEDIA_INVALID
+SEVERE04-02-2025 12:40:32 || LogManager.logError() : error playing [com.sun.media.jfxmediaimpl.platform.gstreamer.GSTMediaPlayer@490dfcb6] ERROR_MEDIA_INVALID: ERROR_MEDIA_INVALID
+SEVERE04-02-2025 12:41:14 || LogManager.logError() : error playing [com.sun.media.jfxmediaimpl.platform.gstreamer.GSTMediaPlayer@b5767e] ERROR_MEDIA_INVALID: ERROR_MEDIA_INVALID
+INFO04-02-2025 12:41:29 || LogManager.logInfo() : Application Opened
+INFO04-02-2025 12:43:16 || LogManager.logInfo() : Application Opened
+SEVERE04-02-2025 12:43:38 || LogManager.logError() : error playing [com.sun.media.jfxmediaimpl.platform.gstreamer.GSTMediaPlayer@d87880] ERROR_MEDIA_INVALID: ERROR_MEDIA_INVALID
+INFO04-02-2025 12:45:33 || LogManager.logInfo() : Application Opened
+INFO04-02-2025 12:46:37 || LogManager.logInfo() : Application Opened
+SEVERE04-02-2025 12:46:59 || LogManager.logError() : error playing [com.sun.media.jfxmediaimpl.platform.gstreamer.GSTMediaPlayer@68045afe] ERROR_MEDIA_INVALID: ERROR_MEDIA_INVALID
+SEVERE04-02-2025 12:46:59 || LogManager.logError() : error playing [com.sun.media.jfxmediaimpl.platform.gstreamer.GSTMediaPlayer@20e8875b] ERROR_MEDIA_INVALID: ERROR_MEDIA_INVALID
+INFO04-02-2025 12:53:01 || LogManager.logInfo() : Application Opened
+INFO04-02-2025 12:56:35 || LogManager.logInfo() : Application Opened
+INFO04-02-2025 12:59:09 || LogManager.logInfo() : Application Opened
+INFO04-02-2025 13:01:38 || LogManager.logInfo() : Application Opened
+INFO04-02-2025 13:02:19 || LogManager.logInfo() : Application Opened
+SEVERE04-02-2025 13:03:49 || LogManager.logError() : error playing [com.sun.media.jfxmediaimpl.platform.gstreamer.GSTMediaPlayer@60890b8e] ERROR_MEDIA_INVALID: ERROR_MEDIA_INVALID
+INFO04-02-2025 13:04:59 || LogManager.logInfo() : Application Opened
+INFO04-02-2025 13:06:34 || LogManager.logInfo() : Application Opened

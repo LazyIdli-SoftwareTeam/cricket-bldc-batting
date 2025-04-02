@@ -83,7 +83,7 @@ public class SerialReceive implements Runnable{
                         Platform.runLater(new Runnable() {
                             @Override
                             public void run() {
-                                HandleEvents.handleEvent(Variables.button_type_ball_init, 0);//0xE2 error reset
+                                // HandleEvents.handleEvent(Variables.button_type_ball_init, 0);//0xE2 error reset
                             }
                         });                                 
                         try {
@@ -102,7 +102,7 @@ public class SerialReceive implements Runnable{
                                 Platform.runLater(new Runnable() {
                                     @Override
                                     public void run() {
-                                        HandleEvents.handleEvent(Variables.button_type_ball_init, 0);//0xE2 error reset
+                                        // HandleEvents.handleEvent(Variables.button_type_ball_init, 0);//0xE2 error reset
                                     }
                                 });                                 
                                 try {
@@ -182,7 +182,7 @@ public class SerialReceive implements Runnable{
                         Platform.runLater(new Runnable() {
                             @Override
                             public void run() {
-                                HandleEvents.handleEvent(Variables.button_type_ball_init, 0);
+                                // HandleEvents.handleEvent(Variables.button_type_ball_init, 0);
                             }
                         });
                         
