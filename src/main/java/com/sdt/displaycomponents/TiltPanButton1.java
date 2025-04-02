@@ -6,6 +6,8 @@
 package com.sdt.displaycomponents;
 
 import com.sdt.serial.HandleSerial;
+
+import java.awt.*;
 import java.io.File;
 import java.io.FileInputStream;
 import javafx.event.EventHandler;
@@ -13,6 +15,7 @@ import javafx.scene.Group;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
@@ -53,6 +56,8 @@ public class TiltPanButton1 extends Group{
             Circle tiltup = new Circle(width*0.5, height*0.25, width*0.1);
             getChildren().add(tiltup);
             tiltup.setFill(new ImagePattern(tiltup_image));
+            // Create buttons
+
             /*ImageView tiltup = new ImageView(tiltup_image);
             tiltup.setLayoutX(width*0.25);
             tiltup.setLayoutY(height*0.025);

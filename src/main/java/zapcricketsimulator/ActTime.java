@@ -236,10 +236,28 @@ public class ActTime {
         byteval[6] = 0x00;
         byteval[7] = 0x00;
         byteval[8] = 0x00;
+        if (act.equals("LEFTWHEEL")) {
+            if (dct.equals("TOP")) {
+                byteval[6] = 0x02;
+            } else if (dct.equals("BOTTOM")) {
+                byteval[6] = 0x01;
+            }
+            byteval[7] = DEFAULT_MSB;
+            byteval[8] = DEFAULT_LSB;
+        }
         //right motor
         byteval[9] = 0x00;
         byteval[10] = 0x00;
         byteval[11] = 0x00;
+        if (act.equals("RIGHTWHEEL")) {
+            if (dct.equals("TOP")) {
+                byteval[9] = 0x02;
+            } else if (dct.equals("BOTTOM")) {
+                byteval[9] = 0x01;
+            }
+            byteval[10] = DEFAULT_MSB;
+            byteval[11] = DEFAULT_LSB;
+        }
         byte[] data = USB_Com.getCmd(0x84, byteval, 12);
         USB_Com.WriteData(data);
         timeout = true;

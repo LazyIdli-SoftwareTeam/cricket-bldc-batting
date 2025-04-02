@@ -8,6 +8,7 @@ package com.sdt.displaycomponents;
 import com.sdt.data.BallBean;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -46,6 +47,7 @@ import javafx.util.Callback;
 import javafx.util.Pair;
 import org.jdom2.output.Format;
 import org.jdom2.output.XMLOutputter;
+import zapcricketsimulator.ActTime;
 import zapcricketsimulator.HandleEvents;
 import com.sdt.data.KeyValueBean;
 import com.sdt.screens.TabletCom;
@@ -552,6 +554,32 @@ public class SettingsButton extends Group{
         grid[0].add(new CLabel("Tilt Pan Timeout"), 1, row1);
         final CSpinner<Integer> t_p_timeout = new CSpinner<>(1, 65535, HandleEvents.generalSettings.getTilt_pan_timeout(), 1);
         grid[0].add(t_p_timeout, 2, row1++);
+        Button leftWheelUp = new Button("Left Wheel Up");
+        Button leftWheelDown = new Button("Left Wheel Down");
+        Button rightWheelUp = new Button("Right Wheel Up");
+        Button rightWheelDown = new Button("Right Wheel Down");
+
+        // Place them in a horizontal box
+        grid[0].add(leftWheelUp, 1, row1);
+        grid[0].add(leftWheelDown, 2, row1++);
+        grid[0].add(rightWheelUp, 1, row1);
+        grid[0].add(rightWheelDown, 2, row1++);
+        leftWheelUp.setOnAction(e -> {
+            ActTime.move("LEFTWHEEL", "TOP");
+        });
+        leftWheelDown.setOnAction(e -> {
+            ActTime.move("LEFTWHEEL", "BOTTOM");
+
+        });
+        rightWheelUp.setOnAction(e ->{
+            ActTime.move("RIGHTWHEEL", "TOP");
+
+        });
+        rightWheelDown.setOnAction(e -> {
+            ActTime.move("RIGHTWHEEL", "BOTTOM");
+
+        });
+
         auto_scoring_config.setOnMousePressed(new EventHandler<MouseEvent>() {
             public void handle(MouseEvent event) {
                 dialog.getDialogPane().setContent(AutoScoringSettings.changeSettings());
