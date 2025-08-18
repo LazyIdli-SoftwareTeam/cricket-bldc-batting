@@ -176,6 +176,9 @@ public class HandleEvents {
                 break;
             case Variables.button_type_start:
                 game_ended = false;
+                NextBall.type = 0;
+                NextBall.current_over = 0;
+                new Thread(ActTime::initCalibration).start();
                 game_status =Variables.game_status_started;
                 game_sub_status=Variables.game_sub_status_idle;
                 handle_start_button();
@@ -442,6 +445,17 @@ public class HandleEvents {
             if(game_mode==Variables.game_mode_mp){
                 if(playerGameBean.getBall_count()>=(gameBean.getNo_of_overs_each()*6)){
                     gameBean.setSeq_pos(gameBean.getSeq_pos()+1);
+                    if (gameBean.getSeq_pos() > 0) {
+                        NextBall.type = 0;
+                        NextBall.current_over = 0;
+                        try {
+                            Thread.sleep(2000);
+                            new Thread(ActTime::initCalibration).start();
+                            Thread.sleep(1000);
+                        } catch (Exception e) {
+                        }
+
+                    }
                     MediaStageNew.player_change = true;
                     if(gameBean.getSeq_pos()<gameBean.getNo_of_players()){
                         game_skill_level = playerGameBean.getSkill_level();
@@ -558,6 +572,7 @@ public class HandleEvents {
                 }
                 //System.out.println("handle events 2");
                 MediaStageNew.this_obj.handlewelcome(TargetScreen.targetBean.getName());
+
                 game_sub_status=Variables.game_sub_status_idle;
                 break;
 

@@ -1,19 +1,13 @@
 package zapcricketsimulator;
 import jssc.SerialPort;
 import jssc.SerialPortEventListener;
-import jssc.SerialPortEvent;
 import jssc.SerialPortException;
-import zapcricketsimulator.HandleEvents;
-import zapcricketsimulator.Variables;
 import javafx.application.Platform;
 
-import java.io.OutputStream;
 import java.util.HashMap; // import the HashMap class
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.File;
-import java.util.Arrays;
-
 
 
 public class AutoScoringSensors implements  Runnable {
@@ -138,11 +132,36 @@ public class AutoScoringSensors implements  Runnable {
                 }
             }
         }
-        this.ballReleased = false;
+        ballReleased = false;
         this.handleScore(score);
+        String numScore = convertScoreToNum(score);
+        if (numScore != null && !numScore.isEmpty()) {
+            String command = "AT+SCORE=" + numScore + "\r\n";
+            try {
+                serialPort.writeBytes(command.getBytes());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+
         // System.out.println("Score Detected: " + score + " Data Rec from sensors: " + sensorData );
         AutoScoringSensors.score++;
+    }
 
+    public String convertScoreToNum(String score) {
+        if (score.contains("6")) {
+            return "6";
+        } else if (score.contains(("4"))) {
+            return "4";
+        } else if (score.contains("2")) {
+            return "2";
+        } else if (score.contains("3")) {
+            return "3";
+        } else if (score.contains("Out")) {
+            return "Out";
+        }
+        return null;
     }
     public static boolean isBowlingVideo(String mediaPath) {
         if (mediaPath == null || mediaPath.isEmpty()) {
@@ -166,28 +185,6 @@ public class AutoScoringSensors implements  Runnable {
 
     public void handleScore (String score) {
         System.out.println("sending score");
-//        if (HandleEvents.machineDataBean.getBall_status() != 1) {
-//            try {
-//                Thread.sleep(3000);
-//            } catch (Exception e) {}
-//        }
-//        if (MediaStageNew.mp != null) {
-//            Platform.runLater(() -> {
-//                try {
-//                    if (isBowlingVideo(MediaStageNew.mp.getMedia().getSource())) {
-//                        MediaStageNew.mp.stop();
-//                        MediaStageNew.mp.dispose();
-//                        MediaStageNew.mp = null;
-//                        System.out.println("Video stopped and disposed before sending score.");
-//                    }
-////                    MediaStageNew.mp.onEndOfMediaProperty()
-//
-//                } catch (Exception e) {
-//                    e.printStackTrace();
-//                }
-//            });
-//        }
-//        MediaStageNew.mp.dispose();
         switch (score) {
             case "1LEG":
                 Platform.runLater(() -> {
@@ -274,7 +271,6 @@ public class AutoScoringSensors implements  Runnable {
             case "NoRun":
                 Platform.runLater(() -> {
                     HandleEvents.handleEvent(Variables.button_type_result_norun, 0);
-
                 });
                 break;
             case "NoBall":
@@ -301,6 +297,8 @@ public class AutoScoringSensors implements  Runnable {
 
                 });
         }
+
+
     }
 
 
@@ -312,7 +310,7 @@ public class AutoScoringSensors implements  Runnable {
                     try {
                         // System.out.println("gone here for auto");
                         String receivedData = serialPort.readString();
-                        // System.out.println("Got message from sensors: " + receivedData);
+                         System.out.println("Got message from sensors: " + receivedData);
                         if (!AutoScoringSensors.ballReleased) return;
                         if (receivedData.contains("ERROR")) return;
                         if (receivedData.startsWith("OK")) {

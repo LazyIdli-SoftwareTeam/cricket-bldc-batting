@@ -6,8 +6,11 @@
 package com.sdt.screens;
 
 
+import com.sdt.data.ModeDatBean;
 import com.sdt.data.PlayerGameBean;
 import static com.sdt.displaycomponents.SpeedButton1.updateSpeed;
+
+import com.sdt.displaycomponents.SpeedButton1;
 import com.sdt.logging.LogManager;
 import com.sdt.serial.HandleSerial;
 import com.sdt.system.ErrorAlert;
@@ -22,6 +25,7 @@ import javafx.application.Platform;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
+import zapcricketsimulator.ActTime;
 import zapcricketsimulator.HandleEvents;
 import static zapcricketsimulator.HandleEvents.gameBean;
 import zapcricketsimulator.Variables;
@@ -115,6 +119,7 @@ public class TabletCom implements Runnable{
             response.put("command", command);
             response.put("machine_id", HandleEvents.generalSettings.getAutoScotringBean().getSerial_no());
             response.put("speed", HandleEvents.machineDataBean.getSet_speed());
+            System.out.println("commands rec    " + command);
             switch(command){
                 case "init":                     
                     if(HandleEvents.game_mode==Variables.game_mode_sp){
@@ -317,84 +322,87 @@ public class TabletCom implements Runnable{
                     break;
                 case "bowler":
                     int pos = Integer.parseInt(request.get("type").toString());
-                     HandleEvents.handleEvent(Variables.button_type_bowler, pos);
-                    response.put("type", "1");
+                    int pos2=HandleEvents.gameBean.getSeq_pos();
+
+                    System.out.println("got bowler request");
+
+                    System.out.println("selection" + HandleEvents.gameBean.getBowler_selection());
+                    ModeDatBean m = HandleEvents.generalSettings.getModeData();
+//8217821484
+                    //1729
+                    PlayerGameBean playerGameBean = HandleEvents.gameBean.getPlayer_data().get(pos2);
+                    int skill = playerGameBean.getSkill_level();
+
+                    System.out.println("type" + (m.getBowling_speed()[pos - 1][skill - 1]));
+                    HandleEvents.machineDataBean.setSet_speed((m.getBowling_speed()[pos - 1][skill - 1]));
+                    HandleSerial.handleCom(HandleSerial.update_speed);
+                    SpeedButton1.updateSpeed(HandleEvents.machineDataBean.getSet_speed());
+                    try {
+                        Thread.sleep(1000);
+                    } catch (Exception e) {
+                        throw new RuntimeException(e);
+                    }
+                    if (HandleEvents.gameBean.getBowler_selection() == 0) {
+//                        ActTime.previousConfig(NextBall.type, type);
+                        int prev_type = m.getBowling_type()[NextBall.type];
+                        NextBall.type = pos - 1;
+//                        System.out.println("sending" + type);
+                        int cov_type = m.getBowling_type()[pos - 1];
+                        NextBall.selectionManual = true;
+//                        System.out.println(" previous " + prev_type + " conversion " + cov_type);
+                        ActTime.previousConfig(cov_type, prev_type);
+                        try {
+                            Thread.sleep(1000);
+                        } catch (Exception e) {
+                            throw new RuntimeException(e);
+                        }
+                        response.put("type", "1");
+
+                    } else {
+                        response.put("type", "-1");
+                        ErrorAlert.alert("This is not possible in auto mode");
+                    }
+                    HandleEvents.handleEvent(Variables.button_type_bowler, pos);
+//                    response.put("type", "1");
                     break;
                 case "function":
                     switch(type){
                         case "speed_up":
-                            if(HandleEvents.game_status == Variables.game_status_none ||  HandleEvents.game_status == Variables.game_status_init){
-                                if(HandleEvents.machineDataBean.getSet_speed()<150 && HandleEvents.machineDataBean.getSet_speed()>=40){
-                                    HandleEvents.machineDataBean.setSet_speed(HandleEvents.machineDataBean.getSet_speed()+1);
-                                    updateSpeed(HandleEvents.machineDataBean.getSet_speed());
-                                    HandleSerial.handleCom(HandleSerial.update_speed);                        
-                                }
-                            }
-                            if(HandleEvents.game_mode==Variables.game_mode_sp){
-                                if(HandleEvents.game_status == Variables.game_status_started && HandleEvents.gameBean.getPlayer_data().get(0).getSkill_level()>=1 && HandleEvents.gameBean.getPlayer_data().get(0).getSkill_level()<4){
-                                    HandleEvents.gameBean.getPlayer_data().get(0).setSkill_level(HandleEvents.gameBean.getPlayer_data().get(0).getSkill_level()+1);
-//                                    System.out.println("VALUE UPDATED"+gameBean.getSeq_pos());
-//                                    System.out.println(HandleEvents.gameBean.getPlayer_data().get(0).getSkill_level());
-                                    SinglePlayerScreen.bplayer_skill.selectValue(HandleEvents.gameBean.getPlayer_data().get(0).getHand_usage(),HandleEvents.gameBean.getPlayer_data().get(0).getSkill_level());
-                                }
-                            }
-                            if(HandleEvents.game_mode==Variables.game_mode_mp){
-                                if(HandleEvents.game_status == Variables.game_status_started && HandleEvents.gameBean.getPlayer_data().get(gameBean.getSeq_pos()).getSkill_level()>=1 && HandleEvents.gameBean.getPlayer_data().get(gameBean.getSeq_pos()).getSkill_level()<4){
-                                    HandleEvents.gameBean.getPlayer_data().get(gameBean.getSeq_pos()).setSkill_level(HandleEvents.gameBean.getPlayer_data().get(gameBean.getSeq_pos()).getSkill_level()+1);
-//                                    System.out.println("VALUE UPDATED"+gameBean.getSeq_pos());
-//                                    System.out.println(HandleEvents.gameBean.getPlayer_data().get(gameBean.getSeq_pos()).getSkill_level());
-                                    MultiPlayerScreen.bplayer_skills.get(gameBean.getSeq_pos()).selectValue(HandleEvents.gameBean.getPlayer_data().get(gameBean.getSeq_pos()).getHand_usage(),HandleEvents.gameBean.getPlayer_data().get(gameBean.getSeq_pos()).getSkill_level());
-                                    
-                                }
-                            }
+                            HandleEvents.machineDataBean.setSet_speed(HandleEvents.machineDataBean.getSet_speed()+5);
+                            HandleSerial.handleCom(HandleSerial.update_speed);
+                            SpeedButton1.updateSpeed(HandleEvents.machineDataBean.getSet_speed());
+                            NextBall.manual = true;
                             response.put("type", "speed_up");
                             response.put("speed", HandleEvents.machineDataBean.getSet_speed());
 //                            response.put("skillspeed",SinglePlayerScreen.bplayer_skill.getValue().toString());
                             break;
                         case "speed_down":
-                            if(HandleEvents.game_status == Variables.game_status_none ||  HandleEvents.game_status == Variables.game_status_init){
-                                if(HandleEvents.machineDataBean.getSet_speed()<=150 && HandleEvents.machineDataBean.getSet_speed()>40){
-                                    HandleEvents.machineDataBean.setSet_speed(HandleEvents.machineDataBean.getSet_speed()-1);
-                                    updateSpeed(HandleEvents.machineDataBean.getSet_speed());
-                                    HandleSerial.handleCom(HandleSerial.update_speed);                        
-                                }
-                            }
-                            if(HandleEvents.game_mode==Variables.game_mode_sp){
-                                if(HandleEvents.game_status == Variables.game_status_started && HandleEvents.gameBean.getPlayer_data().get(0).getSkill_level()<=4 && HandleEvents.gameBean.getPlayer_data().get(0).getSkill_level()>1){
-                                    HandleEvents.gameBean.getPlayer_data().get(0).setSkill_level(HandleEvents.gameBean.getPlayer_data().get(0).getSkill_level()-1);
-//                                    System.out.println("VALUE UPDATED"+gameBean.getSeq_pos());
-//                                    System.out.println(HandleEvents.gameBean.getPlayer_data().get(0).getSkill_level());
-                                    SinglePlayerScreen.bplayer_skill.selectValue(HandleEvents.gameBean.getPlayer_data().get(0).getHand_usage(),HandleEvents.gameBean.getPlayer_data().get(0).getSkill_level());
-                                }
-                            }
-                            if(HandleEvents.game_mode==Variables.game_mode_mp){
-                                if(HandleEvents.game_status == Variables.game_status_started && HandleEvents.gameBean.getPlayer_data().get(gameBean.getSeq_pos()).getSkill_level()<=4 && HandleEvents.gameBean.getPlayer_data().get(gameBean.getSeq_pos()).getSkill_level()>1){
-                                    HandleEvents.gameBean.getPlayer_data().get(gameBean.getSeq_pos()).setSkill_level(HandleEvents.gameBean.getPlayer_data().get(gameBean.getSeq_pos()).getSkill_level()-1);
-//                                    System.out.println("VALUE UPDATED"+gameBean.getSeq_pos());
-//                                    System.out.println(HandleEvents.gameBean.getPlayer_data().get(gameBean.getSeq_pos()).getSkill_level());
-                                    MultiPlayerScreen.bplayer_skills.get(gameBean.getSeq_pos()).selectValue(HandleEvents.gameBean.getPlayer_data().get(gameBean.getSeq_pos()).getHand_usage(),HandleEvents.gameBean.getPlayer_data().get(gameBean.getSeq_pos()).getSkill_level());
-                                    
-                                }
-                            }
+                            HandleEvents.machineDataBean.setSet_speed(HandleEvents.machineDataBean.getSet_speed()-5);
+                            HandleSerial.handleCom(HandleSerial.update_speed);
+                            SpeedButton1.updateSpeed(HandleEvents.machineDataBean.getSet_speed());
+                            NextBall.manual = true;
 //                            HandleEvents.machineDataBean.setSet_speed(HandleEvents.machineDataBean.getSet_speed()-1);
 //                            HandleSerial.handleCom(HandleSerial.update_speed);
                             response.put("type", "speed_down");
                             response.put("speed", HandleEvents.machineDataBean.getSet_speed());
                             break;
                         case "pan_left":
-                            HandleSerial.handleCom(HandleSerial.pan_left);
+//                            HandleSerial.handleCom(HandleSerial.pan_left);
+                            ActTime.move("PAN", "LEFT");
                             response.put("type", "pan_left");
                             break;
                         case "pan_right":
-                            HandleSerial.handleCom(HandleSerial.pan_right);
+                            ActTime.move("PAN", "RIGHT");
+
                             response.put("type", "pan_right");
                             break;
                         case "tilt_up":
-                            HandleSerial.handleCom(HandleSerial.tilt_up);
+                            ActTime.move("TILT", "TOP");
+
                             response.put("type", "tilt_up");
                             break;
                         case "tilt_down":
-                            HandleSerial.handleCom(HandleSerial.tilt_down);
+                            ActTime.move("TILT", "BOTTOM");
                             response.put("type", "tilt_down");
                             break;
                         default:

@@ -141,19 +141,21 @@ public class HandleSerial {
                     USB_Com.WriteData(data1);
                     if (HandleEvents.generalSettings.getAuto_scoring_enable() == 3)
                         ball_released = true;
-                    new Thread(() -> {
-                        try {
-                            Thread.sleep(5000); // Sleep for 5 seconds
-                            if (temp == AutoScoringSensors.score) {
-                                System.out.println("no sensors detected so giving a manual score");
-                                Platform.runLater(() -> {
-                                    HandleEvents.handleEvent(Variables.button_type_result_norun, 0);
-                                });
+                    if (HandleEvents.generalSettings.getAuto_scoring_enable() == 3) {
+                        new Thread(() -> {
+                            try {
+                                Thread.sleep(5000); // Sleep for 5 seconds
+                                if (temp == AutoScoringSensors.score) {
+                                    System.out.println("no sensors detected so giving a manual score");
+                                    Platform.runLater(() -> {
+                                        HandleEvents.handleEvent(Variables.button_type_result_norun, 0);
+                                    });
+                                }
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
                             }
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-                    }).start();
+                        }).start();
+                    }
 
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -173,19 +175,21 @@ public class HandleSerial {
                 if(closing){
                     byte [] cmd_data1 = {0,0};
                     data1=getCmd1(power_on, cmd_data1, 2);
+                    System.out.println("power on1");
                 }else{
                     byte [] cmd_data1 = {1,(byte)25};
                     data1=getCmd1(power_on, cmd_data1, 2);
+                    System.out.println("power on2");
                 }
                 USB_Com.WriteData(data1);
                 if (!closing) {
 
-                    try {
-                        Thread.sleep(2000);
-                        ActTime.initCalibration();
+                    // try {
+                    //     Thread.sleep(2000);
+                    //     ActTime.initCalibration();
 
-                    } catch (Exception e) {
-                    }
+                    // } catch (Exception e) {
+                    // }
                 }
                 break;
             case skill_test://handles by software

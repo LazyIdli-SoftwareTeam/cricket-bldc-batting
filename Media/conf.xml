@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ZAPCricketSimulator UpdatedOn="Wed Apr 02 12:46:25 IST 2025" version="V2.15">
+<ZAPCricketSimulator UpdatedOn="Sat Aug 16 15:45:03 IST 2025" version="V2.15">
   <GeneralSettings>
     <KeypadEnable>false</KeypadEnable>
     <TestMode>false</TestMode>
@@ -9,7 +9,7 @@
     <ReplayEnable>false</ReplayEnable>
     <ReplayDuration>1500</ReplayDuration>
     <ReplayFormat>libx264</ReplayFormat>
-    <CameraIP>192.168.0.64</CameraIP>
+    <CameraIP>192.168.1.64</CameraIP>
     <CameraPort>554</CameraPort>
     <CameraUserID>admin</CameraUserID>
     <CameraPassword>Sd123456</CameraPassword>
@@ -24,7 +24,7 @@
     <SkillTest>false</SkillTest>
     <SkillTestValue>10</SkillTestValue>
     <BaudRate>115200</BaudRate>
-    <AutoScoringType>3</AutoScoringType>
+    <AutoScoringType>0</AutoScoringType>
     <SixerVideo>false</SixerVideo>
     <WicketVideo>false</WicketVideo>
     <CloudReporting>true</CloudReporting>
@@ -70,19 +70,19 @@
       <Ballspeed4>80</Ballspeed4>
       <BowlingType>9</BowlingType>
       <BowlerPath>C:\cricket simulator\Media\bowler\offspin</BowlerPath>
-      <BallReleasePos>2100</BallReleasePos>
+      <BallReleasePos>2000</BallReleasePos>
       <Ballspeed1>48</Ballspeed1>
       <Ballspeed2>58</Ballspeed2>
       <Ballspeed3>68</Ballspeed3>
       <Ballspeed4>78</Ballspeed4>
       <BowlingType>8</BowlingType>
       <BowlerPath>C:\cricket simulator\Media\bowler\legspin</BowlerPath>
-      <BallReleasePos>2100</BallReleasePos>
+      <BallReleasePos>2000</BallReleasePos>
       <Ballspeed1>46</Ballspeed1>
       <Ballspeed2>56</Ballspeed2>
       <Ballspeed3>66</Ballspeed3>
       <Ballspeed4>76</Ballspeed4>
-      <BowlingType>7</BowlingType>
+      <BowlingType>8</BowlingType>
       <BowlerPath>C:\cricket simulator\Media\bowler\panda</BowlerPath>
       <BallReleasePos>2100</BallReleasePos>
       <Ballspeed1>55</Ballspeed1>
@@ -103,14 +103,14 @@
       <Ballspeed2>70</Ballspeed2>
       <Ballspeed3>100</Ballspeed3>
       <Ballspeed4>150</Ballspeed4>
-      <BowlingType>13</BowlingType>
+      <BowlingType>9</BowlingType>
       <BowlerPath>C:\cricket simulator\Media\bowler\offspin</BowlerPath>
       <BallReleasePos>2100</BallReleasePos>
       <Ballspeed1>55</Ballspeed1>
       <Ballspeed2>70</Ballspeed2>
       <Ballspeed3>100</Ballspeed3>
       <Ballspeed4>150</Ballspeed4>
-      <BowlingType>14</BowlingType>
+      <BowlingType>8</BowlingType>
     </ModeData>
   </ModeInfo>
   <AutoScoringInfo>

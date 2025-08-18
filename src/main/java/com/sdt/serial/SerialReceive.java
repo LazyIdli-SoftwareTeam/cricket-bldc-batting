@@ -32,7 +32,7 @@ public class SerialReceive implements Runnable{
     public void processData(){
         switch(data[2]){
             case 0xE0:
-                if(data[3]==0x08){                    
+                if(data[3]==8){
                     //HandleEvents.machineDataBean.setSet_speed(data[4]);
                     HandleEvents.machineDataBean.getMotor_speed()[0]=data[5];
                     HandleEvents.machineDataBean.getMotor_speed()[1]=data[6];

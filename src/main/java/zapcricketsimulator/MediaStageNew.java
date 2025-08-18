@@ -21,17 +21,27 @@ import com.sdt.serial.HandleSerial;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Calendar;
+
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.ObservableMap;
 //import javafx.event.Event;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 //import javafx.scene.layout.Background;
 import javafx.scene.layout.Pane;
 //import javafx.scene.layout.StackPane;
+import javafx.scene.layout.Region;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
 //import javafx.scene.media.MediaErrorEvent;
 import javafx.scene.media.MediaMarkerEvent;
@@ -39,9 +49,7 @@ import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontPosture;
-import javafx.scene.text.FontWeight;
+import javafx.scene.text.*;
 //import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -58,6 +66,8 @@ import com.sdt.serial.USB_Com;
 import com.sdt.serial.USB_ComExt;
 import com.sdt.upload_data.GameDataHandler;
 import java.util.List;
+
+import static zapcricketsimulator.HandleEvents.balls;
 import static zapcricketsimulator.HandleEvents.game_ended;
 
 /**
@@ -486,15 +496,31 @@ public class MediaStageNew extends Stage {
         loadVideo(video);
         video_seq.clear();   
         doMediaSeq();
-        try {           
-            f_type1 = Font.font("sans-serif", FontWeight.BOLD, FontPosture.REGULAR,screenheight*0.05);
-            if(type==Variables.button_type_ball_init){
+        try {
+            Font f_type1 = Font.font("sans-serif", FontWeight.BOLD, FontPosture.REGULAR, screenheight * 0.12);
+
+            String string1;
+            if (type == Variables.button_type_ball_init) {
                 string1 = "System Initialization Ball Release Test Stand Aside";
-                text1 = new TextType3_0(screenwidth/2, screenheight*0.47, string1, f_type1, root,Color.WHITE);
-            }else if(type==Variables.button_type_ball_error){
+            } else if (type == Variables.button_type_ball_error) {
                 string1 = "Please Check If Ball Loaded";
-                text1 = new TextType3_0(screenwidth/2, screenheight*0.47, string1, f_type1, root,Color.WHITE);
-            }      
+            } else {
+                string1 = "";
+            }
+
+            Text text1 = new Text(string1);
+            text1.setFont(f_type1);
+            text1.setFill(Color.WHITE);
+            text1.setTextAlignment(TextAlignment.CENTER);
+            text1.setWrappingWidth(screenwidth * 0.8);
+
+// --- CENTER THE TEXT ON SCREEN ---
+            StackPane textContainer = new StackPane(text1);
+            textContainer.setPrefSize(screenwidth, screenheight);
+            textContainer.setAlignment(Pos.CENTER);
+
+            root.getChildren().add(textContainer);
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -738,26 +764,13 @@ public class MediaStageNew extends Stage {
             e.printStackTrace();
         }
     }
+    private Text timerText;
+    private Text welcomeText;
+    private VBox vbox;
+
     int display_count = HandleEvents.generalSettings.getPlayer_init_time();
     public void displayTextloop(){
-        if(root.getChildren().contains(text_5)){
-            root.getChildren().remove(text_5);
-            root.getChildren().remove(text1);
-            root.getChildren().remove(text2);
-        } 
-         f_type1 = Font.font("sans-serif", FontWeight.BOLD, FontPosture.REGULAR,screenheight*0.05);
-        if(HandleEvents.game_mode==Variables.game_mode_sp){
-            string1 = "Welcome "+HandleEvents.gameBean.getPlayer_data().get(HandleEvents.gameBean.getSeq_pos()).getPlayer_name();
-            text1 = new TextType3_0(screenwidth/2, screenheight*0.47, string1, f_type1, root,Color.WHITE);
-        }else if(HandleEvents.game_mode==Variables.game_mode_mp){
-            string1 = "Welcome "+HandleEvents.gameBean.getPlayer_data().get(HandleEvents.gameBean.getSeq_pos()).getPlayer_name();;
-            text1 = new TextType3_0(screenwidth/2, screenheight*0.47, string1, f_type1, root,Color.WHITE);
-        } 
-        text2 = new TextType3_0(screenwidth/2, screenheight*0.55, "Experience SD Cricket Simulator", f_type1, root,Color.WHITE);
-        text_5 = new TextType5(screenwidth*0.04, screenheight*0.07,/* "Your Game Starts in "+*/display_count-- +""/*+" , "+ HandleEvents.machineDataBean.getBall_status()*/);
-        text_5.setLayoutX(screenwidth*0.5);
-        text_5.setLayoutY(screenheight*0.37);
-        root.getChildren().add(text_5);
+
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
@@ -774,7 +787,51 @@ public class MediaStageNew extends Stage {
                 } catch (Exception e) {
                 }
             }
-        });  
+        });
+        if(root.getChildren().contains(text_5)){
+            root.getChildren().remove(text_5);
+            root.getChildren().remove(text1);
+            root.getChildren().remove(text2);
+        }
+        if (vbox != null && root.getChildren().contains(vbox)) {
+            root.getChildren().remove(vbox);
+        }
+
+//        f_type1 = Font.font("sans-serif", FontWeight.BOLD, FontPosture.REGULAR, screenheight * 0.07);
+        // Manual very big font size
+        Font bigFont = Font.font("sans-serif", FontWeight.BOLD, FontPosture.REGULAR, screenheight * 0.12); // adjust as needed
+
+// --- TIMER TEXT (display_count) ---
+        timerText = new Text(display_count-- + "");
+        timerText.setFont(bigFont);
+        timerText.setFill(Color.WHITE);
+        timerText.setTextAlignment(TextAlignment.CENTER);
+        timerText.setWrappingWidth(screenwidth * 0.8);
+
+// --- WELCOME TEXT ---
+        String string1 = "Welcome " + HandleEvents.gameBean.getPlayer_data()
+                .get(HandleEvents.gameBean.getSeq_pos()).getPlayer_name();
+
+        welcomeText = new Text(string1);
+        welcomeText.setFont(bigFont);
+        welcomeText.setFill(Color.WHITE);
+        welcomeText.setTextAlignment(TextAlignment.CENTER);
+        welcomeText.setWrappingWidth(screenwidth * 0.8);
+
+// --- STACK THEM VERTICALLY ---
+        vbox = new VBox(2, timerText, welcomeText); // 50px gap between texts
+        vbox.setAlignment(Pos.CENTER);
+        vbox.setPrefWidth(screenwidth);
+
+// Center VBox on screen
+        vbox.layoutBoundsProperty().addListener((obs, oldVal, newVal) -> {
+            vbox.setLayoutX((screenwidth - newVal.getWidth()) / 2);
+            vbox.setLayoutY((screenheight - newVal.getHeight()) / 2);
+        });
+
+// Add to root
+        root.getChildren().add(vbox);
+
     }
     
     
@@ -793,15 +850,38 @@ public class MediaStageNew extends Stage {
             loadVideo(video);
             video_seq.clear();   
             doMediaSeq();
-            f_type1 = Font.font("sans-serif", FontWeight.BOLD, FontPosture.REGULAR,screenheight*0.05);
-            if(HandleEvents.game_mode==Variables.game_mode_sp){
-                string1 = "Welcome "+HandleEvents.gameBean.getPlayer_data().get(HandleEvents.gameBean.getSeq_pos()).getPlayer_name();
-                text1 = new TextType3_0(screenwidth/2, screenheight*0.47, string1, f_type1, root,Color.WHITE);
-            }else if(HandleEvents.game_mode==Variables.game_mode_mp){
-                string1 = "Welcome "+HandleEvents.gameBean.getPlayer_data().get(HandleEvents.gameBean.getSeq_pos()).getPlayer_name();;
-                text1 = new TextType3_0(screenwidth/2, screenheight*0.47, string1, f_type1, root,Color.WHITE);
-            }             
-            text2 = new TextType3_0(screenwidth/2, screenheight*0.55, "Experience SD Cricket Simulator", f_type1, root,Color.WHITE);
+
+            if (root.getChildren().contains(text_5)) {
+                root.getChildren().remove(text_5);
+                root.getChildren().remove(text1);
+                root.getChildren().remove(text2);
+            }
+
+// 🎯 Make font size huge (scale with screen height)
+            f_type1 = Font.font("sans-serif", FontWeight.BOLD, FontPosture.REGULAR, screenheight * 0.12);
+
+// Build welcome message
+            String string1 = "Welcome " + HandleEvents.gameBean.getPlayer_data()
+                    .get(HandleEvents.gameBean.getSeq_pos()).getPlayer_name();
+
+            Text bigText = new Text(string1);
+            bigText.setFont(f_type1);
+            bigText.setFill(Color.WHITE);
+            bigText.setWrappingWidth(screenwidth * 0.8);   // allow wrapping
+            bigText.setTextAlignment(TextAlignment.CENTER);
+
+            TextFlow textFlow = new TextFlow(bigText);
+            textFlow.setTextAlignment(TextAlignment.CENTER);
+            textFlow.setPrefWidth(screenwidth * 0.8);
+
+// Dynamically center both horizontally & vertically
+            textFlow.layoutBoundsProperty().addListener((obs, oldVal, newVal) -> {
+                textFlow.setLayoutX((screenwidth - newVal.getWidth()) / 2);   // center X
+                textFlow.setLayoutY((screenheight - newVal.getHeight()) / 2); // center Y
+            });
+
+            root.getChildren().add(textFlow);
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -989,6 +1069,98 @@ public class MediaStageNew extends Stage {
     static String namea = "";
     TextType5 text_5 = null;
     int change_time = 5;
+    // Class field to track the VBox so we can remove it later
+    private VBox targetVBox;
+
+    public boolean loadTargetText() {
+        if (HandleEvents.generalSettings.isCloud_reporting())
+            GameDataHandler.ballbyballUpdate();
+
+        try {
+            GameBean gameBean = HandleEvents.gameBean;
+
+            // Remove old VBox if still on screen
+            if (targetVBox != null) {
+                root.getChildren().remove(targetVBox);
+            }
+
+            // Calculate overs left (as balls left)
+            int totalOvers = gameBean.getNo_of_overs_each();
+            int ballsBowled = 0;
+            for (PlayerGameBean player : gameBean.getPlayer_data()) {
+                ballsBowled += player.getBall_count();
+            }
+            int totalBalls = totalOvers * 6;
+            int ballsLeft = totalBalls - ballsBowled;
+
+            // Calculate total runs
+            int totalRuns = 0;
+            for (PlayerGameBean player : gameBean.getPlayer_data()) {
+                totalRuns += player.getTotal_score();
+            }
+
+            // 👉 Use same font size as welcome
+            double welcomeFontSize = screenheight * 0.12;
+
+            // Timer text
+            Text timerText = new Text("5");
+            timerText.setFont(Font.font("Arial", FontWeight.BOLD, welcomeFontSize));
+            timerText.setFill(Color.WHITE);
+            timerText.setTextAlignment(TextAlignment.CENTER);
+
+            // Balls left
+            Text oversText = new Text("Balls Left: " + ballsLeft);
+            oversText.setFont(Font.font("Arial", FontWeight.BOLD, welcomeFontSize));
+            oversText.setFill(Color.WHITE);
+            oversText.setTextAlignment(TextAlignment.CENTER);
+
+            // Total runs
+            Text runsText = new Text("Total Runs: " + totalRuns);
+            runsText.setFont(Font.font("Arial", FontWeight.BOLD, welcomeFontSize));
+            runsText.setFill(Color.WHITE);
+            runsText.setTextAlignment(TextAlignment.CENTER);
+
+            // VBox with spacing = 10
+            targetVBox = new VBox(10, timerText, oversText, runsText);
+            targetVBox.setAlignment(Pos.CENTER);
+            targetVBox.setPrefWidth(screenwidth);
+
+            // Center VBox
+            targetVBox.layoutBoundsProperty().addListener((obs, oldVal, newVal) -> {
+                targetVBox.setLayoutX((screenwidth - newVal.getWidth()) / 2);
+                targetVBox.setLayoutY((screenheight - newVal.getHeight()) / 2);
+            });
+
+            root.getChildren().add(targetVBox);
+
+            // Countdown timer (5 → 4 → 3 → 2 → 1)
+            Timeline countdown = new Timeline();
+            IntegerProperty counter = new SimpleIntegerProperty(5);
+
+            EventHandler<ActionEvent> updateTimer = event -> {
+                int current = counter.get();
+                if (current > 0) {
+                    timerText.setText(String.valueOf(current));
+                    counter.set(current - 1);
+                } else {
+                    countdown.stop();
+                    // 👉 Play next video here
+                    // Example: Media.getInstance().playNextVideo();
+                }
+            };
+
+            countdown.getKeyFrames().add(new KeyFrame(Duration.seconds(1), updateTimer));
+            countdown.setCycleCount(6);
+            countdown.play();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+        return true;
+    }
+
+
     public void loadTargetText2(){
         if(HandleEvents.generalSettings.isCloud_reporting())
                 GameDataHandler.ballbyballUpdate();
@@ -1034,280 +1206,7 @@ public class MediaStageNew extends Stage {
         } catch (Exception e) {
         }
     }
-    public boolean loadTargetText(){
-         if(HandleEvents.generalSettings.isCloud_reporting())
-                GameDataHandler.ballbyballUpdate();
-         
-        try {            
-            if(HandleEvents.game_mode==Variables.game_mode_sp){                
-                text_5 = new TextType5(screenwidth*0.15, screenheight*0.05, "Player");
-                text_5.setLayoutX(screenwidth*0.3);
-                text_5.setLayoutY(screenheight*0.37);
-                root.getChildren().add(text_5);
-                
-                text_5 = new TextType5(screenwidth*0.15, screenheight*0.05, "Level");
-                text_5.setLayoutX(screenwidth*0.3);
-                text_5.setLayoutY(screenheight*0.43);
-                root.getChildren().add(text_5);
-                
-                text_5 = new TextType5(screenwidth*0.15, screenheight*0.05, "Balls");
-                text_5.setLayoutX(screenwidth*0.3);
-                text_5.setLayoutY(screenheight*0.49);
-                root.getChildren().add(text_5);
-                
-                text_5 = new TextType5(screenwidth*0.15, screenheight*0.05, "Runs");
-                text_5.setLayoutX(screenwidth*0.3);
-                text_5.setLayoutY(screenheight*0.55);
-                root.getChildren().add(text_5);
-                
-                text_5 = new TextType5(screenwidth*0.15, screenheight*0.05, "Strike Rate");
-                text_5.setLayoutX(screenwidth*0.3);
-                text_5.setLayoutY(screenheight*0.61);
-                root.getChildren().add(text_5);
-                
-                text_5 = new TextType5(screenwidth*0.2,screenheight*0.05,HandleEvents.gameBean.getPlayer_data().get(0).getPlayer_name(),Color.WHITE,Color.rgb(39, 62, 68));
-                text_5.setLayoutX(screenwidth*0.452);
-                text_5.setLayoutY(screenheight*0.37);
-                root.getChildren().add(text_5);
-                
-                text_5 = new TextType5(screenwidth*0.2,screenheight*0.05,MultiPlayerScreen.skill_levels.get((HandleEvents.gameBean.getPlayer_data().get(0).getSkill_level()-1)*2).getValue(),Color.WHITE,Color.rgb(39, 62, 68));
-                text_5.setLayoutX(screenwidth*0.452);
-                text_5.setLayoutY(screenheight*0.43);
-                root.getChildren().add(text_5);
-                
-                text_5 = new TextType5(screenwidth*0.2,screenheight*0.05,HandleEvents.gameBean.getPlayer_data().get(0).getBall_count()+"/"+(HandleEvents.gameBean.getNo_of_overs_each()*6),Color.WHITE,Color.rgb(39, 62, 68));
-                text_5.setLayoutX(screenwidth*0.452);
-                text_5.setLayoutY(screenheight*0.49);
-                root.getChildren().add(text_5);
-                
-                text_5 = new TextType5(screenwidth*0.2,screenheight*0.05,HandleEvents.gameBean.getPlayer_data().get(0).getTotal_score()+"",Color.WHITE,Color.rgb(39, 62, 68));
-                text_5.setLayoutX(screenwidth*0.452);
-                text_5.setLayoutY(screenheight*0.55);
-                root.getChildren().add(text_5);
-                
-                int strikerate = 0;
-                if(HandleEvents.gameBean.getPlayer_data().get(0).getBall_count()!=0 && HandleEvents.gameBean.getPlayer_data().get(0).getTotal_score()!=0)
-                    strikerate = (int)((((float)HandleEvents.gameBean.getPlayer_data().get(0).getTotal_score())*100)/(float)HandleEvents.gameBean.getPlayer_data().get(0).getBall_count());
-                
-                text_5 = new TextType5(screenwidth*0.2,screenheight*0.05,strikerate+"",Color.WHITE,Color.rgb(39, 62, 68));
-                text_5.setLayoutX(screenwidth*0.452);
-                text_5.setLayoutY(screenheight*0.61);
-                root.getChildren().add(text_5);               
-            }else if(HandleEvents.game_mode==Variables.game_mode_mp){
-                GameBean gameBean = HandleEvents.gameBean;
-                
-                text_5 = new TextType5(screenwidth*0.14, screenheight*0.05, "Player");
-                text_5.setLayoutX(screenwidth*0.2);
-                text_5.setLayoutY(screenheight*0.37);
-                root.getChildren().add(text_5);
-                
-                text_5 = new TextType5(screenwidth*0.12, screenheight*0.05, "Level");
-                text_5.setLayoutX(screenwidth*0.345);
-                text_5.setLayoutY(screenheight*0.37);
-                root.getChildren().add(text_5);
-                
-                text_5 = new TextType5(screenwidth*0.1, screenheight*0.05, "Balls");
-                text_5.setLayoutX(screenwidth*0.47);
-                text_5.setLayoutY(screenheight*0.37);
-                root.getChildren().add(text_5);
-                
-                text_5 = new TextType5(screenwidth*0.1, screenheight*0.05, "Runs");
-                text_5.setLayoutX(screenwidth*0.575);
-                text_5.setLayoutY(screenheight*0.37);
-                root.getChildren().add(text_5);
-                
-                text_5 = new TextType5(screenwidth*0.1, screenheight*0.05, "Strike Rate");
-                text_5.setLayoutX(screenwidth*0.68);
-                text_5.setLayoutY(screenheight*0.37);
-                root.getChildren().add(text_5);
-                
-                int noOfPlayers = gameBean.getNo_of_players();
-                int[] player_scores = new int[noOfPlayers];
-                int maxScore = 0;
-                ArrayList<Integer> winners = new ArrayList<>();
-                
-                for (int j = 0; j < noOfPlayers; j++) {
-                    PlayerGameBean wplayergamebean = gameBean.getPlayer_data().get(j);
-                    player_scores[j] = wplayergamebean.getTotal_score();
-                    if (player_scores[j] > maxScore) {
-                        maxScore = player_scores[j];
-                    }
-                }
-                
-                for (int w = 0; w < player_scores.length; w++) {
-                    if (player_scores[w] == maxScore) {
-                        winners.add(w);
-                    }
-                }
-                
-                for(int i=0;i<gameBean.getNo_of_players();i++){
-                    PlayerGameBean playergamebean = gameBean.getPlayer_data().get(i);
-                    String name= playergamebean.getPlayer_name();
-                    Color bgcolor = Color.rgb(39, 62, 68);
-                    if(i == gameBean.getSeq_pos()){
-                        bgcolor = Color.rgb(255, 22, 22);
-                        name=name+"*";
-                    }
-                    
-                    if(game_ended){
-                        text_5 = new TextType5(screenwidth*0.14, screenheight*0.05, "Top Scorers");
-                        text_5.setLayoutX(screenwidth*0.2);
-                        text_5.setLayoutY(screenheight*0.31);
-                        root.getChildren().add(text_5);
-                        
-                        if (winners.contains(i)) {
-                            bgcolor = Color.rgb(0, 100, 0);
-                        }else{
-                            bgcolor = Color.rgb(39, 62, 68);
-                        }                        
 
-                    }
-                        /*
-                        text_5 = new TextType5(screenwidth*0.1, screenheight*0.05, "Top Scorers");
-                        text_5.setLayoutX(screenwidth*0.2);
-                        text_5.setLayoutY(screenheight*0.31);
-                        root.getChildren().add(text_5);
-                        int max=0;
-                        for(int j=0;j<gameBean.getNo_of_players();j++){
-                            PlayerGameBean wplayergamebean = gameBean.getPlayer_data().get(j);
-                            
-                            int[] player_scores = new int[gameBean.getNo_of_players()];
-                            player_scores[j]=wplayergamebean.getTotal_score();
-
-                            
-                            for(int score : player_scores){
-                                if(score > max)
-                                    max = score;
-                            }
-                            System.out.println(max+" is the max value");
-                            System.out.println(player_scores.length+ " lenght of paluyer scores");
-                            ArrayList<Integer> winners = new ArrayList<>();
-                            for (int w=0;w<player_scores.length;w++){
-                                if(player_scores[w] == max){
-                                    winners.add(w);
-                                    System.out.println(max+" "+w+" "+player_scores[w]+" "+winners.toString());
-                                }
-                            }
-                            System.out.println(winners.toString()+" "+winners.size());
-                            
-
-//                            if(winners.get(j)==j){
-    //                            text_5 = new TextType5(screenwidth*0.14,screenheight*0.05,gameBean.getPlayer_data().get(win).getPlayer_name(),Color.WHITE,bgcolor);
-    //                            text_5.setLayoutX(screenwidth*0.2);
-    //                            text_5.setLayoutY(screenheight*(0.43+(i*0.06)));
-    //                            root.getChildren().add(text_5);
-    //                            playergamebean = gameBean.getPlayer_data().get(win);
-//                                bgcolor = Color.rgb(0,100,0);
-
-                            if(winners.size()>1){
-                                for (int winner : winners){
-                                    if(i==winner)
-                                        bgcolor = Color.rgb(0,100,0);
-                                    else{
-                                        bgcolor = Color.rgb(39, 62, 68);
-                                    }
-                                }
-                            }else{
-                                if(i==winners.get(0))
-                                    bgcolor = Color.rgb(0,100,0);
-                                else
-                                    bgcolor = Color.rgb(39, 62, 68);
-                            }
-                        }*/
-//                        handlePause();
-//                        Thread.sleep(2500);
-//                        handlePlay();
-//                    }
-                    
-                    text_5 = new TextType5(screenwidth*0.14,screenheight*0.05,name,Color.WHITE,bgcolor);
-                    text_5.setLayoutX(screenwidth*0.2);
-                    text_5.setLayoutY(screenheight*(0.43+(i*0.06)));
-                    root.getChildren().add(text_5);
-                    
-                    text_5 = new TextType5(screenwidth*0.12,screenheight*0.05,MultiPlayerScreen.skill_levels.get((playergamebean.getSkill_level()-1)*2).getValue(),Color.WHITE,bgcolor);
-                    text_5.setLayoutX(screenwidth*0.345);
-                    text_5.setLayoutY(screenheight*(0.43+(i*0.06)));
-                    root.getChildren().add(text_5);
-                    
-                    text_5 = new TextType5(screenwidth*0.1,screenheight*0.05,playergamebean.getBall_count()+"/"+(HandleEvents.gameBean.getNo_of_overs_each()*6),Color.WHITE,bgcolor);
-                    text_5.setLayoutX(screenwidth*0.47);
-                    text_5.setLayoutY(screenheight*(0.43+(i*0.06)));
-                    root.getChildren().add(text_5);
-                    
-                    text_5 = new TextType5(screenwidth*0.1,screenheight*0.05,playergamebean.getTotal_score()+"",Color.WHITE,bgcolor);
-                    text_5.setLayoutX(screenwidth*0.575);
-                    text_5.setLayoutY(screenheight*(0.43+(i*0.06)));
-                    root.getChildren().add(text_5);
-                    
-                    int strikerate = 0;
-                    if(playergamebean.getBall_count()!=0 && playergamebean.getTotal_score()!=0)
-                        strikerate = (int)((((float)playergamebean.getTotal_score())*100)/(float)playergamebean.getBall_count());
-                    
-                    text_5 = new TextType5(screenwidth*0.1,screenheight*0.05,strikerate+"",Color.WHITE,bgcolor);
-                    text_5.setLayoutX(screenwidth*0.68);
-                    text_5.setLayoutY(screenheight*(0.43+(i*0.06)));
-                    root.getChildren().add(text_5);
-                }
-                
-                /*rect = new Rectangle(screenwidth*0.2, screenheight*0.195, screenwidth*0.6, screenheight*0.05);
-                rect.setFill(Color.BLACK);
-                root.getChildren().add(rect);
-                f_type1 = Font.font("sans-serif", FontWeight.BOLD, FontPosture.REGULAR,screenheight*0.05);
-                match = "Game Stats";
-                text1 = new TextType3_0(screenwidth/2, screenheight*0.22, match, f_type1, root,Color.WHITE);
-                game = " No of Overs " + gameBean.getNo_of_overs_each();
-                no_of_players = "Players : "+gameBean.getNo_of_players();
-
-                teama_head = new Rectangle(screenwidth*0.2, screenheight*0.251, screenwidth*0.6, screenheight*0.08);
-                teama_head.setFill(Color.rgb(253, 2, 61));
-                root.getChildren().add(teama_head);
-
-                //teama_name = new TextType1(screenwidth*0.12, screenheight*0.31, MatchScreen.matchBean.getTeama_name(), f_type1, root, Color.BLACK);       
-
-                for(int i=0;i<gameBean.getNo_of_players();i++){
-                    PlayerGameBean playergamebean = gameBean.getPlayer_data().get(i);
-                    playera_rect = new Rectangle(screenwidth*0.2, screenheight*(0.332+(i*0.081)), screenwidth*0.6, screenheight*0.08);
-                    if(i%2==0)
-                        playera_rect.setFill(Color.WHITE);
-                    else
-                        playera_rect.setFill(Color.rgb(255, 215, 227));
-                    root.getChildren().add(playera_rect);
-                    namea = playergamebean.getPlayer_name()+"("+MultiPlayerScreen.skill_levels.get(playergamebean.getSkill_level()-1)+")";
-                    Color text_colorA = Color.BLACK;
-                    if(i == gameBean.getSeq_pos()){
-                        namea = namea+"*";
-                        text_colorA = Color.RED;
-                        playera_rect.setFill(Color.LIGHTSKYBLUE);
-                    }                   
-                    playera_name = new TextType1(screenwidth*0.22, screenheight*(0.332+(i*0.081)+0.06), namea, f_type1, root, text_colorA);
-                    
-                    if(gameBean.getSeq_pos()>=i){
-                        String scorea = "";
-                        scorea=playergamebean.getTotal_score()+"("+playergamebean.getBall_count()+"/"+(gameBean.getNo_of_overs_each()*6 )+")";                            
-                        playera_score = new TextType1(screenwidth*0.65, screenheight*(0.332+(i*0.081)+0.06), scorea, f_type1, root, Color.BLACK);
-                    }
-                     
-                }*/               
-            }
-            if(HandleEvents.generalSettings.isTest_mode()){
-                //System.out.println( AutoScoring.score_data+" \n "+AutoScoring.display_string);
-                text_5 = new TextType5(screenwidth*0.9, screenheight*0.05, AutoScoring.score_data+" , "+AutoScoring.score_time,Color.BLACK,Color.WHITE);
-                text_5.setLayoutX(screenwidth*0.05);
-                text_5.setLayoutY(screenheight*0.8);
-                root.getChildren().add(text_5);
-                text_5 = new TextType5(screenwidth*0.9, screenheight*0.05, AutoScoring.display_result,Color.BLACK,Color.WHITE);
-                text_5.setLayoutX(screenwidth*0.05);
-                text_5.setLayoutY(screenheight*0.9);                
-                root.getChildren().add(text_5);
-            }
-            
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
-        return true;
-    }
-    
 //        public void handleWinner(){
 //        try {
 //            clearScreen();            

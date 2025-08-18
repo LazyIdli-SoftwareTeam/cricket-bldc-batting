@@ -29,6 +29,7 @@ public class NextBall {
     public static boolean selectionManual = false;
     public static int temp_val = 0;
     public static int type = 0;
+    public static boolean gameStartDone = false;
     public static int current_over = 0;
     public static void planNextBall(){
         // skill test
@@ -69,15 +70,21 @@ public class NextBall {
         if (HandleEvents.gameBean.getBowler_selection() == 1) {
             int overs =
                     playerGameBean.getBall_count() / 6;
-            if (overs != current_over) {
+            System.out.println( " overs = " + current_over + " " + overs);
+            if (overs != current_over && overs > 0) {
                 current_over = overs;
                 int prv_config = m.getBowling_type()[type];
                 int current_config = m.getBowling_type()[type + 1];
-                System.out.println("prev = " + prv_config + " conv = " + current_config);
                 ActTime.previousConfig(prv_config, current_config);
             }
             type = overs % m.getBowler_path().length;
             uPos = type;
+
+            if (overs <= 0) {
+                uPos = 0;
+                type = 0;
+            }
+            System.out.println(uPos + "pos " + type);
         }
         ballBean.setBall_release(m.getTrigger_interval()[uPos]);
         ballBean.setBowler_path(m.getBowler_path()[uPos]);

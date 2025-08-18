@@ -19,16 +19,19 @@ public class ActTime {
     public static void previousConfig(int type, int prv_type) {
         System.out.println(type + " " +
                 prv_type);
-        if (type == 3 && prv_type == 6 || type == 3 && prv_type == 8) {
-            fastSeemIn();
-            System.out.println("1st");
-        } else if (type == 3 && prv_type == 9 || type == 3 && prv_type == 7) {
-            fastSeamOut();
-            System.out.println("2 nd");
-        } else if (type == 6 || type == 8) {
-            seamIn();
-        } else  if (type == 9 || prv_type == 7) {
-            seamOut();
+        try {
+            Thread.sleep(2000);
+            if (type == 3 && prv_type == 6 || type == 3 && prv_type == 8) {
+                fastSeemIn();
+            } else if (type == 3 && prv_type == 9 || type == 3 && prv_type == 7) {
+                fastSeamOut();
+            } else if (type == 6 || type == 8) {
+                seamIn();
+            } else if (type == 9 || prv_type == 7) {
+                seamOut();
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
     }
     public static void fast(int previousBowlingType) {
@@ -192,10 +195,10 @@ public class ActTime {
             return;
         }
         if (timeout) {
-            Alert infoAlert = new Alert(Alert.AlertType.ERROR);
-            infoAlert.setTitle("Timeout!");
-            infoAlert.setContentText("Wait 2 seconds!");
-            infoAlert.showAndWait();
+//            Alert infoAlert = new Alert(Alert.AlertType.ERROR);
+//            infoAlert.setTitle("Timeout!");
+//            infoAlert.setContentText("Wait 2 seconds!");
+//            infoAlert.showAndWait();
             return;
         }
         System.out.println("moveing" + act + dct);
@@ -279,9 +282,6 @@ public class ActTime {
         if (!USB_Com.status) {
             return;
         }
-        if (calibrate) {
-            return;
-        }
         byte byteval[] = new byte[12];
         //pan
         //0x01 left
@@ -307,10 +307,9 @@ public class ActTime {
         byteval[11] = (byte) 0x88 ;
         byte[] data = USB_Com.getCmd(0x84, byteval, 12);
         try {
-            Thread.sleep(2000);
+            Thread.sleep(3000);
             USB_Com.WriteData(data);
             calibrate = true;
-
             System.out.println("calibrated up");
         } catch (Exception e) {
             e.printStackTrace();
@@ -329,5 +328,8 @@ public class ActTime {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public static void calibrate() {
     }
 }
